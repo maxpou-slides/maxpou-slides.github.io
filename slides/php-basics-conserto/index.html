@@ -1,0 +1,679 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+
+<title>PHP Basics</title>
+
+<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+<meta name="author" content="Hakim El Hattab">
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+<link rel="stylesheet" href="css/reveal.css">
+<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+<!-- Code syntax highlighting -->
+<link rel="stylesheet" href="lib/css/zenburn.css">
+<link rel="stylesheet" href="css/styles.css">
+
+<!-- Printing and PDF exports -->
+<script>
+var link  = document.createElement( 'link' );
+link.rel  = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+</script>
+
+<!--[if lt IE 9]>
+<script src="lib/js/html5shiv.js"></script>
+<![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+
+<!-- Any section element inside of this container is displayed as a slide -->
+<div class="slides">
+<section>
+	<section>
+		<h1>PHP Basics</h1>
+	</section>
+	<section>
+		<h2>RevealJS Tips</h2>
+		<ul>
+			<li>ESC : slide overview</li>
+			<li>ALT + click : zoom</li>
+			<li>B : blackout</li>
+			<li>S : speaker notes</li>
+		</ul>
+	</section>
+</section>
+
+<section>
+	<h2>Goals</h2>
+	<ul>
+		<li>PHP Basics</li>
+		<li>Use a template engine</li>
+		<li>Communicate with a MySQL Database</li>
+		<li>Make a website</li>
+	</ul>
+</section>
+<section>
+	<section>
+		<h2>PHP: Hypertext Prepocessor</h2>
+		<ul>
+			<li>20 years old !</li>
+			<li>6th langage in the world (TIOBE september 2015)</li>
+			<li>Running on 80% of web server</li>
+			<li>Type of websites :</li>
+			<ul>
+				<li>Little : Conserto, ...</li>
+				<li>Medium : Voyage SNCF, WhiteHouse's Website, ...</li>
+				<li>Large : Facebook, ...</li>
+			</ul>
+		</ul>
+		<aside class="notes"></aside>
+	</section>
+	<section>
+		<h2>Client/Server</h2>
+		<p><img data-src="img\client-server.png" style="border:10px solid #FFFFFF; box-shadow: 1px 1px 12px #555;"></p>
+		<ul>
+				<li>Client = browser. <br>Send request</li>
+				<li>Server = Web server. <br>Send response</li>
+		</ul>
+	</section>
+	<section>
+		<h2>Installation</h2>
+		<ul>
+			<li>Linux : sudo apt-get install php5-common libapache2-mod-php5 php5-cli</li>
+			<li>OSX : similar to the Linux installation</li>
+			<li>Windows : <b>avoid WAMP</b>. Use a <a href="https://box.scotch.io/">vagrant box</a> instead (or docker)</li>
+		</ul>
+		<aside class="notes">
+			Suggest this box : <a href="https://box.scotch.io">https://box.scotch.io</a>
+		</aside>
+	</section>
+	<section>
+		<h2>RTFM</h2>
+		<img data-src="img\rtfm.png">
+		<p><a href="http://www.php.net">http://www.php.net</a></p>
+	</section>
+</section>
+<section>
+	<section>
+		<h2>PHP Basic</h2>
+	</section>
+	<section>
+		<h2>File example</h2>
+		<p>index.php</p>
+<pre><code data-trim contenteditable>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;title&gt;&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;?php echo "Hello World !"; ?&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p class="fragment"></b>Note :</b> every line of PHP must end in <b>;</b></p>
+	</section>
+	<section>
+		<h2>Comments</h2>
+<pre><code data-trim contenteditable>
+//A single line comment
+# Another one line comment
+/*
+A multi-line
+comment
+ */
+</code></pre>
+	</section>
+	<section>
+		<h2>Types (1/2)</h2>
+<pre><code data-trim contenteditable class="hljs">
+$nothing   = null;
+$firstName = "John";             //with single quote
+$lastName  = 'WAYNE';            //with double quote
+$name      = "Bruce ".$lastName; //concatenation
+$name     .= " aka Batman";      //concatenation
+$age       = 51;
+$young     = false;
+$pi        = 3.14;
+$object    = new SomeObject();
+
+echo "Hello $name !";
+echo 'Hello ' . $firstName . $lastName .' !';
+</code></pre>
+</section>
+<section>
+		<h2>Types (2/2)</h2>
+<pre><code data-trim contenteditable class="hljs">
+$hobbits = array("Frodo", "Bilbo", "Sam");
+$lands[]  = "Shire";   //$lands[0] == "Shire";
+$lands[]  = "Rohan";   //$lands[1] == "Rohan";
+$lands[1] = "Gondor";  //$lands[1] == "Gondor";
+echo "I live in $lands[1]";
+</code></pre><pre><code data-trim contenteditable class="hljs fragment">
+
+$person['name'] = "Frodo";
+$person['land'] = "Shire";
+
+</code></pre>
+<pre><code data-trim contenteditable class="hljs fragment">
+//Multidimensionnal array
+$persons[0]['name'] = "Frodo";
+$persons[0]['land'] = "Shire";
+$persons[1]['name'] = "Gandalf";
+$persons[1]['land'] = "Gondor";
+
+$array[someIndex][someOtherIndex][someOtherIndex]...[] = $whatever;
+</code></pre>
+	</section>
+	<section>
+		<h2>Comparison Operators</h2>
+<pre><code data-trim contenteditable>
+$a = 42;
+$b = 51;
+$c = $b;
+
+var_dump($a <= $b);    //true
+var_dump($b == $c);    //true
+var_dump($b == "51");  //true
+var_dump($b === "51"); //false
+</code></pre>
+	</section>
+	<section>
+		<h2>Logical operators</h2>
+		<ul>
+			<li>$a and $b</li>
+			<li>$a or $b</li>
+			<li>!a</li>
+			<li>$a && $b (like <b>and</b> operator)</li>
+			<li>$a || $b (like <b>or</b> operator)</li>
+		</ul>
+	</section>
+	<section>
+		<h2>Conditions</h2>
+<pre><code data-trim contenteditable class="fragment">
+if ($language == "fr") {
+    echo "Bienvenue";
+} elseif ($language == "en") {
+    echo "Hello";
+} else {
+    echo "Ciao";
+}
+</code><code data-trim contenteditable class="fragment">
+switch($language) {
+    case "fr": echo "Bonjour";
+        Break;
+    case "en": echo "Hello";
+        Break;
+    case "it": echo "Ciao";
+        Break;
+    default: echo "Bonjour";
+}
+</code></pre>
+	</section>
+	<section>
+		<h2>Loops</h2>
+<pre><code data-trim contenteditable class="fragment">
+for ($i = 1; $i <= 10; $i++) {
+    echo $i;
+}
+//1 2 3 4 5 6 7 8 9 10
+</code><code data-trim contenteditable class="fragment">
+$i = 0;
+while (i <= 10) {
+    echo $i;
+    $i++;
+}
+//0 1 2 3 4 5 6 7 8 9 10
+</code><code data-trim contenteditable class="fragment">
+$fruits = array("banana", "apple", "cherry");
+foreach ($fruits as $aFruit) {
+    echo $fruit;
+}
+//banana apple cherry
+</code></pre>
+	</section>
+	<section>
+		<h2>Functions (1/2)</h2>
+<pre><code data-trim contenteditable>
+$phrase = "Java is great !";
+echo str_replace("Java", "PHP", $phrase); //"PHP is great !"
+echo "We are ".date('d m Y');
+</code></pre>
+A lot of String functions : <a href="http://php.net/manual/fr/ref.strings.php">http://php.net/manual/fr/ref.strings.php</a><br>
+Same for date functions : <a href="http://php.net/manual/fr/ref.datetime.php">http://php.net/manual/fr/ref.datetime.php</a>
+	</section>
+	<section>
+		<h2>Functions (2/2)</h2>
+<pre><code data-trim contenteditable>
+function sayHello($name) {
+    echo "Hello $name !";
+}
+sayHello("World"); //Hello World !
+</code><code data-trim contenteditable class="fragment">
+function cube($var) {
+    return $var * $var * $var;
+}
+$myVar = cube(4); //$myVar == 64
+</code></pre>
+	</section>
+	<section>
+		<h2>Errors</h2>
+		<table>
+			<thead>
+				<tr>
+					<th>Constant</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>E_ERROR</td>
+					<td>Fatal run-time errors. Execution of the script is halted</td>
+				</tr>
+				<tr>
+					<td>E_WARNING</td>
+					<td>Non-fatal run-time errors. Execution of the script is not halted</td>
+				</tr>
+				<tr>
+					<td>E_NOTICE</td>
+					<td>Run-time notices. The script found something that might be an error, but could also happen when running a script normally</td>
+				</tr>
+			</tbody>
+		</table>
+	</section>
+	<section>
+		<h2>Turn off error in production environment !</h2>
+		<p><img data-src="img\errors.PNG" style="border:10px solid #FFFFFF; box-shadow: 1px 1px 12px #555;"></p>
+	</section>
+	<section>
+		<h2>Catching errors</h2>
+<pre><code data-trim contenteditable>
+try {
+    echo 1/0;
+} catch (Exception $e) {
+    echo "Can't divide by zero";
+    echo $e;
+}
+</code></pre>
+	</section>
+	<section>
+		<h2>Mail</h2>
+<pre><code data-trim contenteditable>
+$headers  = "From: Barack OBAMA &lt;barack.obama@whitehouse.gov&gt;";
+$headers .= 'Content-type: text/html; charset=utf-8';
+
+if (mail('kim-jong-un@korea-dpr.com', 'Hi guy', 'Hey, I\'m ready to fight', $headers)) {
+  echo "OK. Nulclear war is ready!";
+} else {
+  echo "KO";
+}
+</code></pre>
+	</section>
+	<section>
+		<h2>Work with files</h2>
+<pre><code data-trim contenteditable>
+$headers  = "From: My name &lt;contact@me.fr&gt;";
+$headers .= 'Content-type: text/html; charset=utf-8';
+
+$myFile = fopen('mailingList.txt', 'r');
+while (($line = fgets($myFile)) !== false) {
+    mail($line, 'Hello', 'Visit my new website !', $headers)
+}
+fclose($myFile);
+</code></pre>
+		<table class="fragment">
+			<thead>
+				<tr>
+					<th>Mode</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>r</td>
+					<td>Read</td>
+				</tr>
+				<tr>
+					<td>r+</td>
+					<td>Read/Write</td>
+				</tr>
+				<tr>
+					<td>a</td>
+					<td>Read. Create if not exist.</td>
+				</tr>
+				<tr>
+					<td>a+</td>
+					<td>Read/Write. Create if not exist.</td>
+				</tr>
+			</tbody>
+		</table>
+	</section>
+</section>
+<section>
+	<section>
+		<h2>Work included files</h2>
+	</section>
+	<section>
+		<h2>Why ?</h2>
+		<ul>
+			<li class="fragment">Avoid copy/paste errors</li>
+			<li class="fragment">Improve code readability...</li>
+			<li class="fragment">...and maintainability</li>
+		</ul>
+		<p></p>
+		<h2 class="fragment">What ?</h2>
+		<ul>
+			<li class="fragment">HTML Elements</li>
+			<li class="fragment">PHP Functions, classes, ...</li>
+		</ul>
+	</section>
+	<section>
+		<h2>Example (1/2)</h2>
+		<p><img data-src="img\conserto-1.png" style="border:10px solid #FFFFFF;"></p>
+	</section>
+	<section>
+		<h2>Example (2/2)</h2>
+		<p><img data-src="img\conserto-2.png" style="border:10px solid #FFFFFF;"></p>
+	</section>
+	<section>
+		<h2>Including files</h2>
+		<p>4 ways :</p>
+		<ul>
+			<li class="fragment">include 'myFile.php' : will include myFile.php</li>
+			<li class="fragment">require 'myFile.php' : identical to include, but produce a fatal error on failure</li>
+			<li class="fragment">include_once/require_once 'myFile.php' : identical to include/require, but check if the file has already been included, and if so, not include (require) it again</li>
+		</ul>
+<pre class="fragment"><code data-trim contenteditable>
+//vars.php
+$film = "Batman";
+//index.php
+include 'vars.php';
+echo "I'm watching $film"; //I'm watching Batman
+</code></pre>
+	</section>
+	<section>
+		<h2>Twig</h2>
+		<p>in a nutshell :</p>
+		<ul>
+			<li>PHP/HTML separation</li>
+			<li>More readable syntax</li>
+			<li>Add security</li>
+			<li>Fully documented (<a href="http://twig.sensiolabs.org">http://twig.sensiolabs.org</a>)</li>
+		</ul>
+<pre class="fragment"><code data-trim contenteditable>
+//Before
+<p>&lt;?php echo $var ?&gt;</p>
+//After
+<p>{{ var }}</p>
+</code></pre>
+	</section>
+	<section>
+		<h2>TWIG syntax (1/2) : Before</h2>
+		<pre class="fragment"><code data-trim contenteditable>
+&lt;ul&gt;
+    &lt;?php
+    if (count($users) &gt; 0) {
+        foreach ($users as $aUser) {
+            echo "&lt;li&gt;".$aUser['name']." live in ".$aUser['city']."&lt;/li&gt;";
+        }
+    } else {
+        echo "&lt;li&gt;no user found&lt;/li&gt;";
+    }
+    ?&gt;
+&lt;/ul&gt;
+			</code></pre>
+	</section>
+	<section>
+		<h2>TWIG syntax (2/2) : After</h2>
+		<pre class="fragment"><code data-trim contenteditable>
+<ul>
+    {% for aUser in users %}
+        <li>{{ aUser.name }} live in {{ aUser.name }}</li>
+    {% else %}
+        <li><em>no user found</em></li>
+    {% endfor %}
+</ul>
+			</code></pre>
+	</section>
+	<section>
+		<h2>PHP/HTML separation&new workflow</h2>
+		<p class="fragment"><img data-src="img\twig-workflow.PNG" style="border:10px solid #FFFFFF;"></p>
+	</section>
+	<section>
+		<h2>Getting started</h2>
+		<ul>
+			<li>Documentation : <a href="http://twig.sensiolabs.org">http://twig.sensiolabs.org</a></li>
+			<li>Installation : <a href="https://github.com/twigphp/Twig">https://github.com/twigphp/Twig</a></li>
+		</ul>
+	</section>
+</section>
+<section>
+	<section>
+		<h2>Sending data from client to server</h2>
+	</section>
+	<section>
+		<h2>Retreive from form HTML element</h2>
+		<pre><code data-trim contenteditable class="fragment">
+<form action="script.php" method="POST">
+  <input type="hidden" name="role" value="user">
+  <input type="text" name="name">
+  <input type="submit" value="submit">
+</form>
+			</code><code data-trim contenteditable class="fragment">
+echo $_POST['role'];
+echo $_POST['name'];
+			</code></pre>
+	</section>
+	<section>
+		<h2>Retreive from URL</h2>
+		<pre class="fragment"><code data-trim contenteditable>
+http://www.mywonderfulapp.com/script.php?firstname=john&lastname=doe&age=42
+echo $_GET['firstname'], " ", $_GET['lastname'], $_GET['age']; //john doe 42
+			</code><code data-trim contenteditable class="fragment">
+<form action="http://www.google.com/" method="get">
+  <input type="text" name="q">
+  <input type="submit" value="search on Google">
+</form>
+			</code></pre>
+		<form action="http://www.google.com/" class="fragment" method="get">
+		  <p>Example :</p>
+			<input type="text" name="q">
+			<input type="submit" value="search on Google">
+		</form>
+	</section>
+	<section>
+		<h2>Never trust user input : SQL Injection</h2>
+		<p class="fragment"><img data-src="img\sql-injection.jpg" style="border:10px solid #FFFFFF; max-width: 66%;"></p>
+	</section>
+	<section>
+		<h2>Never trust user input : $_GET & include</h2>
+		<pre class="fragment" style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.3);"><code data-trim contenteditable>
+include "include/".$_GET["page"].".php";
+</code><code data-trim contenteditable class="fragment">
+//http://www.vulnerable_host.com/preview.php?page=../../../../etc/passwd%00
+</code></pre>
+		<p class="fragment"><img data-src="img\barrier.jpg" style="max-width: 30%;"></p>
+		<aside class="notes">
+			http://www.vulnerable_host.com/preview.php?page=../../../../etc/passwd%00
+		</aside>
+	</section>
+	<section>
+		<h2>Never trust user input : XSS</h2>
+		<p><img data-src="img\xss-fail.PNG"></p>
+		<pre style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.3);"><code data-trim contenteditable class="fragment fade-out">
+echo $_GET["message"];
+		</code><code data-trim contenteditable class="fragment">
+echo htmlspecialchars($_GET["message"]);
+		</code></pre>
+		<aside class="notes">
+			echo $_GET["message"]; //print message. Browser execute script
+			echo htmlspecialchars($_GET["message"]); //print message. Browser can't execute script (Convert special characters to HTML entities)
+		</aside>
+	</section>
+</section>
+<section>
+	<section>
+		<h2>Data manipulation from Database (MySQL)</h2>
+	</section>
+	<section>
+		<h2>PHPMyAdmin</h2>
+		<ul>
+			<li>Web software to handle the administration of MySQL</li>
+			<li>Manage table, data</li>
+			<li>...it's free !</li>
+			<li><a href="http://demo.phpmyadmin.net/master-config/">Demo</a></li>
+		</ul>
+	</section>
+	<section>
+		<h2>PDO (1/4) : In a nutshell</h2>
+		<p>PDO = PHP Data Object</p>
+		<p>Secure request</p>
+		<img class="fragment" data-src="img\pdo.PNG" style="border:10px solid #FFFFFF;">
+	</section>
+	<section>
+		<h2>PDO (2/4) : Connection&Retreive data</h2>
+		<pre class="fragment"><code data-trim contenteditable>
+try {
+    $bdd = new PDO('mysql:host=localhost;dbname=test;charset=utf8',
+                  'root', 'root');
+
+    $reponse = $bdd->query('SELECT * FROM beers');
+    $data = $reponse->fetch();
+
+} catch(Exception $e) {
+    die("Cannot connect to database server");
+}
+			</code></pre>
+	<p class="fragment">Now $data is an array of beers</p>
+	</section>
+	<section>
+		<h2>PDO (3/4) : Prepared statements</h2>
+		<p class="fragment">Avoid SQL Injection</p>
+		<pre class="fragment"><code data-trim contenteditable>
+$request = $bdd->prepare("INSERT INTO beers (name, description)
+                       VALUES (:name, :description)");
+$request->bindParam(':name', $name);
+$request->bindParam(':description', $description);
+
+$name = "Mélusine Bière de Noël";
+$description = "Merry christmas !";
+$request->execute();
+
+$name = "Kronembourg";
+$description = "You get what you pay for...";
+$request->execute();
+			</code></pre>
+	</section>
+	<section>
+		<h2>PDO (4/4) : other CRUD request</h2>
+		<pre class="fragment"><code data-trim contenteditable>
+//UPDATE
+$sql = 'UPDATE beers set name=:name where id=:id';
+$request = $bdd->prepare($sql);
+$request->execute(array(
+    ':name' => 'Grimbergen',
+    ':id' => 1
+));
+
+//DELETE
+$sql = 'DELETE from beers where id=:id';
+$request = $bdd->prepare($sql);
+$request->execute(array(':id' => 1));
+		</code></pre>
+	</section>
+</section>
+<section>
+	<section>
+		<h2>The end</h2>
+		<h2 class="fragment">Well... maybe not !</h2>
+	</section>
+	<section>
+		<h2>How to be a better developper ? (1/2)</h2>
+		<img data-src="img\better-coder.png" style="max-width: 30%;">
+	</section>
+	<section>
+		<h2>How to be a better developper ? (2/2)</h2>
+		<p><b>Don't copy/past like an idiot</b></p>
+		<img data-src="img\copypaste.jpg" style="border:0px solid #FFFFFF; box-shadow: 1px 1px 12px #555;">
+	</section>
+	<section>
+		<h2>Coding standards</h2>
+		<p>Try to stick PSR Standard Recommendations</p>
+		<a href="http://www.php-fig.org/">http://www.php-fig.org</a>
+	</section>
+	<section>
+		<h2>Security</h2>
+		<p><img data-src="img\mouse-mission-impossible.jpg" style="max-width: 60%; box-shadow: 1px 1px 12px #555;"></p>
+		<a href="https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project">OWASP Top 10</a>
+	</section>
+	<section>
+		<h2>Use Framework</h2>
+		<p>Why ? Improve...</p>
+		<ul>
+			<li>Security</li>
+			<li>Velocity</li>
+			<li>Code organisation</li>
+			<li>Code quality (?)</li>
+		</ul>
+		<p>I recommend Symfony2 (most popular in France)</p>
+		<p><a href="http://www.maxpou.fr/utilisez-un-framework-php/">See more</a></p>
+	</section>
+	<section>
+		<h2>There is no end ;-)</h2>
+		<p><img data-src="img\Life-Long-Learning-Logo.jpg" style="border:10px solid #FFFFFF; box-shadow: 1px 1px 12px #555;"></p>
+		<p>Keep moving : <a href="https://www.codecademy.com/tracks/php">https://www.codecademy.com/tracks/php</a></p>
+	</section>
+</section>
+<section>
+	<h2>Thank you</h2>
+	<h3>Questions ?</h3>
+</section>
+
+</div>
+
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+
+// Full list of configuration options available at:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+	controls: true,
+	progress: true,
+	history: true,
+	center: true,
+
+	transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+// Optional reveal.js plugins
+dependencies: [
+	{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+	{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+	{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+	{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+	{ src: 'plugin/zoom-js/zoom.js', async: true },
+	{ src: 'plugin/notes/notes.js', async: true }
+]
+});
+
+</script>
+
+</body>
+</html>
