@@ -85,7 +85,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 	</section>
 	<section>
 		<h2>Client/Server</h2>
-		<p><img data-src="img\client-server.png" style="border:10px solid #FFFFFF; box-shadow: 1px 1px 12px #555;"></p>
+		<p><img data-src="img/client-server.png" style="border:10px solid #FFFFFF; box-shadow: 1px 1px 12px #555;"></p>
 		<ul>
 				<li>Client = browser. <br>Send request</li>
 				<li>Server = Web server. <br>Send response</li>
@@ -104,7 +104,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 	</section>
 	<section>
 		<h2>RTFM</h2>
-		<img data-src="img\rtfm.png">
+		<img data-src="img/rtfm.png">
 		<p><a href="http://www.php.net">http://www.php.net</a></p>
 	</section>
 </section>
@@ -299,7 +299,7 @@ $myVar = cube(4); //$myVar == 64
 	</section>
 	<section>
 		<h2>Turn off error in production environment !</h2>
-		<p><img data-src="img\errors.PNG" style="border:10px solid #FFFFFF; box-shadow: 1px 1px 12px #555;"></p>
+		<p><img data-src="img/errors.PNG" style="border:10px solid #FFFFFF; box-shadow: 1px 1px 12px #555;"></p>
 	</section>
 	<section>
 		<h2>Catching errors</h2>
@@ -385,11 +385,11 @@ fclose($myFile);
 	</section>
 	<section>
 		<h2>Example (1/2)</h2>
-		<p><img data-src="img\conserto-1.png" style="border:10px solid #FFFFFF;"></p>
+		<p><img data-src="img/conserto-1.png" style="border:10px solid #FFFFFF;"></p>
 	</section>
 	<section>
 		<h2>Example (2/2)</h2>
-		<p><img data-src="img\conserto-2.png" style="border:10px solid #FFFFFF;"></p>
+		<p><img data-src="img/conserto-2.png" style="border:10px solid #FFFFFF;"></p>
 	</section>
 	<section>
 		<h2>Including files</h2>
@@ -453,7 +453,7 @@ echo "I'm watching $film"; //I'm watching Batman
 	</section>
 	<section>
 		<h2>PHP/HTML separation&new workflow</h2>
-		<p class="fragment"><img data-src="img\twig-workflow.PNG" style="border:10px solid #FFFFFF;"></p>
+		<p class="fragment"><img data-src="img/twig-workflow.PNG" style="border:10px solid #FFFFFF;"></p>
 	</section>
 	<section>
 		<h2>Getting started</h2>
@@ -499,7 +499,7 @@ echo $_GET['firstname'], " ", $_GET['lastname'], $_GET['age']; //john doe 42
 	</section>
 	<section>
 		<h2>Never trust user input : SQL Injection</h2>
-		<p class="fragment"><img data-src="img\sql-injection.jpg" style="border:10px solid #FFFFFF; max-width: 66%;"></p>
+		<p class="fragment"><img data-src="img/sql-injection.jpg" style="border:10px solid #FFFFFF; max-width: 66%;"></p>
 	</section>
 	<section>
 		<h2>Never trust user input : $_GET & include</h2>
@@ -508,14 +508,14 @@ include "include/".$_GET["page"].".php";
 </code><code data-trim contenteditable class="fragment">
 //http://www.vulnerable_host.com/preview.php?page=../../../../etc/passwd%00
 </code></pre>
-		<p class="fragment"><img data-src="img\barrier.jpg" style="max-width: 30%;"></p>
+		<p class="fragment"><img data-src="img/barrier.jpg" style="max-width: 30%;"></p>
 		<aside class="notes">
 			http://www.vulnerable_host.com/preview.php?page=../../../../etc/passwd%00
 		</aside>
 	</section>
 	<section>
 		<h2>Never trust user input : XSS</h2>
-		<p><img data-src="img\xss-fail.PNG"></p>
+		<p><img data-src="img/xss-fail.PNG"></p>
 		<pre style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.3);"><code data-trim contenteditable class="fragment fade-out">
 echo $_GET["message"];
 		</code><code data-trim contenteditable class="fragment">
@@ -544,7 +544,7 @@ echo htmlspecialchars($_GET["message"]);
 		<h2>PDO (1/4) : In a nutshell</h2>
 		<p>PDO = PHP Data Object</p>
 		<p>Secure request</p>
-		<img class="fragment" data-src="img\pdo.PNG" style="border:10px solid #FFFFFF;">
+		<img class="fragment" data-src="img/pdo.PNG" style="border:10px solid #FFFFFF;">
 	</section>
 	<section>
 		<h2>PDO (2/4) : Connection&Retreive data</h2>
@@ -605,12 +605,12 @@ $request->execute(array(':id' => 1));
 	</section>
 	<section>
 		<h2>How to be a better developper ? (1/2)</h2>
-		<img data-src="img\better-coder.png" style="max-width: 30%;">
+		<img data-src="img/better-coder.png" style="max-width: 30%;">
 	</section>
 	<section>
 		<h2>How to be a better developper ? (2/2)</h2>
 		<p><b>Don't copy/past like an idiot</b></p>
-		<img data-src="img\copypaste.jpg" style="border:0px solid #FFFFFF; box-shadow: 1px 1px 12px #555;">
+		<img data-src="img/copypaste.jpg" style="border:0px solid #FFFFFF; box-shadow: 1px 1px 12px #555;">
 	</section>
 	<section>
 		<h2>Coding standards</h2>
@@ -619,7 +619,7 @@ $request->execute(array(':id' => 1));
 	</section>
 	<section>
 		<h2>Security</h2>
-		<p><img data-src="img\mouse-mission-impossible.jpg" style="max-width: 60%; box-shadow: 1px 1px 12px #555;"></p>
+		<p><img data-src="img/mouse-mission-impossible.jpg" style="max-width: 60%; box-shadow: 1px 1px 12px #555;"></p>
 		<a href="https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project">OWASP Top 10</a>
 	</section>
 	<section>
@@ -636,7 +636,7 @@ $request->execute(array(':id' => 1));
 	</section>
 	<section>
 		<h2>There is no end ;-)</h2>
-		<p><img data-src="img\Life-Long-Learning-Logo.jpg" style="border:10px solid #FFFFFF; box-shadow: 1px 1px 12px #555;"></p>
+		<p><img data-src="img/Life-Long-Learning-Logo.jpg" style="border:10px solid #FFFFFF; box-shadow: 1px 1px 12px #555;"></p>
 		<p>Keep moving : <a href="https://www.codecademy.com/tracks/php">https://www.codecademy.com/tracks/php</a></p>
 	</section>
 </section>
