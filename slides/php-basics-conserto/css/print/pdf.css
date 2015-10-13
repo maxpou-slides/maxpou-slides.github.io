@@ -155,3 +155,6 @@ ul, ol, div, p {
 	z-index: 1;
 }
 
+ul, ol, div, p {
+  color: #2E2E2E;
+}
