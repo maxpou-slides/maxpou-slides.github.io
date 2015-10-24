@@ -1,0 +1,37 @@
+
+  <stage id="42">
+    <code>Z700</code>
+    <libelle>L'essentiel sur l'énergie Gaz</libelle>
+    <sessions>
+      <session id="1001">
+        <date-debut>14-12-2015</date-debut>
+        <places-disponibles>0</places-disponibles>
+      </session>
+      <session id="1024">
+        <date-debut>18-01-2016</date-debut>
+        <places-disponibles>5</places-disponibles>
+      </session>
+    </sessions>
+  </stage>
+
+  <stage id="42">
+    <code>Z700</code>
+    <libelle>L'essentiel sur l'énergie Gaz</libelle>
+    <sessions>
+      <session id="1001">
+        <date-debut>14-12-2015</date-debut>
+        <places-disponibles>0</places-disponibles>
+        <link rel="details"     href="http://application.fr/api/stages/Z700/session/1001/details" />
+        <link rel="inscription" href="http://application.fr/api/stages/Z700/session/1001/inscription" />
+      </session>
+      <session id="1024">
+        <date-debut>18-01-2016</date-debut>
+        <places-disponibles>5</places-disponibles>
+        <link rel="details"     href="http://application.fr/api/stages/Z700/session/1024/details" />
+      </session>
+    </sessions>
+    <links>
+      <link rel="self"  href="http://application.fr/api/stages/Z700" />
+      <link rel="fiche" href="http://application.fr/api/stages/Z700/fiche" />
+    </links>
+  </stage>

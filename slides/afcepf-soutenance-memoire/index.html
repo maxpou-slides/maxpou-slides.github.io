@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+
+<title>Soutenance - Maxence POUTORD</title>
+
+<meta name="description" content="Soutenance de mon mémoire pour le titre d'Architecte Logiciel">
+<meta name="author" content="Hakim El Hattab">
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+<link rel="stylesheet" href="plugin/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/reveal.css">
+<link rel="stylesheet" href = "http://slidifylibraries2.googlecode.com/git/inst/libraries/widgets/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="css/theme/solarized.css" id="theme">
+
+<!-- Code syntax highlighting -->
+<link rel="stylesheet" href="lib/css/zenburn.css">
+<link rel="stylesheet" href="css/styles.css">
+<!-- Printing and PDF exports -->
+<script>
+var link  = document.createElement( 'link' );
+link.rel  = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+</script>
+
+<!--[if lt IE 9]>
+<script src="lib/js/html5shiv.js"></script>
+<![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+
+<!-- Any section element inside of this container is displayed as a slide -->
+<div class="slides">
+<section>
+	<section>
+		<h2>Soutenance<br>Titre : Architecte Logiciel</h2>
+		<p>Maxence POUTORD</p>
+		<p>29/10/2015</p>
+	</section>
+</section>
+
+<section>
+	<section>
+		<h2>Contexte</h2>
+		<img data-src="img/context.png" class="fragment" style="border:0px solid #FFFFFF; box-shadow: 0px 0px 0px #555;">
+		<aside class="notes">
+			Energy Formation : 2 SI totalement différents
+				<li>techno Microsoft // PHP</li>
+				<li>géré par prestataires différents</li>
+
+				Palier les problèmes qui émanent de l’état actuel du S.I. :
+				<li>Recopie d’info et info pas toujours identiques…</li>
+				<li>Catalogue interne peu convivial</li>
+		</aside>
+	</section>
+	<section>
+		<h2>Objectif de l'application</h2>
+		<img data-src="img/bottleneck.png" class="fragment" style="border:0px solid #FFFFFF; box-shadow: 0px 0px 0px #555;">
+		<aside class="notes">
+			fiche = module de formation
+		</aside>
+	</section>
+	<section>
+		<h2>Workflows</h2>
+		<img data-src="img/workflow.png" class="fragment" style="border:0px solid #FFFFFF; box-shadow: 0px 0px 0px #555;">
+		<aside class="notes">
+			Application au coeurs du SI
+		</aside>
+	</section>
+	<section>
+		<h2>Problématique</h2>
+		<blockquote style="width: 100%; box-shadow: none;">
+&ldquo;Enjeux d’une architecture orientée services <br>dans le cadre du développement d’une application web&rdquo;
+		</blockquote>
+	</section>
+	<section>
+		<h2>Plan</h2>
+		<ol>
+			<li>Introduction</li>
+			<li>Partie I - Présentation de l'application</li>
+			<li>Partie II - Consommer des services</li>
+			<li>Partie III - Exposer des services</li>
+			<li>Conclusion et échanges</li>
+		</ol>
+	</section>
+	<section>
+		<h2>Définition</h2>
+		<img data-src="img/soa-def-1.png" class="fragment" style="border:0px solid #FFFFFF; box-shadow: 0px 0px 0px #555; max-width: 30%;">
+		<img data-src="img/soa-def-2.png" class="fragment" style="border:0px solid #FFFFFF; box-shadow: 0px 0px 0px #555; max-width: 45%;">
+	</section>
+</section>
+
+<section>
+	<section>
+		<h2>Présenttion de l'application</h2>
+	</section>
+	<section>
+		<h2>Utiliser un framework JavaScript ? (1/2)</h2>
+		<img data-src="img/avecframjs.png" style="border:0px solid #FFFFFF; box-shadow: 0px 0px 0px #555;">
+		<div class="alert alert-danger fragment" role="alert">
+			<img data-src="img/ie7.png" style="margin-bottom: 0px;margin-top: 5px; border:0px solid #FFFFFF; box-shadow: 0px 0px 0px #555; max-width: 5%;">
+			Internet Explorer 7
+		</div>
+	</section>
+	<section>
+		<h2>Utiliser un framework JavaScript ? (2/2)</h2>
+		<img data-src="img/sansframjs.png" style="border:0px solid #FFFFFF; box-shadow: 0px 0px 0px #555;">
+	</section>
+	<section>
+		<h2>Symfony2</h2>
+		<div class='span4'>
+			<img data-src="img/symfony-logo.png" style="border:0px solid #FFFFFF; box-shadow: 0px 0px 0px #555;">
+		</div>
+		<div class='span8'>
+			<ul class="unstyled">
+				<li>Framework MVC PHP</li>
+				<li>Critères de choix :</li>
+				<ul>
+					<li>Popularité/Communauté</li>
+					<li>Sécurité</li>
+					<li>Documentation</li>
+				</ul>
+				<li>Approche en tout module (Bundle)</li>
+				<li>Outils de génération de code</li>
+			</ul>
+		</div>
+		<aside class="notes">
+			Benchmark
+			génération de code : se concentrer sur l'essentiel
+		</aside>
+	</section>
+	<section>
+		<h2>Fonctionnement des services sous Symfony2</h2>
+		<div class='span8'>
+			<ul>
+				<li>Fonctionnalité qui effectue une tâche <em>globale</em></li>
+				<li>Fonctionne grace au mécanisme d’injection de dépendances</li>
+				<li>Les services sont instanciés quand ils sont appelés (<em>Principe d’Hollywood</em>)</li>
+				<li>Mêmes performances pour 1 <br>...ou 1000 services</li>
+			</ul>
+		</div>
+		<div class='span4'>
+			<img data-src="img/coucheService1.png" style="border:0px solid #FFFFFF; box-shadow: 0px 0px 0px #555;">
+		</div>
+		<aside class="notes">
+			injection de dépendances:Là-dessus que repose la majeure partie des nouveaux frameworks
+		</aside>
+	</section>
+</section>
+
+<section>
+	<section>
+		<h2>Consommer des services</h2>
+	</section>
+	<section>
+		<h2>Protocole SOAP</h2>
+		<div class='span6'>
+			<ul>
+				<li><em>Simple Object Access Protocol</em></li>
+				<li>Protocole qui permet l’échange de données entre deux applications distantes</li>
+				<li>Données au format XML</li>
+			</ul>
+		</div>
+		<div class='span6'>
+			<img data-src="img/soap.png" style="border:0px solid #FFFFFF; box-shadow: 1px 1px 12px #555;">
+		</div>
+	</section>
+	<section>
+		<h2>Problèmes rencontrés</h2>
+		<ul>
+			<li>Services web génériques et peu adapté à l'utilisation souhaitée</li>
+			<b class="fragment ko"><i class="fa fa-times"></i> Impossibilité d'en créer des spécifiques</b>
+			<li class="respire-top">Requêtes lourdes</li>
+			<b class="fragment ok"><i class="fa fa-check"></i> Penser l'architecture autrement</b>
+			<li class="respire-top">Peu de documentation</li>
+			<b class="fragment ok"><i class="fa fa-check"></i> Documenter les services utilisés</b>
+			<li class="respire-top">Centraliser toutes les fonctions des services web</li>
+			<b class="fragment ok"><i class="fa fa-check"></i> Créer un services Symfony2</b>
+		</ul>
+	</section>
+	<section>
+		<h2>Création d’un service Symfony2</h2>
+		<div class='span6'>
+			<ul>
+				<li>Eviter la duplication de code</li>
+				<li>Utilisation de web services transparente dans le code d’un contrôleur</li>
+				<ul>
+					<li>Maintenabilité</li>
+					<li>Propreté du code</li>
+				</ul>
+			</ul>
+		</div>
+		<div class='span6'>
+			<img data-src="img/coucheService2.png" style="border:0px solid #FFFFFF; box-shadow: 0px 0px 0px #555;">
+		</div>
+	</section>
+</section>
+
+<section>
+	<section>
+		<h2>Exposer des services</h2>
+	</section>
+	<section>
+		<h2>HTTP &amp; REST</h2>
+		<ul>
+			<li>HTTP</li>
+			<ul>
+				<li>Méthodes (principalement GET, POST, PUT et DELETE)</li>
+				<li>Codes (200, 201, 403, 404, 500, …)</li>
+				<li>Entête du message (HTML, JSON, XML, YAML, JPEG…)</li>
+				<li>Corps du message (optionnel)</li>
+			</ul>
+			<li class="respire-top">REST</li>
+			<ul>
+				<li>Architecture basé sur HTTP</li>
+				<li>Orienté <b>ressource</b></li>
+				<li>CRUD (<b>C</b>reate, <b>R</b>ead, <b>U</b>pdate et <b>D</b>elete)</li>
+				<li>HATEOAS (contrôles hypermédias)</li>
+			</ul>
+		</ul>
+		<aside class="notes">
+			Méthodes : Mais pas que (PATCH, HEAD...)
+		</aside>
+	</section>
+	<section>
+		<h2>HATEOAS (1/2)</h2>
+		<ul>
+			<li>Hypertext As The Engine Of The Application State</li>
+			<li>Précondition à REST</li>
+		</ul>
+				<pre><code>
+&lt;stage id="42"&gt;
+  &lt;code&gt;Z700&lt;/code&gt;
+  &lt;libelle&gt;L'essentiel sur l'énergie Gaz&lt;/libelle&gt;
+  &lt;sessions&gt;
+    &lt;session id="1001"&gt;
+      &lt;date-debut&gt;14-12-2015&lt;/date-debut&gt;
+      &lt;places-disponibles&gt;0&lt;/places-disponibles&gt;
+    &lt;/session&gt;
+    &lt;session id="1024"&gt;
+      &lt;date-debut&gt;18-01-2016&lt;/date-debut&gt;
+      &lt;places-disponibles&gt;5&lt;/places-disponibles&gt;
+    &lt;/session&gt;
+  &lt;/sessions&gt;
+&lt;/stage&gt;
+</code></pre>
+	</section>
+	<section>
+		<h2>HATEOAS (2/2)</h2>
+		<!--<img data-src="img/hateoas.png" style="border:0px solid #FFFFFF; box-shadow: 0px 0px 0px #555;">-->
+<pre style="width: 117%;"><code style="max-height: none;">
+&lt;stage id="42"&gt;
+  &lt;code&gt;Z700&lt;/code&gt;
+  &lt;libelle&gt;L'essentiel sur l'énergie Gaz&lt;/libelle&gt;
+  &lt;sessions&gt;
+    &lt;session id="1001"&gt;
+      &lt;date-debut&gt;14-12-2015&lt;/date-debut&gt;
+      &lt;places-disponibles&gt;0&lt;/places-disponibles&gt;
+      &lt;link rel="details"     href="http://application.fr/api/stages/Z700/session/1001/details" /&gt;
+    &lt;/session&gt;
+    &lt;session id="1024"&gt;
+      &lt;date-debut&gt;18-01-2016&lt;/date-debut&gt;
+      &lt;places-disponibles&gt;5&lt;/places-disponibles&gt;
+      &lt;link rel="details"     href="http://application.fr/api/stages/Z700/session/1024/details" /&gt;
+      &lt;link rel="inscription" href="http://application.fr/api/stages/Z700/session/1024/inscription" /&gt;
+    &lt;/session&gt;
+  &lt;/sessions&gt;
+  &lt;links&gt;
+    &lt;link rel="self"  href="http://application.fr/api/stages/Z700" /&gt;
+    &lt;link rel="fiche" href="http://application.fr/api/stages/Z700/fiche" /&gt;
+  &lt;/links&gt;
+&lt;/stage&gt;
+		</code></pre>
+	</section>
+
+	<section>
+		<h2>Exposer ses données</h2>
+		<ul>
+			<li>Des bundles permettent de sérialiser des objets</li>
+			<li>Comment transférer un objet différent <br>
+				Ex: <em>si l'objet dispose de données sensibles...</em></li>
+		</ul>
+	</section>
+	<section>
+		<h2>Le pattern d’objets de transfert de données (DTO)</h2>
+		<img data-src="img/DTO.png" style="border:0px solid #FFFFFF; box-shadow: 0px 0px 0px #555;">
+	</section>
+	<aside class="notes">
+		Merci Martin Fowler
+	</aside>
+</section>
+
+<section>
+	<section>
+		<h2>Conclusion</h2>
+		<p>
+			<em>Les architectures orientées services permettent aux applications de se recentrer sur leur cœur de métier.</em>
+		</p>
+		<aside class="notes">
+			FINI les applications qui font tout!
+		</aside>
+	</section>
+	<section>
+		<h2>Gains</h2>
+		<ul>
+			<li>Client :</li>
+			<ul>
+				<li>L'application répond mieux aux besoins des clients</li>
+				<li>Site web adaptatif (responsive web design)</li>
+			</ul>
+			<br>
+			<li>Entreprise :</li>
+			<ul>
+				<li>Gain de temps pour la mise à jour des données</li>
+				<li>SI monolithique -> SI plus communicatif</li>
+				<li>Possibilités accrues (mesure d’audience web, base de données accessible,...)</li>
+				</ul>
+			</ul>
+		</ul>
+		<aside class="notes">
+			SI + communicatif malgré l'entropie des technologies
+		</aside>
+	</section>
+	<section>
+		<h2>Apprentissage</h2>
+		<ul>
+			<li>Ne pas réinventer la roue avec le principe de bundle de Symfony2</li>
+			<li>Consommer, fournir et documenter des services web</li>
+			<li>Être pragmatique</li>
+			<li>Fier d'avoir mené ce projet de A <i class="fa fa-arrow-right"></i> Z<br>...même si ça n'a pas été facile tous les jours !</li>
+		</ul>
+	</section>
+</section>
+
+<section>
+	<section>
+		<h2>Echanges</h2>
+	</section>
+</section>
+
+
+</div>
+
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+
+// Full list of configuration options available at:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+	controls: true,
+	progress: true,
+	history: true,
+	center: true,
+	width: 1000,
+	height: 700,
+
+	transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+// Optional reveal.js plugins
+dependencies: [
+	{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+	{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+	{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+	{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+	{ src: 'plugin/zoom-js/zoom.js', async: true },
+	{ src: 'plugin/notes/notes.js', async: true }
+]
+});
+
+</script>
+
+</body>
+</html>
