@@ -25,6 +25,7 @@ li.respire-top {
 
 .alert {
   width: 80%;
+  margin-left: 100px;
 }
 
 .reveal .slides section .fragment.push {
