@@ -44,7 +44,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 <div class="slides">
 <section>
 	<section>
-		<h2>Soutenance<br>Titre : Architecte Logiciel</h2>
+		<h2 class="homeTitle">Soutenance<br>Titre : Architecte Logiciel</h2>
 		<p>Maxence POUTORD</p>
 		<p>29/10/2015</p>
 	</section>
@@ -53,29 +53,34 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 <section>
 	<section>
 		<h2>Contexte</h2>
-		<img data-src="img/context.png" class="fragment" style="border:0px solid #FFFFFF; box-shadow: 0px 0px 0px #555;">
+		<div>
+			<img src="img/context1.png" width="300px" class="fragment push" data-fragment-index="0" style="border:none; box-shadow: 0px 0px 0px #555; min-width: 100%"/>
+			<img src="img/context2.png" width="300px" class="fragment push" data-fragment-index="1" style="border:none; box-shadow: 0px 0px 0px #555; min-width: 100%"/>
+			<img src="img/context3.png" width="300px" class="fragment push" data-fragment-index="2" style="border:none; box-shadow: 0px 0px 0px #555; min-width: 100%"/>
+			<img src="img/context4.png" width="300px" class="fragment push" data-fragment-index="3" style="border:none; box-shadow: 0px 0px 0px #555; min-width: 100%"/>
+		</div>
 		<aside class="notes">
 			Energy Formation : 2 SI totalement différents
-				<li>techno Microsoft // PHP</li>
-				<li>géré par prestataires différents</li>
-
-				Palier les problèmes qui émanent de l’état actuel du S.I. :
-				<li>Recopie d’info et info pas toujours identiques…</li>
-				<li>Catalogue interne peu convivial</li>
+			<li>techno Microsoft // PHP</li>
+			<li>géré par prestataires différents</li>
+			Palier les problèmes qui émanent de l’état actuel du S.I. :
+			<li>Recopie d’info et info pas toujours identiques…</li>
+			<li>Catalogue interne peu convivial</li>
 		</aside>
 	</section>
 	<section>
 		<h2>Objectif de l'application</h2>
-		<img data-src="img/bottleneck.png" class="fragment" style="border:0px solid #FFFFFF; box-shadow: 0px 0px 0px #555;">
+		<img data-src="img/bottleneck.png" class="fragment" style="border:none; box-shadow: 0px 0px 0px #555;">
 		<aside class="notes">
 			fiche = module de formation
 		</aside>
 	</section>
 	<section>
 		<h2>Workflows</h2>
-		<img data-src="img/workflow.png" class="fragment" style="border:0px solid #FFFFFF; box-shadow: 0px 0px 0px #555;">
+		<img data-src="img/workflow.png" class="fragment" style="border:none; box-shadow: 0px 0px 0px #555;">
 		<aside class="notes">
-			Application au coeurs du SI
+			Application au coeurs du SI <br>
+			Je dois consommer et fournir des services web
 		</aside>
 	</section>
 	<section>
@@ -88,39 +93,46 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 		<h2>Plan</h2>
 		<ol>
 			<li>Introduction</li>
-			<li>Partie I - Présentation de l'application</li>
-			<li>Partie II - Consommer des services</li>
-			<li>Partie III - Exposer des services</li>
+			<li>I &mdash; Présentation de l'application</li>
+			<li>II &mdash; Consommer des services</li>
+			<li>III &mdash; Exposer des services</li>
 			<li>Conclusion et échanges</li>
 		</ol>
 	</section>
 	<section>
 		<h2>Définition</h2>
-		<img data-src="img/soa-def-1.png" class="fragment" style="border:0px solid #FFFFFF; box-shadow: 0px 0px 0px #555; max-width: 30%;">
-		<img data-src="img/soa-def-2.png" class="fragment" style="border:0px solid #FFFFFF; box-shadow: 0px 0px 0px #555; max-width: 45%;">
+		<img data-src="img/soa-def-1.png" class="fragment" style="border:none; box-shadow: 0px 0px 0px #555; max-width: 30%;">
+		<img data-src="img/soa-def-2.png" class="fragment" style="border:none; box-shadow: 0px 0px 0px #555; max-width: 45%;">
 	</section>
 </section>
 
 <section>
 	<section>
-		<h2>Présentation de l'application</h2>
+		<h2 class="partTitle">I &mdash; Présentation de l'application</h2>
 	</section>
 	<section>
-		<h2>Utiliser un framework JavaScript ? (1/2)</h2>
-		<img data-src="img/avecframjs.png" style="border:0px solid #FFFFFF; box-shadow: 0px 0px 0px #555;">
-		<div class="alert alert-danger fragment" role="alert">
-			<img data-src="img/ie7.png" style="margin-bottom: 0px;margin-top: 5px; border:0px solid #FFFFFF; box-shadow: 0px 0px 0px #555; max-width: 5%;">
-			Internet Explorer 7
+		<h2>Utiliser un framework JavaScript ?</h2>
+		<div class="fragment push" data-fragment-index="0">
+			<img data-src="img/avecframjs.png" style="border:none; box-shadow: 0px 0px 0px #555;">
 		</div>
-	</section>
-	<section>
-		<h2>Utiliser un framework JavaScript ? (2/2)</h2>
-		<img data-src="img/sansframjs.png" style="border:0px solid #FFFFFF; box-shadow: 0px 0px 0px #555;">
+		<div class="fragment push" data-fragment-index="1">
+			<img data-src="img/avecframjs.png" style="border:none; box-shadow: 0px 0px 0px #555;">
+			<div class="alert alert-danger" role="alert">
+				<img data-src="img/ie7.png" style="margin-bottom: 0px;margin-top: 5px; border:none; box-shadow: 0px 0px 0px #555; max-width: 5%;">
+				Internet Explorer 7
+			</div>
+		</div>
+		<div class="fragment push" data-fragment-index="2">
+			<img data-src="img/sansframjs.png" style="border:none; box-shadow: 0px 0px 0px #555;">
+		</div>
+		<aside class="notes">
+			carte blanche sur technologies
+		</aside>
 	</section>
 	<section>
 		<h2>Symfony2</h2>
 		<div class='span4'>
-			<img data-src="img/symfony-logo.png" style="border:0px solid #FFFFFF; box-shadow: 0px 0px 0px #555;">
+			<img data-src="img/symfony-logo.png" style="border:none; box-shadow: 0px 0px 0px #555;">
 		</div>
 		<div class='span8'>
 			<ul class="unstyled">
@@ -136,7 +148,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 			</ul>
 		</div>
 		<aside class="notes">
-			Benchmark
+			Benchmark <br>
 			génération de code : se concentrer sur l'essentiel
 		</aside>
 	</section>
@@ -144,24 +156,24 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 		<h2>Fonctionnement des services sous Symfony2</h2>
 		<div class='span8'>
 			<ul>
-				<li>Fonctionnalité qui effectue une tâche <em>globale</em></li>
-				<li>Fonctionne grace au mécanisme d’injection de dépendances</li>
-				<li>Les services sont instanciés quand ils sont appelés (<em>Principe d’Hollywood</em>)</li>
-				<li>Mêmes performances pour 1 <br>...ou 1000 services</li>
+				<li class="fragment">Fonctionnalité qui effectue une tâche <em>globale</em></li>
+				<li class="fragment">Fonctionne grace au mécanisme d’injection de dépendances <br>
+				<i class="fa fa-arrow-right"></i> Instanciation lors de l'appel du service (<em>Principe d’Hollywood</em>)</li>
 			</ul>
 		</div>
-		<div class='span4'>
-			<img data-src="img/coucheService1.png" style="border:0px solid #FFFFFF; box-shadow: 0px 0px 0px #555;">
+		<div class='span4 fragment'>
+			<img data-src="img/coucheService1.png" style="border:none; box-shadow: 0px 0px 0px #555;">
 		</div>
 		<aside class="notes">
-			injection de dépendances:Là-dessus que repose la majeure partie des nouveaux frameworks
+			injection de dépendances:Là-dessus que repose la majeure partie des nouveaux frameworks <br>
+			Mêmes perf pour 1 ou 1000 services <b>inactifs</b>
 		</aside>
 	</section>
 </section>
 
 <section>
 	<section>
-		<h2>Consommer des services</h2>
+		<h2 class="partTitle">II &mdash; Consommer des services</h2>
 	</section>
 	<section>
 		<h2>Protocole SOAP</h2>
@@ -173,7 +185,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 			</ul>
 		</div>
 		<div class='span6'>
-			<img data-src="img/soap.png" style="border:0px solid #FFFFFF; box-shadow: 1px 1px 12px #555;">
+			<img data-src="img/soap.png" style="border:none; box-shadow: 1px 1px 12px #555;">
 		</div>
 	</section>
 	<section>
@@ -188,6 +200,9 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 			<li class="respire-top">Centraliser toutes les fonctions des services web</li>
 			<b class="fragment ok"><i class="fa fa-check"></i> Créer un services Symfony2</b>
 		</ul>
+		<aside class="notes">
+			2: mes données font foi
+		</aside>
 	</section>
 	<section>
 		<h2>Création d’un service Symfony2</h2>
@@ -202,45 +217,72 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 			</ul>
 		</div>
 		<div class='span6'>
-			<img data-src="img/coucheService2.png" style="border:0px solid #FFFFFF; box-shadow: 0px 0px 0px #555; max-width: 50%;">
+			<img data-src="img/coucheService2.png" style="border:none; box-shadow: 0px 0px 0px #555; max-width: 50%;">
 		</div>
+		<aside class="notes">
+			Permet de pas alourdir le code. 100 lignes/fonction
+		</aside>
 	</section>
 </section>
 
 <section>
 	<section>
-		<h2>Exposer des services</h2>
+		<h2 class="partTitle">III &mdash; Exposer des services</h2>
 	</section>
+	<aside class="notes">
+	</aside>
 	<section>
-		<h2>HTTP &amp; REST</h2>
-		<ul>
-			<li>HTTP</li>
+		<h2>REST et le modèle de maturité de Richardson</h2>
+		<img data-src="img/rmm.png" class="fragment push" data-fragment-index="0" style="border:none; box-shadow: 0px 0px 0px #555; max-width: 70%;">
+		<div class="fragment push" data-fragment-index="1">
+			<h3>&mdash; Niveau 0 : Bon vieux XML &mdash;</h3>
 			<ul>
-				<li>Méthodes (principalement GET, POST, PUT et DELETE)</li>
-				<li>Codes (200, 201, 403, 404, 500, …)</li>
-				<li>Entête du message (HTML, JSON, XML, YAML, JPEG…)</li>
-				<li>Corps du message (optionnel)</li>
+				<li>HTTP tunnelise les requêtes</li>
+				<li>Requête de type POST uniquement</li>
+				<li>Un seul point d'entrée : <br>
+				<em>http://application.fr/api/stages</em> (gérera tous les stages)</li>
+				<li><em>Ex: SOAP et XML-RPC</em></li>
 			</ul>
-			<li class="respire-top">REST</li>
+		</div>
+		<div class="fragment push" data-fragment-index="2">
+			<h3>&mdash; Niveau 1 : Ressources &mdash;</h3>
 			<ul>
-				<li>Architecture basé sur HTTP</li>
-				<li>Orienté <b>ressource</b></li>
-				<li>CRUD (<b>C</b>reate, <b>R</b>ead, <b>U</b>pdate et <b>D</b>elete)</li>
-				<li>HATEOAS (contrôles hypermédias)</li>
+				<li>Apparition de la notion de ressource</li>
+				<li>Exemple :</li>
+				<ul>
+					<li><em>http://application.fr/api/stages/Z700</em></li>
+					<li><em>http://application.fr/api/stages/Z700/session/1001</em></li>
+				</ul>
 			</ul>
-		</ul>
+		</div>
+		<div class="fragment push" data-fragment-index="3">
+			<h3>&mdash; Niveau 2 : Verbes HTTP &mdash;</h3>
+			<ul>
+				<li>Utilisation des verbes HTTP<br>
+					<em>Exemple : GET, POST, PUT et DELETE...</em>
+				</li>
+				<li>Utilisation des Codes HTTP<br>
+					<em>Exemple : 200, 201, 403, 404, 500, ...</em>
+				</li>
+			</ul>
+		</div>
+		<div class="fragment push" data-fragment-index="4">
+			<h3>&mdash; Niveau 3 : HATEOAS (contrôles hypermédias) &mdash;</h3>
+			<ul>
+				<li>Hypertext As The Engine Of The Application State</li>
+				<li>Précondition à REST</li>
+			</ul>
+		</div>
 		<aside class="notes">
-			Méthodes : Mais pas que (PATCH, HEAD...)<br>
+			Pour passer au niveau suivant, il faut respecter les niveaux précédents<br>
+			etape 2: bof car REST devrait être agnostique du protocole<br>
+			Méthodes : PATCH, HEAD... <br>
 			Roy T. Fielding
 		</aside>
 	</section>
 	<section>
 		<h2>HATEOAS (1/2)</h2>
-		<ul>
-			<li>Hypertext As The Engine Of The Application State</li>
-			<li>Précondition à REST</li>
-		</ul>
-				<pre><code>
+<pre><code>
 &lt;stage id="42"&gt;
   &lt;code&gt;Z700&lt;/code&gt;
   &lt;libelle&gt;L'essentiel sur l'énergie Gaz&lt;/libelle&gt;
@@ -259,7 +301,6 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 	</section>
 	<section>
 		<h2>HATEOAS (2/2)</h2>
-		<!--<img data-src="img/hateoas.png" style="border:0px solid #FFFFFF; box-shadow: 0px 0px 0px #555;">-->
 <pre style="width: 117%;"><code style="max-height: none;">
 &lt;stage id="42"&gt;
   &lt;code&gt;Z700&lt;/code&gt;
@@ -289,13 +330,13 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 		<h2>Exposer ses données</h2>
 		<ul>
 			<li>Des bundles permettent de sérialiser des objets</li>
-			<li>Comment transférer un objet différent <br>
+			<li>Comment aggréger des objets ?<br>
 				Ex: <em>si l'objet dispose de données sensibles...</em></li>
 		</ul>
 	</section>
 	<section>
 		<h2>Le pattern d’objets de transfert de données (DTO)</h2>
-		<img data-src="img/DTO.png" style="border:0px solid #FFFFFF; box-shadow: 0px 0px 0px #555;">
+		<img data-src="img/DTO.png" style="border:none; box-shadow: 0px 0px 0px #555;">
 	</section>
 	<aside class="notes">
 		Merci Martin Fowler
@@ -304,10 +345,10 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 
 <section>
 	<section>
-		<h2>Conclusion</h2>
-		<p>
-			<em>Les architectures orientées services permettent aux applications de se recentrer sur leur cœur de métier.</em>
-		</p>
+		<h2 class="partTitle">Conclusion</h2>
+		<blockquote style="margin-top: 50px; width: 80%;">
+			Les architectures orientées services permettent aux applications de se recentrer sur leur cœur de métier.
+		</blockquote>
 		<aside class="notes">
 			FINI les applications qui font tout <br>
 			REST plus adapté au web.
@@ -347,7 +388,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 
 <section>
 	<section>
-		<h2>Échanges</h2>
+		<h2 class="partTitle">Échanges</h2>
 	</section>
 </section>
 
@@ -366,12 +407,13 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 Reveal.initialize({
 	controls: true,
 	progress: true,
+	slideNumber: true,
 	history: true,
-	center: true,
+	center: false,
 	width: 1000,
 	height: 700,
 
-	transition: 'slide', // none/fade/slide/convex/concave/zoom
+	transition: 'convex', // none/fade/slide/convex/concave/zoom
 
 // Optional reveal.js plugins
 dependencies: [

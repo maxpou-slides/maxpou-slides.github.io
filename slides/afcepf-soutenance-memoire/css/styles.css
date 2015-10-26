@@ -1,13 +1,8 @@
-p.alert {
-  border-radius:10px;
-  padding:10px 36px;
-  margin:10px;
-  background:#D0D1D1;
-  border:1px solid grey;
+h2.homeTitle {
+  margin-top: 15%;
 }
-
-.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
-  /*color: #eb579a;*/
+h2.partTitle {
+  margin-top: 20%;
 }
 
 .ok {
@@ -30,4 +25,14 @@ li.respire-top {
 
 .alert {
   width: 80%;
+}
+
+.reveal .slides section .fragment.push {
+	display: none;
+  opacity: 0;
+}
+
+.reveal .slides section .fragment.push.current-fragment {
+	display: inline;
+  opacity: 1;
 }
