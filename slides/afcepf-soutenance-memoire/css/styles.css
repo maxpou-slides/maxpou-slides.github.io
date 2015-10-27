@@ -1,7 +1,12 @@
-h2.homeTitle {
+h2.top-1 {
+  margin-top: 10%;
+}
+
+h2.top-2 {
   margin-top: 15%;
 }
-h2.partTitle {
+
+h2.top-3  {
   margin-top: 20%;
 }
 
@@ -23,9 +28,9 @@ li.respire-top {
   border-color: #ebccd1;
 }
 
-.alert {
+.reveal .alert {
   width: 80%;
-  margin-left: 100px;
+  margin-left: 10%;
 }
 
 .reveal .slides section .fragment.push {

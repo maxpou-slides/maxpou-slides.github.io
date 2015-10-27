@@ -6,9 +6,6 @@
 
 <title>Soutenance - Maxence POUTORD</title>
 
-<meta name="description" content="Soutenance de mon mémoire pour le titre d'Architecte Logiciel">
-<meta name="author" content="Hakim El Hattab">
-
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
@@ -44,7 +41,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 <div class="slides">
 <section>
 	<section>
-		<h2 class="homeTitle">Soutenance<br>Titre : Architecte Logiciel</h2>
+		<h2 class="top-2">Soutenance<br>Titre : Architecte Logiciel</h2>
 		<p>Maxence POUTORD</p>
 		<p>29/10/2015</p>
 	</section>
@@ -76,7 +73,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 		</aside>
 	</section>
 	<section>
-		<h2>Workflows</h2>
+		<h2 class="top-1">Workflows</h2>
 		<img data-src="img/workflow.png" class="fragment" style="border:none; box-shadow: 0px 0px 0px #555;">
 		<aside class="notes">
 			Application au coeurs du SI <br>
@@ -84,7 +81,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 		</aside>
 	</section>
 	<section>
-		<h2 class="partTitle">Problématique</h2>
+		<h2 class="top-3">Problématique</h2>
 		<blockquote style="width: 100%; box-shadow: none;">
 &ldquo;Enjeux d’une architecture orientée services <br>dans le cadre du développement d’une application web&rdquo;
 		</blockquote>
@@ -108,7 +105,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 
 <section>
 	<section>
-		<h2 class="partTitle">I &mdash; Présentation de l'application</h2>
+		<h2 class="top-3">I &mdash; Présentation de l'application</h2>
 	</section>
 	<section>
 		<h2>Utiliser un framework JavaScript ?</h2>
@@ -156,12 +153,12 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 		<h2>Fonctionnement des services sous Symfony2</h2>
 		<div class='span8'>
 			<ul>
-				<li class="fragment">Fonctionnalité qui effectue une tâche <em>globale</em></li>
-				<li class="fragment">Fonctionne grace au mécanisme d’injection de dépendances <br>
+				<li class="fragment" data-fragment-index="0">Fonctionnalité qui effectue une tâche <em>globale</em></li>
+				<li class="fragment" data-fragment-index="2">Fonctionne grace au mécanisme d’injection de dépendances <br>
 				<i class="fa fa-long-arrow-right"></i> Instanciation lors de l'appel du service (<em>Principe d’Hollywood</em>)</li>
 			</ul>
 		</div>
-		<div class='span4 fragment'>
+		<div class='span4 fragment' data-fragment-index="1">
 			<img data-src="img/coucheService1.png" style="border:none; box-shadow: 0px 0px 0px #555;">
 		</div>
 		<aside class="notes">
@@ -173,7 +170,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 
 <section>
 	<section>
-		<h2 class="partTitle">II &mdash; Consommer des services</h2>
+		<h2 class="top-3">II &mdash; Consommer des services</h2>
 	</section>
 	<section>
 		<h2>Protocole SOAP</h2>
@@ -185,7 +182,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 			</ul>
 		</div>
 		<div class='span6'>
-			<img data-src="img/soap.png" style="border:none; box-shadow: 1px 1px 12px #555;">
+			<img data-src="img/soap.png" style="border:none; max-width: 50%; box-shadow: none;">
 		</div>
 	</section>
 	<section>
@@ -211,8 +208,8 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 				<li>Eviter la duplication de code</li>
 				<li>Utilisation de web services transparente dans le code d’un contrôleur</li>
 				<ul>
-					<li>Maintenabilité</li>
 					<li>Propreté du code</li>
+					<li>Maintenabilité</li>
 				</ul>
 			</ul>
 		</div>
@@ -227,7 +224,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 
 <section>
 	<section>
-		<h2 class="partTitle">III &mdash; Exposer des services</h2>
+		<h2 class="top-3">III &mdash; Exposer des services</h2>
 	</section>
 	<aside class="notes">
 	</aside>
@@ -269,7 +266,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 		<div class="fragment push" data-fragment-index="4">
 			<h3>&mdash; Niveau 3 : HATEOAS (contrôles hypermédias) &mdash;</h3>
 			<ul>
-				<li>Hypertext As The Engine Of The Application State</li>
+				<li><em>Hypertext As The Engine Of The Application State</em></li>
 				<li>Précondition à REST</li>
 			</ul>
 		</div>
@@ -345,7 +342,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 
 <section>
 	<section>
-		<h2 class="partTitle">Conclusion</h2>
+		<h2 class="top-3">Conclusion</h2>
 		<blockquote style="margin-top: 50px; width: 80%;">
 			Les architectures orientées services permettent aux applications de se recentrer sur leur cœur de métier.
 		</blockquote>
@@ -380,7 +377,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 		<h2>Apprentissages</h2>
 		<ul>
 			<li>Ne pas réinventer la roue avec le principe de bundle de Symfony2</li>
-			<li>Consommer, fournir et documenter des services web</li>
+			<li>Consommer, exposer et documenter des services web</li>
 			<li>Être pragmatique</li>
 			<li>Fierté d'avoir mené ce projet de A <i class="fa fa-long-arrow-right"></i> Z<br>... même si cela n'a pas été facile tous les jours !</li>
 			<li>Satisfaction que l'application continue de servir</li>
@@ -393,7 +390,11 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 
 <section>
 	<section>
-		<h2 class="partTitle">Échanges</h2>
+		<h2 class="top-1">Échanges</h2>
+		<img src="img/tableRonde.png" style="border:none; box-shadow: 0px 0px 0px #555; min-width: 50%; margin-top: 0px;"/>
+		<aside class="notes">
+			Merci pour votre attention <br> dispo pour remarques + questions
+		</aside>
 	</section>
 </section>
 
