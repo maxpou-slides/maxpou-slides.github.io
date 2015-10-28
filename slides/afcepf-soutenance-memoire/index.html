@@ -251,7 +251,8 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 		<div class="fragment push" data-fragment-index="2">
 			<h3>&mdash; Niveau 1 : Ressources &mdash;</h3>
 			<ul>
-				<li>Apparition de la notion de ressources</li>
+				<li>Apparition de la notion d'identité d'objet</li>
+				<li>Une URI par ressource</li>
 				<li>Exemple :</li>
 				<ul>
 					<li><em>http://application.fr/api/stages/Z700</em></li>
@@ -262,10 +263,10 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 		<div class="fragment push" data-fragment-index="3">
 			<h3>&mdash; Niveau 2 : Verbes HTTP &mdash;</h3>
 			<ul>
-				<li>Utilisation des verbes HTTP<br>
+				<li>Côté <b>client</b> : utilisation des <b>verbes HTTP</b><br>
 					<em>Exemple : GET, POST, PUT et DELETE...</em>
 				</li>
-				<li>Utilisation des Codes HTTP<br>
+				<li>Côté <b>serveur</b> : utilisation des <b>codes HTTP</b><br>
 					<em>Exemple : 200, 201, 403, 404, 500...</em>
 				</li>
 			</ul>
@@ -286,7 +287,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 	</section>
 	<section>
 		<h2>HATEOAS (1/2)</h2>
-<pre><code>
+<pre><code contenteditable>
 &lt;stage id="42"&gt;
   &lt;code&gt;Z700&lt;/code&gt;
   &lt;libelle&gt;L'essentiel sur l'énergie Gaz&lt;/libelle&gt;
@@ -305,7 +306,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 	</section>
 	<section>
 		<h2>HATEOAS (2/2)</h2>
-<pre style="width: 117%;"><code style="max-height: none;">
+<pre style="width: 117%;"><code style="max-height: none;" contenteditable>
 &lt;stage id="42"&gt;
   &lt;code&gt;Z700&lt;/code&gt;
   &lt;libelle&gt;L'essentiel sur l'énergie Gaz&lt;/libelle&gt;
