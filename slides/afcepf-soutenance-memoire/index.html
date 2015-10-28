@@ -13,7 +13,7 @@
 
 <link rel="stylesheet" href="plugin/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="css/reveal.css">
-<link rel="stylesheet" href = "http://slidifylibraries2.googlecode.com/git/inst/libraries/widgets/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/theme/solarized.css" id="theme">
 
 <!-- Code syntax highlighting -->
@@ -69,7 +69,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 		<h2>Objectif de l'application</h2>
 		<img data-src="img/bottleneck.png" class="fragment" style="border:none; box-shadow: 0px 0px 0px #555;">
 		<aside class="notes">
-			fiche = module de formation
+			stage = module de formation
 		</aside>
 	</section>
 	<section>
@@ -146,6 +146,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 		</div>
 		<aside class="notes">
 			Benchmark <br>
+			possibilité de surcharger bundle<br>
 			génération de code : se concentrer sur l'essentiel
 		</aside>
 	</section>
@@ -259,7 +260,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 					<em>Exemple : GET, POST, PUT et DELETE...</em>
 				</li>
 				<li>Utilisation des Codes HTTP<br>
-					<em>Exemple : 200, 201, 403, 404, 500, ...</em>
+					<em>Exemple : 200, 201, 403, 404, 500...</em>
 				</li>
 			</ul>
 		</div>
@@ -271,10 +272,10 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 			</ul>
 		</div>
 		<aside class="notes">
+			Roy T. Fielding <br>
 			Pour passer au niveau suivant, il faut respecter les niveaux précédents<br>
 			etape 2: bof car REST devrait être agnostique du protocole<br>
 			Méthodes : PATCH, HEAD... <br>
-			Roy T. Fielding
 		</aside>
 	</section>
 	<section>
@@ -354,15 +355,15 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 	<section>
 		<h2>Gains</h2>
 		<ul>
-			<li>Clients :</li>
-			<ul>
+			<li class="fragment">Clients :</li>
+			<ul class="fragment">
 				<li>L'application répond mieux à leurs besoins</li>
 				<li>Amélioration de l'expérience utilisateur</li>
 				<li>Site web adaptatif <em>(responsive web design)</em></li>
 			</ul>
 			<br>
-			<li>Entreprise :</li>
-			<ul>
+			<li class="fragment">Entreprise :</li>
+			<ul class="fragment">
 				<li>Gain de temps pour la mise à jour des données</li>
 				<li>SI monolithique <i class="fa fa-long-arrow-right"></i> SI plus communicatif</li>
 				<li>Fonctionnalités accrues (mesure d’audience web, base de données accessible...)</li>
@@ -376,11 +377,11 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 	<section>
 		<h2>Apprentissages</h2>
 		<ul>
-			<li>Ne pas réinventer la roue avec le principe de bundle de Symfony2</li>
-			<li>Consommer, exposer et documenter des services web</li>
-			<li>Être pragmatique</li>
-			<li>Fierté d'avoir mené ce projet de A <i class="fa fa-long-arrow-right"></i> Z<br>... même si cela n'a pas été facile tous les jours !</li>
-			<li>Satisfaction que l'application continue de servir</li>
+			<li class="fragment">Ne pas réinventer la roue avec le principe de bundle de Symfony2</li>
+			<li class="fragment">Consommer, exposer et documenter des services web</li>
+			<li class="fragment">Être pragmatique</li>
+			<li class="fragment">Fierté d'avoir mené ce projet de A <i class="fa fa-long-arrow-right"></i> Z<br>... même si cela n'a pas été facile tous les jours !</li>
+			<li class="fragment">Satisfaction que l'application continue de servir</li>
 		</ul>
 		<aside class="notes">
 			servir aux clients + personnel d'Energy Formation
