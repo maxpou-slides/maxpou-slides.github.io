@@ -86,6 +86,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 		<ul>
 				<li>Client = browser. <br>Send request</li>
 				<li>Server = Web server. <br>Return response</li>
+				<li>HTTP protocol: Stateless</li>
 		</ul>
 	</section>
 	<section>
@@ -192,16 +193,6 @@ var_dump($b === "51"); //false
 </code></pre>
 	</section>
 	<section>
-		<h2>Logical operators</h2>
-		<ul>
-			<li>$a and $b</li>
-			<li>$a or $b</li>
-			<li>!a</li>
-			<li>$a && $b (like <b>and</b> operator)</li>
-			<li>$a || $b (like <b>or</b> operator)</li>
-		</ul>
-	</section>
-	<section>
 		<h2>Conditions</h2>
 <pre><code data-trim contenteditable class="fragment">
 if ($language == "fr") {
@@ -222,6 +213,16 @@ switch($language) {
     default: echo "Bonjour";
 }
 </code></pre>
+	</section>
+	<section>
+		<h2>Logical operators</h2>
+		<ul>
+			<li>$a and $b</li>
+			<li>$a or $b</li>
+			<li>!a</li>
+			<li>$a &amp;&amp; $b (like <b>and</b> operator)</li>
+			<li>$a || $b (like <b>or</b> operator)</li>
+		</ul>
 	</section>
 	<section>
 		<h2>Loops</h2>
@@ -415,8 +416,9 @@ echo "I'm watching $film"; //I'm watching Batman
 		</ul>
 <pre class="fragment"><code data-trim contenteditable>
 //Before
-<p>&lt;?php echo $var ?&gt;</p>
-//After
+<p>&lt;?php echo $var; ?&gt;</p>
+</code></pre><pre class="fragment"><code data-trim contenteditable>
+{# After #}
 <p>{{ var }}</p>
 </code></pre>
 	</section>
@@ -455,9 +457,13 @@ echo "I'm watching $film"; //I'm watching Batman
 
 {{ 'abcd...'|reverse }} //...dcba
 
-{{ '12345'[1:2] }} //23
+{{ '12345'|slice(1, 2) }} //23
 
 {{ 101.51|round }} //102
+
+{# Multiple filters#}
+{{ 'abcd...'|slice(1, 2)|reverse }} //cb
+
 		</code></pre>
 	</section>
 	<section>
@@ -548,6 +554,16 @@ echo $_GET['firstname'], " ", $_GET['lastname'], $_GET['age']; //john doe 42
 		</form>
 	</section>
 	<section>
+		<h2>Never trust user input: XSS</h2>
+		<p><img data-src="img/xss-fail.PNG"></p>
+		<pre style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.3);"><code data-trim contenteditable class="fragment fade-out">
+echo $_GET["message"];
+		</code><code data-trim contenteditable class="fragment">
+echo htmlspecialchars($_GET["message"]); //PHP
+{{ message }} //twig
+		</code></pre>
+	</section>
+	<section>
 		<h2>Never trust user input: SQL Injection</h2>
 		<p class="fragment"><img data-src="img/sql-injection.jpg" style="border:10px solid #FFFFFF; max-width: 66%;"></p>
 	</section>
@@ -563,19 +579,6 @@ include "include/".$_GET["page"].".php";
 			http://www.vulnerable_host.com/preview.php?page=../../../../etc/passwd%00
 		</aside>
 	</section>
-	<section>
-		<h2>Never trust user input: XSS</h2>
-		<p><img data-src="img/xss-fail.PNG"></p>
-		<pre style="box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.3);"><code data-trim contenteditable class="fragment fade-out">
-echo $_GET["message"];
-		</code><code data-trim contenteditable class="fragment">
-echo htmlspecialchars($_GET["message"]);
-		</code></pre>
-		<aside class="notes">
-			echo $_GET["message"]; //print message. Browser execute script
-			echo htmlspecialchars($_GET["message"]); //print message. Browser can't execute script (Convert special characters to HTML entities)
-		</aside>
-	</section>
 </section>
 <section>
 	<section>
@@ -585,26 +588,26 @@ echo htmlspecialchars($_GET["message"]);
 		<h2>PHPMyAdmin</h2>
 		<ul>
 			<li>Web software to handle the administration of MySQL</li>
-			<li>Manage table, data</li>
+			<li>Manage table, data...</li>
 			<li>...it's free!</li>
 			<li><a href="http://demo.phpmyadmin.net/master-config/">Demo</a></li>
 		</ul>
 	</section>
 	<section>
-		<h2>PDO (1/4): In a nutshell</h2>
+		<h2>PDO (1/5): In a nutshell</h2>
 		<p>PDO = PHP Data Object</p>
 		<p>Secure request</p>
 		<img class="fragment" data-src="img/pdo.PNG" style="border:10px solid #FFFFFF;">
 	</section>
 	<section>
-		<h2>PDO (2/4): Connection&Retreive data</h2>
+		<h2>PDO (2/5): Connection&Retreive data</h2>
 		<pre class="fragment"><code data-trim contenteditable>
 try {
     $bdd = new PDO('mysql:host=localhost;dbname=test;charset=utf8',
                   'root', 'root');
 
     $reponse = $bdd->query('SELECT * FROM beers');
-    $data = $reponse->fetch();
+    $data = $reponse->fetchAll();
 
 } catch(Exception $e) {
     die("Cannot connect to database server");
@@ -613,7 +616,19 @@ try {
 	<p class="fragment">Now $data is an array of beers</p>
 	</section>
 	<section>
-		<h2>PDO (3/4): Prepared statements</h2>
+		<h2>PDO (3/5): Retreive data</h2>
+		<pre class="fragment"><code data-trim contenteditable>
+$request = $bdd->prepare("SELECT * FROM beers WHERE id = :id");
+$request->execute(array(
+  ':id' => $_GET['id']
+));
+$aBeer = $request->fetch();
+			</code></pre>
+	<p class="fragment">Now $data contain one beer</p>
+	</section>
+
+	<section>
+		<h2>PDO (4/5): Prepared statements</h2>
 		<p class="fragment">Avoid SQL Injection</p>
 		<pre class="fragment"><code data-trim contenteditable>
 $request = $bdd->prepare("INSERT INTO beers (name, description)
@@ -631,7 +646,7 @@ $request->execute();
 			</code></pre>
 	</section>
 	<section>
-		<h2>PDO (4/4): other CRUD request</h2>
+		<h2>PDO (5/5): other CRUD request</h2>
 		<pre class="fragment"><code data-trim contenteditable>
 //UPDATE
 $sql = 'UPDATE beers set name=:name where id=:id';
