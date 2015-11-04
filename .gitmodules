@@ -1,0 +1,3 @@
+[submodule "slides/symfony2-conserto/reveal.js"]
+	path = slides/symfony2-conserto/reveal.js
+	url = https://github.com/hakimel/reveal.js.git

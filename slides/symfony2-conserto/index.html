@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Symfony2</title>
+<link rel="stylesheet" href="reveal.js/css/reveal.css">
+<link rel="stylesheet" href="reveal.js/css/theme/black.css" id="theme">
+<link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+<link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/custom.css">
+<!-- Printing and PDF exports -->
+<script>
+var link  = document.createElement( 'link' );
+link.rel  = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+  <section>
+    <h1 class="title">Symfony2 basics</h1>
+    <p class="me">Maxence POUTORD</p>
+    <p class="me-link">
+      <a href="https://twitter.com/_maxpou"><i class="fa fa-twitter"></i> @_maxpou</a> |
+      <a href="http://www.maxpou.fr/"><i class="fa fa-globe"></i> maxpou.fr</a> |
+      <a href="mailto:maxence.poutord@gmail.com"><i class="fa fa-envelope-o"></i> maxence.poutord@gmail.com</a>
+    </p>
+  </section>
+  <section>
+  	<h2>Goals</h2>
+  	<ul>
+  		<li>PHP OOP (recalls)</li>
+  		<li>Discovering the basics of Symfony2 and his components (Twig, Doctrine, ...)</li>
+  		<li>Realize a web app with Symfony2&MySQL</li>
+  	</ul>
+  </section>
+  <section>
+    <section>
+      <h2>PHP OOP</h2>
+    </section>
+    <section>
+      <h2>POPO: Plain Old PHP Object</h2>
+      <div class='span6'>
+<pre><code data-trim contenteditable>
+class Drink
+{
+  protected $id;
+  protected $name;
+  protected $description;
+
+  public function __construct() {
+    //...
+  }
+}
+</code></pre>
+      </div>
+      <div class='span6'>
+<pre><code data-trim contenteditable>
+class Beer extends Drink
+{
+  protected $alcohol;
+  protected $color;
+  protected $type;
+
+  public function __construct() {
+    //...
+  }
+
+  public function drinkIt() {
+    echo "glug glug";
+  }
+}
+      </div>
+</code></pre>
+    </section>
+    <section>
+      <h2>Getter/Setter</h2>
+<pre><code data-trim contenteditable>
+class Beer
+{
+  private $color;
+  //...
+
+  public function getColor() {
+      return $this->id;
+  }
+
+  public function setColor($color) {
+    $this->color = $color;
+  }
+}
+</code></pre>
+    </section>
+    <section>
+      <h2>Instanciate new class</h2>
+<pre><code data-trim contenteditable>
+class Beer
+{
+  //...
+}
+$myBeer = new Beer;
+$myBeer->drinkIt(); //will output "glug glug"
+$myBeer->setColor("blond");
+$color = $myBeer->getColor();
+</code></pre>
+    </section>
+    <section>
+      <h2>Visibility</h2>
+      <ul>
+        <li>public</li>
+        <li>protected</li>
+        <li>private</li>
+      </ul>
+      <p><img data-src="img/publicprivateprotected.jpg" style="border:10px solid #FFFFFF; box-shadow: 1px 1px 12px #555;"></p>
+    </section>
+    <section>
+      <h2>Further reading</h2>
+      <ul>
+        <li class="list-unstyled"><a href="http://www.php.net/manual/en/language.oop5.basic.php"><i class="fa fa-book"></i> OOP Basic</a></li>
+        <li class="list-unstyled"><a href="http://php.net/manual/fr/language.namespaces.php"><i class="fa fa-book"></i> Namespaces</a></li>
+        <li class="list-unstyled"><a href="https://www.codecademy.com/courses/web-beginner-en-bH5s3/0/1"><i class="fa fa-line-chart"></i> Codecademy "PHP OOP"</a></li>
+      </ul>
+    </section>
+    <section>
+      <h2>Design Pattern: Singleton</h2>
+<pre><code data-trim contenteditable>
+class MySingleton
+{
+  protected static $instance;
+  protected function __construct() { }
+
+  public static function getInstance()
+  {
+    if (!isset(self::$instance)) {
+      self::$instance = new self;
+    }
+
+    return self::$instance;
+  }
+}
+</code></pre>
+    </section>
+  </section>
+  <section>
+    <h2>Why should I use Framework ?</h2>
+    <ul>
+			<li>Velocity: work better (structuring developments) & faster (reusing generic modules, code generation...)</li>
+      <li>Facilitate long-term maintenance</li>
+      <li>Improve security</li>
+    </ul>
+  </section>
+  <section>
+    <section>
+      <h2>Symfony2</h2>
+      <p><img data-src="img/symfony2-logo.png" style="border:20px solid #FFF; background-color: #FFF"></p>
+    </section>
+    <section>
+      <h2>What is Symfony2 ?</h2>
+      <blockquote cite="http://symfony.com/what-is-symfony">
+        « Symfony is a set of PHP Components, a Web Application framework, a Philosophy, and a Community — all working together in harmony. »
+      </blockquote>
+    </section>
+    <section>
+      <h2>Why Symfony2 ?</h2>
+      <ul>
+        <li>#1 in France (<i class="fa fa-long-arrow-right"></i> employment)</li>
+        <li>Use best practices</li>
+        <li>Open Source</li>
+        <li>Bundle: reusable components</li>
+        <li>Development tools</li>
+      </ul>
+      <p>
+        Projects using Symfony: Drupal, Laravel, eZ Publish, Magento, BlaBlaCar, You****<em>(You-Know-Who)</em>
+      </p>
+    </section>
+    <section>
+      <h2>Bundle concept</h2>
+      <ul>
+        <li>Bundle = Plugin</li>
+        <li>"Everything is a bundle in Symfony"</li>
+        <p class="center"><img data-src="img/bundle-lego.png" style="border:none; width: 60%;"></p>
+      </ul>
+    </section>
+    <section>
+      <h2>Symfony2 MVC approach</h2>
+      <p><img data-src="img/request-flow.png" style="border:none; min-width:100%;"></p>
+    </section>
+    <section>
+      <h2>Composer</h2>
+      <ul>
+        <li>Tool for dependency management in PHP (Like node's npm, ruby's bundler...)</li>
+        <p class="center"><img data-src="img/logo-composer.png" style="border:none; width: 20%;"></p>
+      </ul>
+        <li class="list-unstyled"><a href="https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx"><i class="fa fa-book"></i> Installation (Linux/OSX)</a></li>
+        <li class="list-unstyled"><a href="https://getcomposer.org/doc/00-intro.md#installation-windows"><i class="fa fa-book"></i> Installation (Windows)</a></li>
+    </section>
+    <section>
+      <h2>RTFM</h2>
+      <ul>
+        <li class="list-unstyled"><a href="http://symfony.com/doc/current/book/index.html"><i class="fa fa-book"></i> Documentation (Book)</a></li>
+        <li class="list-unstyled"><a href="http://symfony.com/doc/current/cookbook/index.html"><i class="fa fa-book"></i> Documentation (Cookbook)</a></li>
+      </ul>
+    </section>
+    <section>
+      <h2>Getting started</h2>
+      <pre><code data-trim contenteditable>
+$ composer create-project symfony/framework-standard-edition my_project_name
+      </code></pre>
+    </section>
+  </section>
+  <section>
+    <section>
+      <h2>Symfony2's components</h2>
+      <p><img data-src="img/toolbox.png" style="border:none;"></p>
+    </section>
+    <section>
+      <h2>Controller</h2>
+    </section>
+    <section>
+      <h2>Routing</h2>
+    </section>
+    <section>
+      <h2>Twig, a tamplate engine</h2>
+    </section>
+    <section>
+      <h2>Doctrine</h2>
+    </section>
+    <section>
+      <h2>Form component</h2>
+    </section>
+    <section>
+      <h2>Services (in nutshell)</h2>
+    </section>
+  </section>
+  <section>
+    <section>
+      <h2>Further tips...</h2>
+    </section>
+    <section>
+      <h2>Code generation</h2>
+    </section>
+    <section>
+      <h2>Useful commands</h2>
+    </section>
+    <section>
+      <h2>Useful tools</h2>
+      <ul>
+        <li>Grunt/Gulp</li>
+        <li>Mailcatcher</li>
+        <li>Blackfire.io</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Useful tools</h2>
+      <ul>
+        <li>Grunt/Gulp</li>
+        <li>Mailcatcher</li>
+        <li>Blackfire.io</li>
+      </ul>
+    </section>
+  </section>
+</div>
+</div>
+<script src="reveal.js/lib/js/head.min.js"></script>
+<script src="reveal.js/js/reveal.js"></script>
+<script>
+// Full list of configuration options available at:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+	controls: true,
+	progress: true,
+	slideNumber: true,
+	history: true,
+	center: true,
+  width: 1000,
+  height: 700,
+
+	transition: 'convex', // none/fade/slide/convex/concave/zoom
+
+// Optional reveal.js plugins
+dependencies: [
+	{ src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+	{ src: 'reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+	{ src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+	{ src: 'reveal.js/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+	{ src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+	{ src: 'reveal.js/plugin/notes/notes.js', async: true }
+]
+});
+
+</script>
+</body>
+</html>
