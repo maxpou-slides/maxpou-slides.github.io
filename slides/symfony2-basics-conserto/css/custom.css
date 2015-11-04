@@ -36,7 +36,12 @@ body {
 p.me {
   margin-bottom: 0px;
 }
+
 p.me-link {
   font-size: 22px;
   margin: 0px;
+}
+
+.reveal blockquote {
+  width: 100%;
 }

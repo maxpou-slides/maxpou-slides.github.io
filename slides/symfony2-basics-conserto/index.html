@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <title>Symfony2</title>
-<link rel="stylesheet" href="reveal.js/css/reveal.css">
-<link rel="stylesheet" href="reveal.js/css/theme/black.css" id="theme">
-<link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+<link rel="stylesheet" href="../../reveal.js/css/reveal.css">
+<link rel="stylesheet" href="../../reveal.js/css/theme/black.css" id="theme">
+<link rel="stylesheet" href="../../reveal.js/lib/css/zenburn.css">
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/font-awesome.min.css">
 <link rel="stylesheet" href="css/custom.css">
@@ -14,7 +14,7 @@
 var link  = document.createElement( 'link' );
 link.rel  = 'stylesheet';
 link.type = 'text/css';
-link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+link.href = window.location.search.match( /print-pdf/gi ) ? '../../reveal.js/css/print/pdf.css' : '../../reveal.js/css/print/paper.css';
 document.getElementsByTagName( 'head' )[0].appendChild( link );
 </script>
 </head>
@@ -22,13 +22,25 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 <div class="reveal">
 <div class="slides">
   <section>
-    <h1 class="title">Symfony2 basics</h1>
-    <p class="me">Maxence POUTORD</p>
-    <p class="me-link">
-      <a href="https://twitter.com/_maxpou"><i class="fa fa-twitter"></i> @_maxpou</a> |
-      <a href="http://www.maxpou.fr/"><i class="fa fa-globe"></i> maxpou.fr</a> |
-      <a href="mailto:maxence.poutord@gmail.com"><i class="fa fa-envelope-o"></i> maxence.poutord@gmail.com</a>
-    </p>
+    <section>
+      <h1 class="title">Symfony2 basics</h1>
+      <p class="me">Maxence POUTORD</p>
+      <p class="me-link">
+        <a href="https://twitter.com/_maxpou"><i class="fa fa-twitter"></i> @_maxpou</a> |
+        <a href="http://www.maxpou.fr/"><i class="fa fa-globe"></i> maxpou.fr</a> |
+        <a href="mailto:maxence.poutord@gmail.com"><i class="fa fa-envelope-o"></i> maxence.poutord@gmail.com</a>
+      </p>
+    </section>
+    <section>
+      <h2>RevealJS Tips</h2>
+      <ul>
+        <li>ESC: slide overview</li>
+        <li>ALT + click: zoom</li>
+        <li>B: blackout</li>
+        <li>S: speaker notes</li>
+        <li><a href="?print-pdf">Print (then ctrl + p)</a></li>
+      </ul>
+    </section>
   </section>
   <section>
   	<h2>Goals</h2>
@@ -171,8 +183,9 @@ class MySingleton
         <li>Use best practices</li>
         <li>Open Source</li>
         <li>Bundle: reusable components</li>
-        <li>Development tools</li>
+        <li>Debug toolbar (killer feature)</li>
       </ul>
+      <p class="center"><img data-src="img/toolbar.png" style="border:none;"></p>
       <p>
         Projects using Symfony: Drupal, Laravel, eZ Publish, Magento, BlaBlaCar, You****<em>(You-Know-Who)</em>
       </p>
@@ -187,7 +200,10 @@ class MySingleton
     </section>
     <section>
       <h2>Symfony2 MVC approach</h2>
-      <p><img data-src="img/request-flow.png" style="border:none; min-width:100%;"></p>
+      <p><img data-src="img/request-workflow.png" style="border:35px solid #FFF; background-color: #FFF; min-width:100%;"></p>
+      <p class="fragment">
+        So, Symfony2 is a MVC Framwork ? <span class="fragment" style="color:#E60000; font-size:100px"><b>NO!</b></span>
+      </p>
     </section>
     <section>
       <h2>Composer</h2>
@@ -219,6 +235,9 @@ $ composer create-project symfony/framework-standard-edition my_project_name
     </section>
     <section>
       <h2>Controller</h2>
+      <ul>
+        <li>Goal: transform <b>request</b> to <b>response</b></li>
+      </ul>
     </section>
     <section>
       <h2>Routing</h2>
@@ -262,11 +281,24 @@ $ composer create-project symfony/framework-standard-edition my_project_name
         <li>Blackfire.io</li>
       </ul>
     </section>
+    <section>
+      <h2>Coding standards</h2>
+  		<p>Try to stick PSR Standard Recommendations</p>
+  		<a href="http://www.php-fig.org/">http://www.php-fig.org</a>
+    </section>
+    <section>
+      <h2>About Symfony3</h2>
+      <ul>
+        <li>Symfony2 code can run in Symfony3</li>
+        <li>Checkout @deprecated annotation in official doc</li>
+        <li><a href="https://github.com/symfony/symfony/blob/2.8/UPGRADE-3.0.md">Upgrade from 2.x to 3.0</a></li>
+      </ul>
+    </section>
   </section>
 </div>
 </div>
-<script src="reveal.js/lib/js/head.min.js"></script>
-<script src="reveal.js/js/reveal.js"></script>
+<script src="../../reveal.js/lib/js/head.min.js"></script>
+<script src="../../reveal.js/js/reveal.js"></script>
 <script>
 // Full list of configuration options available at:
 // https://github.com/hakimel/reveal.js#configuration
@@ -283,12 +315,12 @@ Reveal.initialize({
 
 // Optional reveal.js plugins
 dependencies: [
-	{ src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-	{ src: 'reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-	{ src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-	{ src: 'reveal.js/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
-	{ src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
-	{ src: 'reveal.js/plugin/notes/notes.js', async: true }
+	{ src: '../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+	{ src: '../../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+	{ src: '../../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+	{ src: '../../reveal.js/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+	{ src: '../../reveal.js/plugin/zoom-js/zoom.js', async: true },
+	{ src: '../../reveal.js/plugin/notes/notes.js', async: true }
 ]
 });
 
