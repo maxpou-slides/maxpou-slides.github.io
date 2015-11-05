@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <title>Symfony2</title>
@@ -23,7 +23,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 <div class="slides">
   <section>
     <section>
-      <h1 class="title">Symfony2 basics</h1>
+      <h1 class="title">Symfony 2 basics</h1>
       <p class="me">Maxence POUTORD</p>
       <p class="me-link">
         <a href="https://twitter.com/_maxpou"><i class="fa fa-twitter"></i> @_maxpou</a> |
@@ -158,23 +158,13 @@ class MySingleton
     </section>
   </section>
   <section>
-    <h2>Why should I use Framework ?</h2>
-    <ul>
-			<li>Velocity: work better (structuring developments) & faster (reusing generic modules, code generation...)</li>
-      <li>Facilitate long-term maintenance</li>
-      <li>Improve security</li>
-    </ul>
-  </section>
-  <section>
     <section>
-      <h2>Symfony2</h2>
-      <p><img data-src="img/symfony2-logo.png" style="border:20px solid #FFF; background-color: #FFF"></p>
-    </section>
-    <section>
-      <h2>What is Symfony2 ?</h2>
-      <blockquote cite="http://symfony.com/what-is-symfony">
-        « Symfony is a set of PHP Components, a Web Application framework, a Philosophy, and a Community — all working together in harmony. »
-      </blockquote>
+      <h2>Why should I use Framework ?</h2>
+      <ul>
+  			<li>Velocity: work better (structuring developments) & faster (reusing generic modules, code generation...)</li>
+        <li>Facilitate long-term maintenance</li>
+        <li>Improve security</li>
+      </ul>
     </section>
     <section>
       <h2>Why Symfony2 ?</h2>
@@ -189,6 +179,18 @@ class MySingleton
       <p>
         Projects using Symfony: Drupal, Laravel, eZ Publish, Magento, BlaBlaCar, You****<em>(You-Know-Who)</em>
       </p>
+    </section>
+  </section>
+  <section>
+    <section>
+      <h2>Symfony2</h2>
+      <p><img data-src="img/symfony2-logo.png" style="border:20px solid #FFF; background-color: #FFF"></p>
+    </section>
+    <section>
+      <h2>What is Symfony2 ?</h2>
+      <blockquote cite="http://symfony.com/what-is-symfony">
+        « Symfony is a set of PHP Components, a Web Application framework, a Philosophy, and a Community — all working together in harmony. »
+      </blockquote>
     </section>
     <section>
       <h2>Bundle concept</h2>
@@ -224,8 +226,30 @@ class MySingleton
     <section>
       <h2>Getting started</h2>
       <pre><code data-trim contenteditable>
-$ composer create-project symfony/framework-standard-edition my_project_name
+# Create new SF application
+$ composer create-project symfony/framework-standard-edition beerApp
+# Create the first bundle
+$ php app/console generate:bundle --format=yml
       </code></pre>
+    </section>
+    <section>
+      <h2>Symfony 2 Architecture</h2>
+      <p>
+        4 Folders :
+      </p>
+      <ul>
+        <li>app: application configuration, layout templates and translations</li>
+        <ul>
+          <li>AppKernel.php: register bundle</li>
+        </ul>
+        <li>src: project's PHP code (yours bundles)</li>
+        <li>vendor: Dependencies (other bundles). <u><b>Never</b></u> write code here!</li>
+        <li>web: web root directory</li>
+        <ul>
+          <li>app.php: production endpoint</li>
+          <li>app_dev.php: development endpoint</li>
+        </ul>
+      </ul>
     </section>
   </section>
   <section>
@@ -236,20 +260,229 @@ $ composer create-project symfony/framework-standard-edition my_project_name
     <section>
       <h2>Controller</h2>
       <ul>
-        <li>Goal: transform <b>request</b> to <b>response</b></li>
+        <li><b>Request</b> to <b>Response</b></li>
       </ul>
+      <p><img data-src="img/request-flow.png" style="border:none; min-width:100%;"></p>
     </section>
     <section>
       <h2>Routing</h2>
+      <pre><code data-trim contenteditable>
+# app/config/routing
+conserto_beer:
+    resource: "@ConsertoBeerBundle/Resources/config/routing.yml"
+    prefix:   /
+
+# src/Conserto/BeerBundle/Resources/config/routing.yml
+beer_show:
+    path:     /{id}/show
+    defaults: { _controller: "ConsertoBeerBundle:Beer:show" }
+
+beer_update:
+    path:     /{id}/update
+    defaults: { _controller: "ConsertoBeerBundle:Beer:update" }
+    methods:  [POST, PUT]
+      </code></pre>
+        <p class="text-left"><i class="fa fa-map-signs"></i> Lost ?</p>
+        <pre><code data-trim contenteditable>
+$ php app/console debug:router
+$ php app/console router:match /beer/show
+        </code></pre>
     </section>
     <section>
-      <h2>Twig, a tamplate engine</h2>
+      <h2>Routing advanced</h2>
+      <pre><code data-trim contenteditable>
+beer_show:
+  path:     /beers/{_locale}/{brand}/{name}.{_format}
+  defaults: { _controller: ConsertoBundle:Beer:show, _format: html }
+  schemes:  [https]
+  requirements:
+      _locale:  en|fr
+      _format:  html|rss
+      year:     \d+
+      </code></pre>
+      <p><i class="fa fa-book"></i> <a href="http://symfony.com/doc/current/book/routing.html">Routing (Symfony Book)</a></p>
+    </section>
+    <section>
+      <h2>Twig</h2>
+      <p>in a nutshell:</p>
+      <ul>
+        <li>PHP/HTML separation</li>
+        <li>More readable syntax</li>
+        <li>Add security</li>
+        <li>Fully documented (<a href="http://twig.sensiolabs.org">http://twig.sensiolabs.org</a>)</li>
+      </ul>
+  <pre class="fragment"><code data-trim contenteditable>
+//Before
+<p>&lt;?php echo $var; ?&gt;</p>
+  </code></pre><pre class="fragment"><code data-trim contenteditable>
+{# After #}
+<p>{{ var }}</p>
+  </code></pre>
+    </section>
+    <section>
+      <h2>Twig: before/after</h2>
+<!-- Before -->
+<pre class="sticky"><code data-trim contenteditable>
+&lt;ul&gt;
+&lt;?php
+if (count($users) &gt; 0) {
+    foreach ($beers as $aBeer) {
+        echo "&lt;li&gt;".$aBeer-&gt;name." have ".$aBeer-&gt;alcohol." alcohol degree&lt;/li&gt;";
+    }
+} else {
+    echo "&lt;li&gt;no user found&lt;/li&gt;";
+}
+?&gt;
+&lt;/ul&gt;
+</code></pre><pre class="fragment sticky"><code data-trim contenteditable>
+<!-- After -->
+<ul>
+    {% for aUser in users %}
+        <li>{{ aUser.name }} live in {{ aUser.name }}</li>
+    {% else %}
+        <li><em>no user found</em></li>
+    {% endfor %}
+</ul>
+      </code></pre>
+    </section>
+    <section>
+  		<h2>TWIG: filters</h2>
+  		<pre><code data-trim contenteditable>
+{{ "now"|date("m/d/Y") }} // 2/11/2015
+
+{{ 'abcd...'|reverse }} //...dcba
+
+{{ '12345'|slice(1, 2) }} //23
+
+{{ 101.51|round }} //102
+
+{# Multiple filters#}
+{{ 'abcd...'|slice(1, 2)|reverse }} //cb
+  		</code></pre>
+  	</section>
+    <section>
+      <h2>Code separation</h2>
+      <pre><code data-trim contenteditable>
+//layout.html.twig
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;...&lt;/head&gt;
+  &lt;body&gt;
+    {% block body %}{% endblock %}
+  &lt;/body&gt;
+&lt;/html&gt;
+
+//welcome.html.twig
+{% extends "layout.html.twig" %}
+{% block body %}
+{% if user %}
+    <p>Welcome {{ user }}!</p>
+{% endif %}
+{% endblock %}
+      </code></pre>
+    </section>
+    <section>
+      <h2>Entities</h2>
+      <ul>
+        <li>Entity = Model (MVC)</li>
+        <li>Look like POJO: simple PHP class with attributes, constructor, getters and setters</li>
+      </ul>
+      <pre><code data-trim contenteditable>
+# Generate entity with doctrine:
+$ php app/console generate:doctrine:entity
+# Generate getters&setters
+$ php app/console generate:doctrine:entities  ConsertoBundle/Entity/Beer
+      </code></pre>
     </section>
     <section>
       <h2>Doctrine</h2>
+      <p><img data-src="img/doctrine.png" style="border:none; min-width:100%;"></p>
+    </section>
+    <section>
+      <h2>Doctrine annotations</h2>
+      <pre><code data-trim contenteditable>
+/**
+ * Beer
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="Conserto\Bundle\BeerBundle\Entity\BeerRepository")
+ */
+class Beer
+{
+  /**
+   * @var integer
+   *
+   * @ORM\Column(name="id", type="integer")
+   * @ORM\Id
+   * @ORM\GeneratedValue(strategy="AUTO")
+   */
+  private $id;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="name", type="string", length=255)
+   */
+  private $name;
+    /...
+      </code></pre>
+    </section>
+    <section>
+      <h2>Doctrine: relations</h2>
+      <ul>
+        <li>One-to-one (1..1) <br><em>ex: Beer--Image</em></li>
+        <li>Many-to-one (n..1) <br><em>ex: Abbey--Beer</em></li>
+        <li>Many-to-many (n..n) <br><em>ex: Beer--Distributor</em></li>
+      </ul>
+    </section>
+    <section>
+      <h2>Doctrine: custom request</h2>
+      <pre><code data-trim contenteditable>
+//src\Conserto\Bundle\BeerBundle\Entity\BeerRepository.php
+public function findByAbbeyAndDate($abbey, $alcohol)
+{
+  $qb = $this->createQueryBuilder('b');
+
+  $qb->where('b.abbey = :abbey')
+       ->setParameter('abbey', $abbey)
+     ->andWhere('b.alcohol < :alcohol')
+       ->setParameter('alcohol', $alcohol)
+     ->orderBy('b.name', 'DESC');
+
+  return $qb
+    ->getQuery()
+    ->getResult()
+  ;
+}
+      </code></pre>
+      <p><a href="http://symfony.com/doc/current/book/doctrine.html"><i class="fa fa-book"></i> Doctrine in Symfony2</a></p>
+      <p><a href="http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/"><i class="fa fa-book"></i> Doctrine documentation</a></p>
     </section>
     <section>
       <h2>Form component</h2>
+      <pre><code data-trim contenteditable>
+//src\Conserto\Bundle\BeerBundle\Entity\BeerRepository.php
+public function buildForm(FormBuilderInterface $builder, array $options)
+{
+    $builder
+        ->add('name')
+        ->add('alcohol')
+        ->add('desciption')
+    ;
+}
+
+//src\Conserto\Bundle\BeerBundle\Controller\BeerController.php
+$entity = $em->getRepository('ConsertoBeerBundle:Beer')->find($id);
+$editForm = $this->createEditForm($entity);
+return $this->render('ConsertoBeerBundle:Beer:edit.html.twig', array(
+    'entity'      => $entity,
+    'edit_form'   => $editForm->createView()
+));
+      </code></pre>
+      <pre><code data-trim contenteditable>
+<!-- edit.html.twig -->
+{{ form(edit_form) }}
+      </code></pre>
     </section>
     <section>
       <h2>Services (in nutshell)</h2>
@@ -257,13 +490,33 @@ $ composer create-project symfony/framework-standard-edition my_project_name
   </section>
   <section>
     <section>
-      <h2>Further tips...</h2>
+      <h2>Tips & tricks</h2>
     </section>
     <section>
-      <h2>Code generation</h2>
+      <h2>Code generation <i class="fa fa-heart"></i></h2>
+      <p class="text-left">Crud Generation(Controller, Form, Views, Routes)</p>
+      <pre><code data-trim contenteditable>
+$ php app/console generate:doctrine:crud
+      </code></pre>
+      <p class="text-left">Reverse engineering (Generate entities from database)</p>
+      <pre><code data-trim contenteditable>
+$ php app/console doctrine:mapping:import --force AcmeBlogBundle xml
+$ php app/console doctrine:mapping:convert annotation ./src
+$ php app/console doctrine:generate:entities AcmeBlogBundle
+      </code></pre>
     </section>
     <section>
       <h2>Useful commands</h2>
+      <pre><code data-trim contenteditable>
+alias sf='php app/console'
+      </code></pre>
+      <table class="table">
+        <tr><td>list</td><td>Lists commands</td></tr>
+        <tr><td>debug:router</td><td>Displays current routes for an application</td></tr>
+        <tr><td>doctrine:generate:entity</td><td>Generates a new Doctrine entity inside a bundle</td></tr>
+        <tr><td>doctrine:generate:entities</td><td>Generates entity classes and method stubs from your mapping information</td></tr>
+        <tr><td>doctrine:schema:update</td><td>Executes (or dumps) the SQL needed to update the database schema to match the current mapping metadata</td></tr>
+      </table>
     </section>
     <section>
       <h2>Useful tools</h2>
@@ -274,11 +527,14 @@ $ composer create-project symfony/framework-standard-edition my_project_name
       </ul>
     </section>
     <section>
-      <h2>Useful tools</h2>
+      <h2>Useful bundles</h2>
       <ul>
-        <li>Grunt/Gulp</li>
-        <li>Mailcatcher</li>
-        <li>Blackfire.io</li>
+        <li><a href="https://github.com/FriendsOfSymfony/FOSUserBundle">FOSUserBundle</a></li>
+        <li><a href="https://github.com/FriendsOfSymfony/FOSRestBundle">FOSRestBundle</a></li>
+        <li><a href="https://github.com/stof/StofDoctrineExtensionsBundle">StofDoctrineExtensionsBundle</a></li>
+        <li><a href="https://github.com/schmittjoh/JMSSerializerBundle">JMSSerializerBundle</a></li>
+        <li><a href="https://github.com/nelmio/NelmioApiDocBundle">NelmioApiDocBundle</a></li>
+        <li><a href="https://github.com/lexik/LexikMaintenanceBundle">LexikMaintenanceBundle</a></li>
       </ul>
     </section>
     <section>
