@@ -204,7 +204,7 @@ class MySingleton
       <h2>Symfony2 MVC approach</h2>
       <p><img data-src="img/request-workflow.png" style="border:35px solid #FFF; background-color: #FFF; min-width:100%;"></p>
       <p class="fragment">
-        So, Symfony2 is a MVC Framwork ? <span class="fragment" style="color:#E60000; font-size:100px"><b>NO!</b></span>
+        So, Symfony2 is a <b>MVC</b> Framwork ? <span class="fragment" style="color:#E60000; font-size:100px"><b>NO!</b></span>
       </p>
       <aside class="notes">
         <a href="http://fabien.potencier.org/what-is-symfony2.html#is-symfony2-an-mvc-framework">Why SF is not a realy MVC Framwork</a>
@@ -262,9 +262,7 @@ $ php app/console generate:bundle --format=yml
     </section>
     <section>
       <h2>Controller</h2>
-      <ul>
-        <li><b>Request</b> to <b>Response</b></li>
-      </ul>
+      <p class="center"><b>Request</b> to <b>Response</b></p>
       <p><img data-src="img/request-flow.png" style="border:none; min-width:100%;"></p>
     </section>
     <section>
@@ -288,7 +286,7 @@ beer_update:
         <p class="text-left"><i class="fa fa-map-signs"></i> Lost ?</p>
         <pre><code data-trim contenteditable>
 $ php app/console debug:router
-$ php app/console router:match /beer/show
+$ php app/console router:match /beer/4/show
         </code></pre>
     </section>
     <section>
@@ -305,7 +303,7 @@ beer_show:
       </code></pre>
       <p><i class="fa fa-book"></i> <a href="http://symfony.com/doc/current/book/routing.html">Routing (Symfony Book)</a></p>
     </section>
-    <section>
+    <section data-background="img/twig-logo.png">
       <h2>Twig</h2>
       <p>in a nutshell:</p>
       <ul>
@@ -396,8 +394,30 @@ $ php app/console generate:doctrine:entity
       </code></pre>
     </section>
     <section>
-      <h2>Doctrine</h2>
+      <h2><img data-src="img/doctrine-logo.png" style="border:none; margin: 0; width:5%;">Doctrine</h2>
       <p><img data-src="img/doctrine.png" style="border:none; min-width:100%;"></p>
+    </section>
+    <section>
+      <h2>Doctrine principle</h2>
+      <pre><code data-trim contenteditable>
+$myBeer = new Beer();
+$myBeer->setName('Kwak');
+$myBeer->setAlcohol(8.4);
+
+$anotherBeer = new Beer();
+$anotherBeer->setName('Tripel Karmeliet');
+$anotherBeer->setAlcohol(8.4);
+
+//Step 1: Retrieve EntityManager service
+$em = $this->getDoctrine()->getManager();
+
+//Step 2: persist
+$em->persist($myBeer);
+$em->persist($anotherBeer);
+
+//Step 3: Flush (generate&execute SQL)
+$em->flush();
+      </code></pre>
     </section>
     <section>
       <h2>Doctrine annotations</h2>
@@ -425,7 +445,7 @@ class Beer
    * @ORM\Column(name="name", type="string", length=255)
    */
   private $name;
-    /...
+//...
       </code></pre>
     </section>
     <section>
@@ -462,7 +482,7 @@ public function findByAbbeyAndDate($abbey, $alcohol)
     <section>
       <h2>Form component</h2>
       <pre><code data-trim contenteditable>
-//src\Conserto\Bundle\BeerBundle\Entity\BeerRepository.php
+//src\Conserto\Bundle\BeerBundle\Form\BeerType.php
 public function buildForm(FormBuilderInterface $builder, array $options)
 {
     $builder
@@ -482,7 +502,7 @@ return $this->render('ConsertoBeerBundle:Beer:edit.html.twig', array(
       </code></pre>
       <pre><code data-trim contenteditable>
 <!-- edit.html.twig -->
-{{ form(edit_form) }}
+{{ form(edit_form) }} {# Will generate a HTML Form #}
       </code></pre>
     </section>
     <section>
@@ -548,6 +568,17 @@ alias sf='php app/console'
       <p>
         Tools: <a href="https://github.com/squizlabs/PHP_CodeSniffer">PHP_CodeSniffer</a> and <a href="https://github.com/FriendsOfPHP/PHP-CS-Fixer">PHP-CS-Fixer</a>
       </p>
+    </section>
+    <section>
+      <h2></h2>
+      <ul>
+        <li>Refactor</li>
+        <li>Refactor</li>
+        <li>Refactor</li>
+        <li>Refactor</li>
+        <li>Refactor</li>
+        <li>...</li>
+      </ul>
     </section>
     <section>
       <h2>About Symfony3</h2>

@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="../../reveal.js/css/theme/black.css" id="theme">
 <link rel="stylesheet" href="../../reveal.js/lib/css/zenburn.css">
 <link rel="stylesheet" href="custom.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 <!-- Printing and PDF exports -->
 <script>
 var link  = document.createElement( 'link' );
@@ -31,25 +32,25 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
     <p><img data-src="img/tools.png" style="border:none; background-color: #FFF; width: 80%;"></p>
   </section>
   <section>
-    <h2>Pourquoi Symfony2</h2>
-    <ul>
-      <li>#1 en France</li>
-      <li>Open source</li>
-      <li>Composants réutilisables (Bundle)</li>
-      <li>Bonnes pratiques</li>
-      <li>Ressources : documentation + communauté</li>
-      <li>Sécurité</li>
-      <li>Debug toolbar</li>
-      <p class="center"><img data-src="img/toolbar.png" style="border:none;"></p>
+    <section>
+      <h2>Pourquoi Symfony2 (1/2)</h2>
+      <ul>
+        <li>#1 en France</li>
+        <li>Open source</li>
+        <li>Composants réutilisables (Bundle)</li>
+        <li>Bonnes pratiques : Tests, DIE principe, PSR, organisation du code</li>
+        <li>Ressources : documentation + communauté</li>
+        <li>Sécurité (Protection native contre CRSF, XSS, Injection SQL, Include...)</li>
+        <li>Debug toolbar</li>
+        <p class="center"><img data-src="img/toolbar.png" style="border:none;"></p>
+      </ul>
+    </section>
+    <section>
+      <h2>Pourquoi Symfony2 (2/2)</h2>
       <p>
         Projets utilisants Symfony: Drupal, Laravel, eZ Publish, Magento, BlaBlaCar, Yahoo!, Dailymotion...
       </p>
-    </ul>
-    <aside class="notes">
-      DIE: duplication is evil <br>
-      DRY: don't repeat yourself <br>
-      Réinventer roue
-    </aside>
+    </section>
   </section>
   <section>
     <h2>La notion de Bundle</h2>
@@ -63,7 +64,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 &lt;ul&gt;
 &lt;?php
 if (count($users) &gt; 0) {
-    foreach ($beers as $aBeer) {
+    foreach ($users as $aUser) {
         echo "&lt;li&gt;".$aUser-&gt;name." vit à ".$aUser-&gt;city."&lt;/li&gt;";
     }
 } else {
@@ -91,19 +92,30 @@ if (count($users) &gt; 0) {
     <h2>Symfony, c'est compliqué ?</h2>
     <h2 class="fragment">NON !</h2>
     <ul class="fragment">
-      <li><a href="http://symfony.com/doc/current/index.html">Documentation officielle</a></li>
-      <li><a href="https://openclassrooms.com/courses/developpez-votre-site-web-avec-le-framework-symfony2?status=published">Formation libre sur Openclassrooms (avec Fabien POTENTIER, le créateur de Symfony2)</a></li>
+      <li><a href="http://symfony.com/doc/current/index.html">[EN] Documentation officielle</a></li>
+      <li><a href="https://openclassrooms.com/courses/developpez-votre-site-web-avec-le-framework-symfony2?status=published">[FR] Formation libre sur Openclassrooms (avec Fabien POTENTIER, le créateur de Symfony2)</a></li>
     </ul>
+    <p class="fragment">
+      Et aussi sur : <i class="fa fa-stack-overflow"></i> stackoverflow.com
+    </p>
   </section>
   <section>
-    <h2>Et silex ?</h2>
+    <h2>Et Silex ?</h2>
     <ul>
       <li>Micro framwork PHP</li>
       <li>Léger (10 Mo)</li>
-      <li>Basé sur des composants de Symfony2</li>
+      <li>Utilise des composants de Symfony2</li>
+      <ul>
+        <li>Logs</li>
+        <li>Twig</li>
+        <li>Doctrine</li>
+        <li>...</li>
+      </ul>
+      <li>Moins intimidant que Symfony (?)</li>
     </ul>
     <aside class="notes">
-      moins intimidant que SF2
+      SF2 = +/- 30Mo <br>
+      Si utilisé à mauvais escient
     </aside>
   </section>
   <section>
