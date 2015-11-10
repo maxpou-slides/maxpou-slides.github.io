@@ -206,6 +206,9 @@ class MySingleton
       <p class="fragment">
         So, Symfony2 is a MVC Framwork ? <span class="fragment" style="color:#E60000; font-size:100px"><b>NO!</b></span>
       </p>
+      <aside class="notes">
+        <a href="http://fabien.potencier.org/what-is-symfony2.html#is-symfony2-an-mvc-framework">Why SF is not a realy MVC Framwork</a>
+      </aside>
     </section>
     <section>
       <h2>Composer</h2>
@@ -321,26 +324,26 @@ beer_show:
     </section>
     <section>
       <h2>Twig: before/after</h2>
-<!-- Before -->
 <pre class="sticky"><code data-trim contenteditable>
+<!-- Before -->
 &lt;ul&gt;
 &lt;?php
-if (count($users) &gt; 0) {
+if (count($beers) &gt; 0) {
     foreach ($beers as $aBeer) {
         echo "&lt;li&gt;".$aBeer-&gt;name." have ".$aBeer-&gt;alcohol." alcohol degree&lt;/li&gt;";
     }
 } else {
-    echo "&lt;li&gt;no user found&lt;/li&gt;";
+    echo "&lt;li&gt;<em>no beer found</em>&lt;/li&gt;";
 }
 ?&gt;
 &lt;/ul&gt;
 </code></pre><pre class="fragment sticky"><code data-trim contenteditable>
 <!-- After -->
 <ul>
-    {% for aUser in users %}
-        <li>{{ aUser.name }} live in {{ aUser.name }}</li>
+    {% for aBeer in beers %}
+        <li>{{ aBeer.name }} have {{ aBeer.alcohol }} alcohol degree</li>
     {% else %}
-        <li><em>no user found</em></li>
+        <li><em>no beer found</em></li>
     {% endfor %}
 </ul>
       </code></pre>
@@ -388,10 +391,8 @@ if (count($users) &gt; 0) {
         <li>Look like POJO: simple PHP class with attributes, constructor, getters and setters</li>
       </ul>
       <pre><code data-trim contenteditable>
-# Generate entity with doctrine:
+# Generate entity with doctrine (also generate getters&setters):
 $ php app/console generate:doctrine:entity
-# Generate getters&setters
-$ php app/console generate:doctrine:entities  ConsertoBundle/Entity/Beer
       </code></pre>
     </section>
     <section>
@@ -491,6 +492,7 @@ return $this->render('ConsertoBeerBundle:Beer:edit.html.twig', array(
   <section>
     <section>
       <h2>Tips & tricks</h2>
+      <p><img data-src="img/idea.jpg" style="border:none; width:20%;"></p>
     </section>
     <section>
       <h2>Code generation <i class="fa fa-heart"></i></h2>
@@ -521,10 +523,12 @@ alias sf='php app/console'
     <section>
       <h2>Useful tools</h2>
       <ul>
-        <li>Grunt/Gulp</li>
-        <li>Mailcatcher</li>
-        <li>Blackfire.io</li>
+        <li>Grunt/Gulp: Task Runner (clear cache, assetics compilation...)</li>
+        <li>Mailcatcher: catch mails</li>
+        <li><a href="https://blackfire.io/">Blackfire.io</a>: Profiling Web Pages</li>
       </ul>
+      <br>
+      <iframe width="536" height="332" src="https://www.youtube.com/embed/AygjcT_lsQI" frameborder="0" allowfullscreen></iframe>
     </section>
     <section>
       <h2>Useful bundles</h2>
@@ -539,8 +543,11 @@ alias sf='php app/console'
     </section>
     <section>
       <h2>Coding standards</h2>
-  		<p>Try to stick PSR Standard Recommendations</p>
+  		<p>Please, stick the PSR Standard Recommendations</p>
   		<a href="http://www.php-fig.org/">http://www.php-fig.org</a>
+      <p>
+        Tools: <a href="https://github.com/squizlabs/PHP_CodeSniffer">PHP_CodeSniffer</a> and <a href="https://github.com/FriendsOfPHP/PHP-CS-Fixer">PHP-CS-Fixer</a>
+      </p>
     </section>
     <section>
       <h2>About Symfony3</h2>
@@ -550,6 +557,10 @@ alias sf='php app/console'
         <li><a href="https://github.com/symfony/symfony/blob/2.8/UPGRADE-3.0.md">Upgrade from 2.x to 3.0</a></li>
       </ul>
     </section>
+  </section>
+  <section>
+    <h2>Thank you</h2>
+  	<h3>Questions?</h3>
   </section>
 </div>
 </div>
@@ -580,6 +591,15 @@ dependencies: [
 ]
 });
 
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-67868977-1', 'auto');
+  ga('send', 'pageview');
 </script>
 </body>
 </html>

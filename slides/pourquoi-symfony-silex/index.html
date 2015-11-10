@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PHP, Silex et Symfony2</title>
+<link rel="stylesheet" href="../../reveal.js/css/reveal.css">
+<link rel="stylesheet" href="../../reveal.js/css/theme/black.css" id="theme">
+<link rel="stylesheet" href="../../reveal.js/lib/css/zenburn.css">
+<link rel="stylesheet" href="custom.css">
+<!-- Printing and PDF exports -->
+<script>
+var link  = document.createElement( 'link' );
+link.rel  = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? '../../reveal.js/css/print/pdf.css' : '../../reveal.js/css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+  <section>
+    <h2>PHP, Silex et Symfony2</h2>
+  </section>
+  <section>
+    <h2>Vélocité</h2>
+    <p><img data-src="img/velocity.png" style="border:none; background-color: #FFF;width: 80%;"></p>
+  </section>
+  <section>
+    <h2>Quel outil choisir ?</h2>
+    <p><img data-src="img/tools.png" style="border:none; background-color: #FFF; width: 80%;"></p>
+  </section>
+  <section>
+    <h2>Pourquoi Symfony2</h2>
+    <ul>
+      <li>#1 en France</li>
+      <li>Open source</li>
+      <li>Composants réutilisables (Bundle)</li>
+      <li>Bonnes pratiques</li>
+      <li>Ressources : documentation + communauté</li>
+      <li>Sécurité</li>
+      <li>Debug toolbar</li>
+      <p class="center"><img data-src="img/toolbar.png" style="border:none;"></p>
+      <p>
+        Projets utilisants Symfony: Drupal, Laravel, eZ Publish, Magento, BlaBlaCar, Yahoo!, Dailymotion...
+      </p>
+    </ul>
+    <aside class="notes">
+      DIE: duplication is evil <br>
+      DRY: don't repeat yourself <br>
+      Réinventer roue
+    </aside>
+  </section>
+  <section>
+    <h2>La notion de Bundle</h2>
+    <p><img data-src="img/bundle.png" class="fragment" style="border:none; width: 60%;"></p>
+  </section>
+  <section>
+    <section>
+      <h2>Twig</h2>
+  <pre class="sticky"><code data-trim contenteditable>
+<!-- Before -->
+&lt;ul&gt;
+&lt;?php
+if (count($users) &gt; 0) {
+    foreach ($beers as $aBeer) {
+        echo "&lt;li&gt;".$aUser-&gt;name." vit à ".$aUser-&gt;city."&lt;/li&gt;";
+    }
+} else {
+    echo "&lt;li&gt;<em>Pas d'utilisateurs</em>&lt;/li&gt;";
+}
+?&gt;
+&lt;/ul&gt;
+  </code></pre><pre class="fragment sticky"><code data-trim contenteditable>
+<!-- After -->
+<ul>
+  {% for aUser in users %}
+    <li>{{ aUser.name }} vit à {{ aUser.city }}</li>
+  {% else %}
+    <li><em>Pas d'utilisateurs</em></li>
+  {% endfor %}
+</ul>
+        </code></pre>
+    </section>
+    <section>
+      <h2>Doctrine</h2>
+      <p><img data-src="img/doctrine.png" style="border:none;"></p>
+    </section>
+  </section>
+  <section>
+    <h2>Symfony, c'est compliqué ?</h2>
+    <h2 class="fragment">NON !</h2>
+    <ul class="fragment">
+      <li><a href="http://symfony.com/doc/current/index.html">Documentation officielle</a></li>
+      <li><a href="https://openclassrooms.com/courses/developpez-votre-site-web-avec-le-framework-symfony2?status=published">Formation libre sur Openclassrooms (avec Fabien POTENTIER, le créateur de Symfony2)</a></li>
+    </ul>
+  </section>
+  <section>
+    <h2>Et silex ?</h2>
+    <ul>
+      <li>Micro framwork PHP</li>
+      <li>Léger (10 Mo)</li>
+      <li>Basé sur des composants de Symfony2</li>
+    </ul>
+    <aside class="notes">
+      moins intimidant que SF2
+    </aside>
+  </section>
+  <section>
+    <h2>Demo</h2>
+    <a href="http://scotch.local/lab/pourquoi-php/">Demo</a>
+  </section>
+</div>
+</div>
+<script src="../../reveal.js/lib/js/head.min.js"></script>
+<script src="../../reveal.js/js/reveal.js"></script>
+<script>
+// Full list of configuration options available at:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+	controls: true,
+	progress: true,
+	slideNumber: true,
+	history: true,
+	center: true,
+  width: 1000,
+  height: 700,
+
+	transition: 'convex', // none/fade/slide/convex/concave/zoom
+
+// Optional reveal.js plugins
+dependencies: [
+	{ src: '../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+	{ src: '../../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+	{ src: '../../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+	{ src: '../../reveal.js/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+	{ src: '../../reveal.js/plugin/zoom-js/zoom.js', async: true },
+	{ src: '../../reveal.js/plugin/notes/notes.js', async: true }
+]
+});
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-67868977-1', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>
