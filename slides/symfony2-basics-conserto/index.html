@@ -47,7 +47,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
   	<ul>
   		<li>PHP OOP (recalls)</li>
   		<li>Discovering the basics of Symfony2 and his components (Twig, Doctrine, ...)</li>
-  		<li>Realize a web app with Symfony2&MySQL</li>
+  		<li>Realize a web app with Symfony2&amp;MySQL</li>
   	</ul>
   </section>
   <section>
@@ -56,7 +56,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
     </section>
     <section>
       <h2>POPO: Plain Old PHP Object</h2>
-      <div class='span6'>
+      <div class='span6 fragment'>
 <pre><code data-trim contenteditable>
 class Drink
 {
@@ -70,7 +70,7 @@ class Drink
 }
 </code></pre>
       </div>
-      <div class='span6'>
+      <div class='span6 fragment'>
 <pre><code data-trim contenteditable>
 class Beer extends Drink
 {
@@ -142,17 +142,17 @@ $color = $myBeer->getColor();
 <pre><code data-trim contenteditable>
 class MySingleton
 {
-  protected static $instance;
-  protected function __construct() { }
+    protected static $instance;
+    protected function __construct() { }
 
-  public static function getInstance()
-  {
-    if (!isset(self::$instance)) {
-      self::$instance = new self;
+    public static function getInstance()
+    {
+        if (!isset(self::$instance)) {
+            self::$instance = new self;
+        }
+
+      return self::$instance;
     }
-
-    return self::$instance;
-  }
 }
 </code></pre>
     </section>
@@ -161,10 +161,11 @@ class MySingleton
     <section>
       <h2>Why should I use Framework ?</h2>
       <ul>
-  			<li>Velocity: work better (structuring developments) & faster (reusing generic modules, code generation...)</li>
+        <li>Velocity: work <b>better</b> (structuring developments) &amp; <b>faster</b> (reusing generic modules, code generation...)</li>
         <li>Facilitate long-term maintenance</li>
         <li>Improve security</li>
       </ul>
+      <a href="http://www.maxpou.fr/utilisez-un-framework-php/">[FR] Utilisez un framework PHP</a>
     </section>
     <section>
       <h2>Why Symfony2 ?</h2>
@@ -222,8 +223,9 @@ class MySingleton
     <section>
       <h2>RTFM</h2>
       <ul>
-        <li class="list-unstyled"><a href="http://symfony.com/doc/current/book/index.html"><i class="fa fa-book"></i> Documentation (Book)</a></li>
-        <li class="list-unstyled"><a href="http://symfony.com/doc/current/cookbook/index.html"><i class="fa fa-book"></i> Documentation (Cookbook)</a></li>
+        <li class="list-unstyled"><a href="http://symfony.com/doc/current/book/index.html"><i class="fa fa-book"></i> Level 0: The Symfony Book</a></li>
+        <li class="list-unstyled"><a href="http://symfony.com/doc/current/cookbook/index.html"><i class="fa fa-book"></i> Level 1: The Symfony Cookbook</a></li>
+        <li class="list-unstyled"><a href="http://symfony.com/doc/current/best_practices/index.html"><i class="fa fa-book"></i> Level 2: Symfony Best Practices</a></li>
       </ul>
     </section>
     <section>
@@ -238,15 +240,15 @@ $ php app/console generate:bundle --format=yml
     <section>
       <h2>Symfony 2 Architecture</h2>
       <p>
-        4 Folders :
+        4 Folders:
       </p>
       <ul>
-        <li>app: application configuration, layout templates and translations</li>
+        <li>app: application configuration, layout templates...</li>
         <ul>
           <li>AppKernel.php: register bundle</li>
         </ul>
         <li>src: project's PHP code (yours bundles)</li>
-        <li>vendor: Dependencies (other bundles). <u><b>Never</b></u> write code here!</li>
+        <li>vendor: Dependencies (other bundles) - <b>Read only !</b></li>
         <li>web: web root directory</li>
         <ul>
           <li>app.php: production endpoint</li>
@@ -305,7 +307,7 @@ beer_show:
     </section>
     <section data-background="img/twig-logo.png">
       <h2>Twig</h2>
-      <p>in a nutshell:</p>
+      <p>In a nutshell:</p>
       <ul>
         <li>PHP/HTML separation</li>
         <li>More readable syntax</li>
@@ -357,14 +359,14 @@ if (count($beers) &gt; 0) {
 
 {{ 101.51|round }} //102
 
-{# Multiple filters#}
+{# Multiple filters #}
 {{ 'abcd...'|slice(1, 2)|reverse }} //cb
   		</code></pre>
   	</section>
     <section>
       <h2>Code separation</h2>
       <pre><code data-trim contenteditable>
-//layout.html.twig
+<!-- app/Ressources/views/base.html.twig -->
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
   &lt;head&gt;...&lt;/head&gt;
@@ -373,11 +375,11 @@ if (count($beers) &gt; 0) {
   &lt;/body&gt;
 &lt;/html&gt;
 
-//welcome.html.twig
-{% extends "layout.html.twig" %}
+{# src/Conserto/Bundle/BeerBundle/Resources/views/Beer/index.html.twig #}
+{% extends '::base.html.twig' %}
 {% block body %}
-{% if user %}
-    <p>Welcome {{ user }}!</p>
+{% if beer %}
+    <p>Beer: {{ beer }}!</p>
 {% endif %}
 {% endblock %}
       </code></pre>
@@ -386,7 +388,7 @@ if (count($beers) &gt; 0) {
       <h2>Entities</h2>
       <ul>
         <li>Entity = Model (MVC)</li>
-        <li>Look like POJO: simple PHP class with attributes, constructor, getters and setters</li>
+        <li>Looks like POJO: simple PHP class with attributes, constructor, getters and setters</li>
       </ul>
       <pre><code data-trim contenteditable>
 # Generate entity with doctrine (also generate getters&setters):
@@ -445,7 +447,7 @@ class Beer
    * @ORM\Column(name="name", type="string", length=255)
    */
   private $name;
-//...
+  //...
       </code></pre>
     </section>
     <section>
@@ -465,9 +467,9 @@ public function findByAbbeyAndDate($abbey, $alcohol)
   $qb = $this->createQueryBuilder('b');
 
   $qb->where('b.abbey = :abbey')
-       ->setParameter('abbey', $abbey)
+     ->setParameter('abbey', $abbey)
      ->andWhere('b.alcohol < :alcohol')
-       ->setParameter('alcohol', $alcohol)
+     ->setParameter('alcohol', $alcohol)
      ->orderBy('b.name', 'DESC');
 
   return $qb
@@ -491,7 +493,7 @@ public function buildForm(FormBuilderInterface $builder, array $options)
         ->add('desciption')
     ;
 }
-
+</code></pre><pre><code data-trim contenteditable>
 //src\Conserto\Bundle\BeerBundle\Controller\BeerController.php
 $entity = $em->getRepository('ConsertoBeerBundle:Beer')->find($id);
 $editForm = $this->createEditForm($entity);
@@ -506,7 +508,32 @@ return $this->render('ConsertoBeerBundle:Beer:edit.html.twig', array(
       </code></pre>
     </section>
     <section>
-      <h2>Services (in nutshell)</h2>
+      <h2>Remember: <br>never trust user input!</h2>
+      <p><img data-src="img/ntui.png" style="border:none; min-width:30%;"></p>
+    </section>
+    <section>
+      <h2>Form validation</h2>
+      <pre><code data-trim contenteditable>
+&lt?php
+use Symfony\Component\Validator\Constraints as Assert;
+
+class Beer
+{
+  //...
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="name", type="string", length=255)
+   * @Assert\NotBlank()
+   * @Assert\Length(
+   *  min = 2,
+   *  minMessage = "Your Beer must be at least {{ limit }} characters long"
+   * )
+   */
+  private $name;
+      </code></pre>
+      <a href="http://symfony.com/doc/current/book/validation.html"><i class="fa fa-book"></i> Validation documentation</a>
     </section>
   </section>
   <section>
@@ -516,11 +543,11 @@ return $this->render('ConsertoBeerBundle:Beer:edit.html.twig', array(
     </section>
     <section>
       <h2>Code generation <i class="fa fa-heart"></i></h2>
-      <p class="text-left">Crud Generation(Controller, Form, Views, Routes)</p>
+      <p class="text-left">Crud generation (Controller, Form, Views, Routes)</p>
       <pre><code data-trim contenteditable>
 $ php app/console generate:doctrine:crud
       </code></pre>
-      <p class="text-left">Reverse engineering (Generate entities from database)</p>
+      <p class="text-left">Reverse engineering (generate entities from database)</p>
       <pre><code data-trim contenteditable>
 $ php app/console doctrine:mapping:import --force AcmeBlogBundle xml
 $ php app/console doctrine:mapping:convert annotation ./src
@@ -541,6 +568,31 @@ alias sf='php app/console'
       </table>
     </section>
     <section>
+      <h2>.editorconfig file</h2>
+      <div class='span6 fragment'>
+        <pre><code data-trim contenteditable>
+# .editorconfig
+root = true
+[*]
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[**.js]
+indent_style = space
+indent_size = 2
+
+[**.php]
+indent_style = space
+indent_size = 4
+        </code></pre>
+      </div>
+      <div class='span6 fragment'>
+        <img data-src="img/editorConfig.png" style="border:none; width:89%;">
+      </div>
+    </section>
+    <section>
       <h2>Useful tools</h2>
       <ul>
         <li>Grunt/Gulp: Task Runner (clear cache, assetics compilation...)</li>
@@ -549,6 +601,18 @@ alias sf='php app/console'
       </ul>
       <br>
       <iframe width="536" height="332" src="https://www.youtube.com/embed/AygjcT_lsQI" frameborder="0" allowfullscreen></iframe>
+    </section>
+    <section>
+      <h2>Deployment</h2>
+      <ul>
+        <li>Clear cache</li>
+        <li>Check server configuration ($ php app/check.php)</li>
+        <li>Use cache</li>
+        <li>Verify your secret key (app/config/parameters.yml)</li>
+        <li>Disable dev mode (app_dev.php)</li>
+        <li>Customize errors pages</li>
+        <li>Use cache !</li>
+      </ul>
     </section>
     <section>
       <h2>Useful bundles</h2>
@@ -570,7 +634,7 @@ alias sf='php app/console'
       </p>
     </section>
     <section>
-      <h2></h2>
+      <h2>Don't forget</h2>
       <ul>
         <li>Refactor</li>
         <li>Refactor</li>
@@ -584,7 +648,7 @@ alias sf='php app/console'
       <h2>About Symfony3</h2>
       <ul>
         <li>Symfony2 code can run in Symfony3</li>
-        <li>Checkout @deprecated annotation in official doc</li>
+        <li>Checkout @deprecated annotation (in official doc)</li>
         <li><a href="https://github.com/symfony/symfony/blob/2.8/UPGRADE-3.0.md">Upgrade from 2.x to 3.0</a></li>
       </ul>
     </section>
