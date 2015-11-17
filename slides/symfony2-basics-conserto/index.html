@@ -156,6 +156,13 @@ class MySingleton
 }
 </code></pre>
     </section>
+    <section id="di-pattern">
+      <h2>Design Pattern: Dependency Injection</h2>
+      <p class="lead fragment">
+        Hollywood Principle: <em>"Don't call us, we'll call you"</em>
+      </p>
+      <p class="fragment"><img data-src="img/dependency-injection-golf.png" style="border:none;"></p>
+    </section>
   </section>
   <section>
     <section>
@@ -205,7 +212,7 @@ class MySingleton
       <h2>Symfony2 MVC approach</h2>
       <p><img data-src="img/request-workflow.png" style="border:35px solid #FFF; background-color: #FFF; min-width:100%;"></p>
       <p class="fragment">
-        So, Symfony2 is a <b>MVC</b> Framwork ? <span class="fragment" style="color:#E60000; font-size:100px"><b>NO!</b></span>
+        So, Symfony2 is a <b>MVC</b> Framwork ? <span6 class="fragment" style="color:#E60000; font-size:100px"><b>NO!</b></span6>
       </p>
       <aside class="notes">
         <a href="http://fabien.potencier.org/what-is-symfony2.html#is-symfony2-an-mvc-framework">Why SF is not a realy MVC Framwork</a>
@@ -535,6 +542,38 @@ class Beer
       </code></pre>
       <a href="http://symfony.com/doc/current/book/validation.html"><i class="fa fa-book"></i> Validation documentation</a>
     </section>
+    <section>
+      <h2>Service Container</h2>
+      <p>Use <a href="#/di-pattern">Dependency Injection pattern</a></p>
+      <div class="row">
+        <div class="span5">
+          <p><img data-src="img/serviceContainer.png" style="border:none; width:55%;"></p>
+        </div>
+        <div class="span7">
+          <pre class="sticky"><code data-trim contenteditable>
+# app/config/config.yml
+services:
+  my_mailer:
+      class    : Acme\HelloBundle\Mailer
+      arguments: [sendmail]
+          </code></pre>
+          <pre class="sticky"><code data-trim contenteditable>
+class WhateverController extends Controller
+{
+  public function sendEmailAction()
+  {
+    // ...
+    $mailer = $this->get('aMailer');
+    $mailer->send('contact@beerapp.io', ...);
+  }
+}
+          </code></pre>
+        </div>
+      </div>
+      <div style="margin-top: 25px;">
+        <a href="http://symfony.com/doc/current/book/service_container.html"><i class="fa fa-book"></i> Service Container documentation</a>
+      </div>
+    </section>
   </section>
   <section>
     <section>
@@ -557,7 +596,7 @@ $ php app/console doctrine:generate:entities AcmeBlogBundle
     <section>
       <h2>Useful commands</h2>
       <pre><code data-trim contenteditable>
-alias sf='php app/console'
+$ alias sf='php app/console'
       </code></pre>
       <table class="table">
         <tr><td>list</td><td>Lists commands</td></tr>
