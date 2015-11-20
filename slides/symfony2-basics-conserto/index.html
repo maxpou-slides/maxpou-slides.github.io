@@ -114,7 +114,7 @@ class Beer
 {
   //...
 }
-$myBeer = new Beer;
+$myBeer = new Beer();
 $myBeer->drinkIt(); //will output "glug glug"
 $myBeer->setColor("blond");
 $color = $myBeer->getColor();
@@ -283,11 +283,11 @@ conserto_beer:
     prefix:   /
 
 # src/Conserto/BeerBundle/Resources/config/routing.yml
-beer_show:
+conserto_beer_show:
     path:     /{id}/show
     defaults: { _controller: "ConsertoBeerBundle:Beer:show" }
 
-beer_update:
+conserto_beer_update:
     path:     /{id}/update
     defaults: { _controller: "ConsertoBeerBundle:Beer:update" }
     methods:  [POST, PUT]
@@ -371,6 +371,15 @@ if (count($beers) &gt; 0) {
   		</code></pre>
   	</section>
     <section>
+      <h2>TWIG: Functions</h2>
+      <pre><code data-trim contenteditable>
+{{ path('conserto_beer') }}
+{{ path('conserto_beer_show', { 'id': entity.id }) }}
+
+{{ dump(myObject) }}
+      </code></pre>
+    </section>
+    <section>
       <h2>Code separation</h2>
       <pre><code data-trim contenteditable>
 <!-- app/Ressources/views/base.html.twig -->
@@ -400,11 +409,42 @@ if (count($beers) &gt; 0) {
       <pre><code data-trim contenteditable>
 # Generate entity with doctrine (also generate getters&setters):
 $ php app/console generate:doctrine:entity
+# Database creation
+$ php app/console doctrine:schema:create
       </code></pre>
     </section>
     <section>
       <h2><img data-src="img/doctrine-logo.png" style="border:none; margin: 0; width:5%;">Doctrine</h2>
       <p><img data-src="img/doctrine.png" style="border:none; min-width:100%;"></p>
+    </section>
+    <section>
+      <h2>Doctrine annotations</h2>
+      <pre><code data-trim contenteditable>
+/**
+ * Beer
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="Conserto\BeerBundle\Entity\BeerRepository")
+ */
+class Beer
+{
+  /**
+   * @var integer
+   *
+   * @ORM\Column(name="id", type="integer")
+   * @ORM\Id
+   * @ORM\GeneratedValue(strategy="AUTO")
+   */
+  private $id;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="name", type="string", length=255)
+   */
+  private $name;
+  //...
+      </code></pre>
     </section>
     <section>
       <h2>Doctrine principle</h2>
@@ -429,47 +469,37 @@ $em->flush();
       </code></pre>
     </section>
     <section>
-      <h2>Doctrine annotations</h2>
+      <h2>Doctrine: retrieve object</h2>
       <pre><code data-trim contenteditable>
-/**
- * Beer
- *
- * @ORM\Table()
- * @ORM\Entity(repositoryClass="Conserto\Bundle\BeerBundle\Entity\BeerRepository")
- */
-class Beer
-{
-  /**
-   * @var integer
-   *
-   * @ORM\Column(name="id", type="integer")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
-  private $id;
+$em = $this->getDoctrine()->getManager();
 
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="name", type="string", length=255)
-   */
-  private $name;
-  //...
+$aBeer = $em->getRepository('ConsertoBeerBundle:Beer')->find($id);
+$beers = $em->getRepository('ConsertoBeerBundle:Beer')->findAll();
+
+$aBeer = $em->getRepository('ConsertoBeerBundle:Beer')->findOneByAbbey($abbey);
+$beers = $em->getRepository('ConsertoBeerBundle:Beer')->findByAlcohol($alcohol);
       </code></pre>
     </section>
     <section>
-      <h2>Doctrine: relations</h2>
-      <ul>
-        <li>One-to-one (1..1) <br><em>ex: Beer--Image</em></li>
-        <li>Many-to-one (n..1) <br><em>ex: Abbey--Beer</em></li>
-        <li>Many-to-many (n..n) <br><em>ex: Beer--Distributor</em></li>
-      </ul>
+      <h2>Doctrine: update/delete</h2>
+      <pre><code data-trim contenteditable>
+$em = $this->getDoctrine()->getManager();
+//Update
+$aBeer = $em->getRepository('ConsertoBeerBundle:Beer')->find(42);
+aBeer->setAlcohol = 8.4;
+$em->flush();
+
+//Delete
+$aBeer = $em->getRepository('ConsertoBeerBundle:Beer')->find(51);
+$em->remove($beer);
+$em->flush();
+      </code></pre>
     </section>
     <section>
       <h2>Doctrine: custom request</h2>
       <pre><code data-trim contenteditable>
-//src\Conserto\Bundle\BeerBundle\Entity\BeerRepository.php
-public function findByAbbeyAndDate($abbey, $alcohol)
+//src\Conserto\BeerBundle\Entity\BeerRepository.php
+public function findByAbbeyAndAlcohol($abbey, $alcohol)
 {
   $qb = $this->createQueryBuilder('b');
 
@@ -485,13 +515,21 @@ public function findByAbbeyAndDate($abbey, $alcohol)
   ;
 }
       </code></pre>
+    </section>
+    <section>
+      <h2>Doctrine: relations</h2>
+      <ul>
+        <li>One-to-one (1..1) <br><em>ex: Beer--Image</em></li>
+        <li>Many-to-one (n..1) <br><em>ex: Abbey--Beer</em></li>
+        <li>Many-to-many (n..n) <br><em>ex: Beer--Distributor</em></li>
+      </ul>
       <p><a href="http://symfony.com/doc/current/book/doctrine.html"><i class="fa fa-book"></i> Doctrine in Symfony2</a></p>
       <p><a href="http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/"><i class="fa fa-book"></i> Doctrine documentation</a></p>
     </section>
     <section>
       <h2>Form component</h2>
       <pre><code data-trim contenteditable>
-//src\Conserto\Bundle\BeerBundle\Form\BeerType.php
+//src\Conserto\BeerBundle\Form\BeerType.php
 public function buildForm(FormBuilderInterface $builder, array $options)
 {
     $builder
@@ -501,18 +539,32 @@ public function buildForm(FormBuilderInterface $builder, array $options)
     ;
 }
 </code></pre><pre><code data-trim contenteditable>
-//src\Conserto\Bundle\BeerBundle\Controller\BeerController.php
-$entity = $em->getRepository('ConsertoBeerBundle:Beer')->find($id);
-$editForm = $this->createEditForm($entity);
+//src\Conserto\BeerBundle\Controller\BeerController.php
+$beer     = $em->getRepository('ConsertoBeerBundle:Beer')->find($id);
+$editForm = $this->createForm(new BeerType(), $beer, array(
+    'action' => $this->generateUrl('conserto_beer_update'),
+    'method' => 'PUT'
+));
+
 return $this->render('ConsertoBeerBundle:Beer:edit.html.twig', array(
-    'entity'      => $entity,
-    'edit_form'   => $editForm->createView()
+    'beer'      => $beer,
+    'edit_form' => $editForm->createView()
 ));
       </code></pre>
       <pre><code data-trim contenteditable>
 <!-- edit.html.twig -->
 {{ form(edit_form) }} {# Will generate a HTML Form #}
       </code></pre>
+    </section>
+    <section>
+      <h2>Bootstrap form theme <br>(since Symfony 2.6)</h2>
+      <pre><code data-trim contenteditable>
+# app/config/config.yml
+twig:
+    form:
+        resources: ['bootstrap_3_layout.html.twig']
+      </code></pre>
+      <a href="http://symfony.com/blog/new-in-symfony-2-6-bootstrap-form-theme">More information</a>
     </section>
     <section>
       <h2>Remember: <br>never trust user input!</h2>
@@ -554,7 +606,7 @@ class Beer
 # app/config/config.yml
 services:
   my_mailer:
-      class    : Acme\HelloBundle\Mailer
+      class    : Conserto\HelloBundle\Mailer
       arguments: [sendmail]
           </code></pre>
           <pre class="sticky"><code data-trim contenteditable>
