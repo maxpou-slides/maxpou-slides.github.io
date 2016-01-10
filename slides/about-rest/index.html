@@ -52,8 +52,8 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
         <div class="span9">
           <ul>
             <li>Software architectural style for World Wide Web apps</li>
-            <li>Created by Roy Thomas Fielding</li>
-            <li><a href="http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm"><em>Architectural Styles and the Design of Network-based Software Architectures</em></a> </li>
+            <li>Introduced by Roy Thomas Fielding in 2000</li>
+            <li>PhD dissertation: <a href="http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm"><em>Architectural Styles and the Design of Network-based Software Architectures</em></a> </li>
           </ul>
         </div>
         <div class="span3">
@@ -64,36 +64,186 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
     <section>
       <h2>REST contraints</h2>
       <ul>
-        <li>Client–server</li>
-        <li>Stateless</li>
-        <li>Cache</li>
-        <li>Uniform Interface</li>
-        <li>Layered system</li>
-        <li>Code-On-Demand (COD)</li>
+        <li>Client–server: clients and servers are separated</li>
+        <li>Stateless: each request can be treated independently</li>
+        <li>Cache: client can cache response</li>
+        <li>Uniform Interface: client and server share a uniform interface</li>
+        <li>Layered system: scalability (load balancing), security (firewalls)</li>
+        <li>*Code-On-Demand (COD): client request code (flash, java applet, js) from server and execute it!</li>
       </ul>
+      <br>
+      <br>
+      <em>* COD is the ony one optional contraint in REST (because it's reduce visibility & not every API need it)</em>
     </section>
     <section>
-      <h2></h2>
+      <h2>Ressources and representations</h2>
+      <div class="span6">
+        object img
+      </div>
+      <div class="span6">
+        todo: JSON Representation
+        todo: YAML Representation
+      </div>
     </section>
   </section>
   <section>
     <h2>REST and the Richardson Maturity Model (RMM)</h2>
     <img data-src="img/rmm-overview.png" style="border:10px solid #FFFFFF; box-shadow: 1px 1px 12px #555;">
+    <br><a href="http://martinfowler.com/articles/richardsonMaturityModel.html"><em>martinfowler.com</em></a>
   </section>
   <section>
     <h2>Level 0: Swamp of POX</h2>
+    <ul>
+      <li>HTTP tunnel request</li>
+      <li>Only POST method</li>
+      <li>One entry point <br>
+        <ul>
+          <li><em>http://api.app.com/pizza</em></li>
+          <li><em>http://api.app.com/pizza?action=get&id=3</em></li>
+          <li><em>http://api.app.com/pizza?action=delete&id=3</em></li>
+        </ul>
+      </li>
+      <li>Example: SOAP and XML-RPC</li>
+    </ul>
   </section>
   <section>
     <h2>Level 1: Resources</h2>
+    <ul>
+      <li>Identification of ressources</li>
+      <li>1 URI = 1 ressource</li>
+      <li>Example:</li>
+      <ul>
+        <li>http://api.app.com/abbey/42</li>
+        <li>http://api.app.com/abbey/42/beers/51</li>
+      </ul>
+    </ul>
   </section>
   <section>
-    <h2>Level 2: HTTP verbs</h2>
+    <section>
+      <h2>Level 2: HTTP verbs</h2>
+      <ul>
+        <li>Client use HTTP verbs
+        <br><em>Example: GET, POST, PUT et DELETE...</em>
+        </li>
+        <li>Server use HTTP codes.
+        <br>Represent a result of an action
+        <br><em>Example: 200, 201, 403, 404, 500...</em>
+        </li>
+      </ul>
+    </section>
+    <section>
+      <h2>Focus: HTTP Verbs</h2>
+      <table>
+        <tbody>
+          <tr>
+            <td>Method</td>
+            <td>Safe</td>
+            <td>Idempotent</td>
+          </tr>
+          <tr>
+            <td>GET</td>
+            <td>Yes</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>HEAD</td>
+            <td>Yes</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>POST</td>
+            <td>No</td>
+            <td>No</td>
+          </tr>
+          <tr>
+            <td>PUT</td>
+            <td>No</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>PATCH</td>
+            <td>No</td>
+            <td>No</td>
+          </tr>
+          <tr>
+            <td>DELETE</td>
+            <td>No</td>
+            <td>Yes</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <section>
+      <h2>Focus: HTTP Codes</h2>
+      <table>
+        <tbody>
+          <tr>
+            <td>1XX</td>
+            <td>Information</td>
+          </tr>
+          <tr>
+            <td>2XX</td>
+            <td>Success</td>
+          </tr>
+          <tr>
+            <td>3XX</td>
+            <td>Redirection</td>
+          </tr>
+          <tr>
+            <td>4XX</td>
+            <td>Client Error</td>
+          </tr>
+          <tr>
+            <td>5XX</td>
+            <td>Server Error</td>
+          </tr>
+        </tbody>
+      </table>
+      <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">List of HTTP status codes (Wikipedia)</a>
+    </section>
   </section>
   <section>
-    <h2>Level 3: Hypermedia controls</h2>
+    <h2>Level 3: Hypermedia controls (HATEOAS)</h2>
+    <ul>
+      <li>Ressources are self describing</li>
+      <li><em><b>H</b>ypertext <b>A</b>s <b>T</b>he <b>E</b>ngine <b>O</b>f <b>T</b>he <b>A</b>pplication <b>S</b>tate</em></li>
+      <li>Expose state and behavior</li>
+    </ul>
   </section>
   <section>
-    <h2>Document APIs</h2>
+    <section>
+      <h2>Document APIs</h2>
+    </section>
+    <section>
+      <h2>RAML 1.0</h2>
+<pre><code data-trim contenteditable>
+/books:
+  /{bookTitle}:
+    get:
+      description: Retrieve a specific book title
+      responses:
+        200:
+          body:
+            application/json:
+             example: |
+                {
+                  "data": {
+                    "id": "SbBGk",
+                    "title": "Stiff: The Curious Lives of Human Cadavers",
+                    "description": null,
+                    "datetime": 1341533193,
+                    "genre": "science",
+                    "author": "Mary Roach",
+                    "link": "http://e-bookmobile.com/books/Stiff",
+                  },
+                  "success": true,
+                  "status": 200
+                }
+</code></pre>
+    </section>
+    <section>
+      <h2>Swagger</h2>
+    </section>
   </section>
   <section>
     <h2>REST & PHP (Symfony2)</h2>
@@ -104,7 +254,8 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
   <section>
     <h2>Conclusion</h2>
     <p class="lead">
-      REST is a buzzword
+      REST is a buzzword <br>
+      pragmatism over theory
     </p>
   </section>
   <section>
