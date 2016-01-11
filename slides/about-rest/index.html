@@ -78,9 +78,10 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
     <section>
       <h2>Ressources and representations</h2>
       <div class="span6">
-        object img
+        Ressource: can be anythings. "A resource is anything that’s important enough to be referenced as a thing in itself." (RESTful Web APIs)
       </div>
       <div class="span6">
+        Representation describe a ressource state
         todo: JSON Representation
         todo: YAML Representation
       </div>
@@ -136,79 +137,97 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
       <table>
         <tbody>
           <tr>
-            <td>Method</td>
-            <td>Safe</td>
-            <td>Idempotent</td>
+            <td>Method</td><td>Safe</td><td>Idempotent</td>
           </tr>
           <tr>
-            <td>GET</td>
-            <td>Yes</td>
-            <td>Yes</td>
+            <td>GET</td><td>Yes</td><td>Yes</td>
           </tr>
           <tr>
-            <td>HEAD</td>
-            <td>Yes</td>
-            <td>Yes</td>
+            <td>HEAD</td><td>Yes</td><td>Yes</td>
           </tr>
           <tr>
-            <td>POST</td>
-            <td>No</td>
-            <td>No</td>
+            <td>POST</td><td>No</td><td>No</td>
           </tr>
           <tr>
-            <td>PUT</td>
-            <td>No</td>
-            <td>Yes</td>
+            <td>PUT</td><td>No</td><td>Yes</td>
           </tr>
           <tr>
-            <td>PATCH</td>
-            <td>No</td>
-            <td>No</td>
+            <td>PATCH</td><td>No</td><td>No</td>
           </tr>
           <tr>
-            <td>DELETE</td>
-            <td>No</td>
-            <td>Yes</td>
+            <td>DELETE</td><td>No</td><td>Yes</td>
           </tr>
         </tbody>
       </table>
     </section>
     <section>
-      <h2>Focus: HTTP Codes</h2>
+      <h2>Focus: HTTP Codes 101</h2>
       <table>
         <tbody>
           <tr>
-            <td>1XX</td>
-            <td>Information</td>
+            <td>1XX</td><td>Information</td>
           </tr>
           <tr>
-            <td>2XX</td>
-            <td>Success</td>
+            <td>2XX</td><td>Success</td>
           </tr>
           <tr>
-            <td>3XX</td>
-            <td>Redirection</td>
+            <td>3XX</td><td>Redirection</td>
           </tr>
           <tr>
-            <td>4XX</td>
-            <td>Client Error</td>
+            <td>4XX</td><td>Client Error</td>
           </tr>
           <tr>
-            <td>5XX</td>
-            <td>Server Error</td>
+            <td>5XX</td><td>Server Error</td>
           </tr>
         </tbody>
       </table>
+    </section>
+    <section>
+      <h2>HTTP Status: the bare minimum</h2>
+      <ul>
+        <li>200: OK</li>
+        <li>201: Created</li>
+        <li>204: No Content</li>
+        <li>206: Partial Content</li>
+        <li>301: Moved Permanently</li>
+        <li>400: Bad request</li>
+        <li>404: Not Found</li>
+        <li>500: Internal Server Error</li>
+      </ul>
       <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">List of HTTP status codes (Wikipedia)</a>
     </section>
   </section>
   <section>
-    <h2>Level 3: Hypermedia controls (HATEOAS)</h2>
-    <ul>
-      <li>Ressources are self describing</li>
-      <li><em><b>H</b>ypertext <b>A</b>s <b>T</b>he <b>E</b>ngine <b>O</b>f <b>T</b>he <b>A</b>pplication <b>S</b>tate</em></li>
-      <li>Expose state and behavior</li>
-    </ul>
+    <section>
+      <h2>Am I RESTful if i'm only level 2 compliant ?</h2>
+      <img class="fragment" data-src="img/no.gif" style="border:none;">
+    </section>
+    <section>
+      <blockquote cite="http://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven">
+        In other words, if the engine of application state (and hence the API) is not being driven by hypertext, then it cannot be RESTful and cannot be a REST API. Period.
+        [...] <br>
+        Please try to adhere to them or choose some other buzzword for your API.
+      </blockquote>
+      <a href="http://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven">Roy T. FIELDING - REST APIs must be hypertext-driven</a>
+    </section>
+  </section>
+  <section>
+    <section>
+      <h2>Level 3: Hypermedia controls (HATEOAS)</h2>
+      <ul>
+        <li>Ressources are self describing</li>
+        <li><em><b>H</b>ypertext <b>A</b>s <b>T</b>he <b>E</b>ngine <b>O</b>f <b>T</b>he <b>A</b>pplication <b>S</b>tate</em></li>
+        <li>Expose state and behavior: "the application state is controlled and stored by the user agent"</li>
+
+        <p class="lead">Use links to describe HOW the service is used, and media types to describe WHAT is expect</p>
+      </ul>
+    </section>
+    <section>
+      <h2>Without HATEOAS</h2>
+    </section>
+    <section>
+      <h2>HATEOAS</h2>
+    </section>
   </section>
   <section>
     <section>
@@ -247,9 +266,23 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
   </section>
   <section>
     <h2>REST & PHP (Symfony2)</h2>
+    <img data-src="img/symfony2-logo.png" style="border:10px solid #FFFFFF;background-color: #FFFFFF">
   </section>
   <section>
-    <h2>REST & NodeJS</h2>
+    <section>
+      <h2>REST & NodeJS</h2>
+      <img data-src="img/nodejs.png" style="border:10px solid #FFFFFF;background-color: #FFFFFF">
+    </section>
+    <section>
+      <h2>Tools</h2>
+      <ul>
+        <li>HapiJS</li>
+        <li>Halacious</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Demo time!</h2>
+    </section>
   </section>
   <section>
     <h2>Conclusion</h2>
@@ -259,11 +292,15 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
     </p>
   </section>
   <section>
-    <h2>Bonus: Code-on-demand (cod)</h2>
-    <a href="http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm#sec_5_1_7">Roy T. Fielding's dissertation - Code on demand part</a>
-  </section>
-  <section>
-    <h2>Useful resources</h2>
+    <section>
+      <h2>Useful resources (1/2)</h2>
+      <img data-src="img/restful-web-api-book.gif" style="border:10px solid #FFFFFF; box-shadow: 1px 1px 12px #555;">
+      <br><em>By Leonard Richardson, Mike Amundsen, Sam Ruby</em>
+    </section>
+    <section>
+      <h2>Useful resources (2/2)</h2>
+      <a href="http://restcookbook.com/">restcookbook.com</a>
+    </section>
   </section>
 </div>
 </div>
