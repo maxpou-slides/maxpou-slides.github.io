@@ -10,6 +10,10 @@
   width: 100%;
 }
 
+.reveal pre.sticky {
+  margin: 0px auto;
+}
+
 body {
   background-color: #444;
 }
@@ -58,8 +62,4 @@ table.table > tbody > tr > td {
 .reveal .slides section .fragment.push.current-fragment {
 	display: inline;
   opacity: 1;
-}
-
-.reveal pre.sticky {
-  margin: 0px auto;
 }

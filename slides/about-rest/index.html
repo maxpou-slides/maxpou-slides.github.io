@@ -193,18 +193,23 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
         <li>400: Bad request</li>
         <li>404: Not Found</li>
         <li>500: Internal Server Error</li>
-      </ul>
+      </ul><br>
       <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">List of HTTP status codes (Wikipedia)</a>
+    </section>
+    <section>
+      <h2>Still lost in the swamp of HTTP ?</h2>
+      <img src="img/http-status-codes-map.png" alt="http status codes map" style="border:none;width: 80%;">
+      <br><a href="http://restlet.com/http-status-codes-map">HTTP Status Codes Map (By Restlet)</a>
     </section>
   </section>
   <section>
     <section>
       <h2>Am I RESTful if i'm only level 2 compliant ?</h2>
-      <img class="fragment" data-src="img/no.gif" style="border:none;">
+      <img class="fragment" data-src="img/no.gif" style="border:none; width: 30%;">
     </section>
     <section>
       <blockquote cite="http://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven">
-        In other words, if the engine of application state (and hence the API) is not being driven by hypertext, then it cannot be RESTful and cannot be a REST API. Period.
+        If the engine of application state (and hence the API) is not being driven by hypertext, then it cannot be RESTful and cannot be a REST API. Period.
         [...] <br>
         Please try to adhere to them or choose some other buzzword for your API.
       </blockquote>
@@ -221,6 +226,9 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 
         <p class="lead">Use links to describe HOW the service is used, and media types to describe WHAT is expect</p>
       </ul>
+      <aside class="notes">
+        media type = previously MIME type
+      </aside>
     </section>
     <section>
       <h2>Without HATEOAS</h2>
@@ -228,6 +236,27 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
     <section>
       <h2>HATEOAS</h2>
     </section>
+    <section>
+      <h2>Content negotiation</h2>
+      <p class="fragment" data-fragment-index="0" style="text-align: left;">Before:</p>
+      <pre class="fragment" data-fragment-index="0"><code contenteditable>
+GET http://api.app.com/fr/abbey/42.json
+GET http://api.app.com/en/abbey/42.xml
+...
+      </code></pre>
+      <p style="text-align: left;" class="fragment" data-fragment-index="1">After:</p>
+      <pre class="fragment" data-fragment-index="1"><code contenteditable>
+GET http://api.app.com/abbey/42
+
+Accept: application/json, application/xml;q=0.9, text/html;q=0.8,
+        text/*;q=0.7, */*;q=0.5
+Accept-Language: fr, en;q=0.8, de;q=0.7
+      </code></pre>
+    </section>
+  </section>
+  <section>
+    <h2>Congrat!</h2>
+    <img data-src="img/homer-wouhou.gif" style="border:none; background-color: #DDDDDD; width: 80%;">
   </section>
   <section>
     <section>
@@ -265,8 +294,18 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
     </section>
   </section>
   <section>
-    <h2>REST & PHP (Symfony2)</h2>
-    <img data-src="img/symfony2-logo.png" style="border:10px solid #FFFFFF;background-color: #FFFFFF">
+    <section>
+      <h2>REST & PHP (Symfony2)</h2>
+      <img data-src="img/symfony2-logo.png" style="border:10px solid #FFFFFF;background-color: #FFFFFF">
+    </section>
+    <section>
+      <h2>Useful bundles</h2>
+      <ul>
+        <li>fosrestbundle</li>
+        <li>nelmioapidocbundle</li>
+        <li>nelmiocorsbundle</li>
+      </ul>
+    </section>
   </section>
   <section>
     <section>
@@ -275,10 +314,13 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
     </section>
     <section>
       <h2>Tools</h2>
-      <ul>
-        <li>HapiJS</li>
-        <li>Halacious</li>
-      </ul>
+      <div class="span4"><img src="img/logo.svg" alt="HapiJS logo" style="border: none;"></div>
+      <div class="span8">
+        <ul>
+          <li>HapiJS</li>
+          <li>Halacious</li>
+        </ul>
+      </div>
     </section>
     <section>
       <h2>Demo time!</h2>
@@ -294,13 +336,18 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
   <section>
     <section>
       <h2>Useful resources (1/2)</h2>
-      <img data-src="img/restful-web-api-book.gif" style="border:10px solid #FFFFFF; box-shadow: 1px 1px 12px #555;">
+      <img data-src="img/restful-web-api-book.gif" style="border:10px solid #FFFFFF; box-shadow: 1px 1px 12px #555; width: 25%;">
       <br><em>By Leonard Richardson, Mike Amundsen, Sam Ruby</em>
     </section>
     <section>
       <h2>Useful resources (2/2)</h2>
-      <a href="http://restcookbook.com/">restcookbook.com</a>
+      <a href="http://restcookbook.com/"><i class="fa fa-book"></i> restcookbook.com</a>
+      <img data-src="img/ratatouille.gif" style="border:none; box-shadow: 1px 1px 12px #555;">
     </section>
+  </section>
+  <section>
+    <h2>Thank you</h2>
+  	<h3>Questions ?</h3>
   </section>
 </div>
 </div>
