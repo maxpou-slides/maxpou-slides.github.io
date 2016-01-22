@@ -64,12 +64,12 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
     <section>
       <h2>REST contraints</h2>
       <ul>
-        <li>Client–server: clients and servers are separated</li>
-        <li>Stateless: each request can be treated independently</li>
-        <li>Cache: client can cache response</li>
-        <li>Uniform Interface: client and server share a uniform interface</li>
-        <li>Layered system: scalability (load balancing), security (firewalls)</li>
-        <li>*Code-On-Demand (COD): client request code (flash, java applet, js) from server and execute it!</li>
+        <li><b>Client–server</b>: clients and servers are separated</li>
+        <li><b>Stateless</b>: each request can be treated independently</li>
+        <li><b>Cache</b>: client can cache response</li>
+        <li><b>Uniform Interface</b>: client and server share a uniform interface</li>
+        <li><b>Layered system</b>: scalability (load balancing), security (firewalls)</li>
+        <li>*<b>Code-On-Demand</b> (<em>a.k.a. COD</em>): client request code (flash, java applet, js) from server and execute it!</li>
       </ul>
       <br>
       <br>
@@ -77,14 +77,33 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
     </section>
     <section>
       <h2>Ressources and representations</h2>
-      <div class="span6">
-        Ressource: can be anythings. "A resource is anything that’s important enough to be referenced as a thing in itself." (RESTful Web APIs)
+      <div class="span6 fragment">
+        Ressource: can be anythings.
+        <img data-src="img/kwak.jpg" style="border:none;">
       </div>
-      <div class="span6">
-        Representation describe a ressource state
-        todo: JSON Representation
-        todo: YAML Representation
+      <div class="span6 fragment">
+        Representation: Describe a ressource state
+<pre><code contenteditable>beer:
+    id: 42
+    shortName: Kwak
+    name: Pauwel Kwak
+    alcoholDegree: 8.4
+    color: amber
+    since: 1980
+    brewery: Bosteels Brewery
+</code></pre><pre><code contenteditable><beer id="42">
+  <short-name>Kwak</short-name>
+  <name>Pauwel Kwak</name>
+  <name>8,4</name>
+  <brewery id="51">
+    <name>Bosteels Brewery</name>
+  </brewery>
+</beer>
+</code></pre>
       </div>
+      <aside class="notes">
+        "A resource is anything that’s important enough to be referenced as a thing in itself." (RESTful Web APIs)
+      </aside>
     </section>
   </section>
   <section>
@@ -95,29 +114,53 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
   <section>
     <h2>Level 0: Swamp of POX</h2>
     <ul>
-      <li>HTTP tunnel request</li>
-      <li>Only POST method</li>
-      <li>One entry point <br>
+      <li class="fragment">HTTP tunnel request</li>
+      <li class="fragment">Only POST method</li>
+      <li class="fragment">One entry point <br>
         <ul>
-          <li><em>http://api.app.com/pizza</em></li>
-          <li><em>http://api.app.com/pizza?action=get&id=3</em></li>
-          <li><em>http://api.app.com/pizza?action=delete&id=3</em></li>
+          <li><em>http://api.app.com/beer</em></li>
+          <li><em>http://api.app.com/beer?action=get&id=3</em></li>
+          <li><em>http://api.app.com/beer?action=delete&id=3</em></li>
         </ul>
       </li>
-      <li>Example: SOAP and XML-RPC</li>
+      <li class="fragment">Example: SOAP and XML-RPC</li>
     </ul>
   </section>
   <section>
-    <h2>Level 1: Resources</h2>
-    <ul>
-      <li>Identification of ressources</li>
-      <li>1 URI = 1 ressource</li>
-      <li>Example:</li>
+    <section>
+      <h2>Level 1: Resources</h2>
       <ul>
-        <li>http://api.app.com/abbey/42</li>
-        <li>http://api.app.com/abbey/42/beers/51</li>
+        <li class="fragment">Identification of ressources</li>
+        <li class="fragment">1 URI = 1 ressource</li>
+        <li class="fragment">Example:</li>
+        <ul class="fragment">
+          <li>http://api.app.com/breweries/51</li>
+          <li>http://api.app.com/breweries/51/beers/42</li>
+        </ul>
       </ul>
-    </ul>
+    </section>
+    <section>
+      <h2>Route pattern (1/2): <br> /user/1 or /users/1 ?</h2>
+      <ul>
+        <li class="list-unstyled fragment">Both of them are REST!</li>
+        <li class="list-unstyled fragment">/aaaaaaaaaaaaaaaaaaaaaauser works too!</li>
+        <li class="list-unstyled fragment">But, plural noun should be used for collection names</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Route pattern (2/2): advices</h2>
+      <p class="fragment" data-fragment-index="0">Avoid:</p>
+      <pre class="fragment" data-fragment-index="0"><code contenteditable>
+/ressource/42/
+/ressource/42.json
+/ugly_name/42
+/UglyName/42
+      </code></pre>
+      <p class="fragment" data-fragment-index="1">Instead, prefer:</p>
+      <pre class="fragment" data-fragment-index="1"><code contenteditable>
+/ugly-name/42
+      </code></pre>
+    </section>
   </section>
   <section>
     <section>
@@ -140,22 +183,22 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
             <td>Method</td><td>Safe</td><td>Idempotent</td>
           </tr>
           <tr>
-            <td>GET</td><td>Yes</td><td>Yes</td>
+            <td>GET</td><td class="fragment" data-fragment-index="0">Yes</td><td class="fragment" data-fragment-index="0">Yes</td>
           </tr>
           <tr>
-            <td>HEAD</td><td>Yes</td><td>Yes</td>
+            <td>HEAD</td><td class="fragment" data-fragment-index="1">Yes</td><td class="fragment" data-fragment-index="1">Yes</td>
           </tr>
           <tr>
-            <td>POST</td><td>No</td><td>No</td>
+            <td>POST</td><td class="fragment" data-fragment-index="2">No</td><td class="fragment" data-fragment-index="2">No</td>
           </tr>
           <tr>
-            <td>PUT</td><td>No</td><td>Yes</td>
+            <td>PUT</td><td class="fragment" data-fragment-index="3">No</td><td class="fragment" data-fragment-index="3">Yes</td>
           </tr>
           <tr>
-            <td>PATCH</td><td>No</td><td>No</td>
+            <td>PATCH</td><td class="fragment" data-fragment-index="4">No</td><td class="fragment" data-fragment-index="4">No</td>
           </tr>
           <tr>
-            <td>DELETE</td><td>No</td><td>Yes</td>
+            <td>DELETE</td><td class="fragment" data-fragment-index="5">No</td><td class="fragment" data-fragment-index="5">Yes</td>
           </tr>
         </tbody>
       </table>
@@ -197,7 +240,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
       <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">List of HTTP status codes (Wikipedia)</a>
     </section>
     <section>
-      <h2>Still lost in the swamp of HTTP ?</h2>
+      <h2>Still lost?</h2>
       <img src="img/http-status-codes-map.png" alt="http status codes map" style="border:none;width: 80%;">
       <br><a href="http://restlet.com/http-status-codes-map">HTTP Status Codes Map (By Restlet)</a>
     </section>
@@ -208,6 +251,31 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
       <img class="fragment" data-src="img/no.gif" style="border:none; width: 30%;">
     </section>
     <section>
+      <h2>Why?</h2>
+      <div class="row">
+        <div class="span6">
+          <pre><code contenteditable>GET /beers
+
+<beers>
+  <beer id="42">
+    <name>Pauwel Kwak</name>
+    <alcohol>8.4</alcohol>
+  </beer>
+  <beer id="101">
+    <name>Tripel Karmeliet</name>
+    <alcohol>8.4</alcohol>
+  </beer>
+</beers>
+          </code></pre>
+        </div>
+        <div class="span6">
+          <img data-src="img/homer-disappears.gif" style="border:none;margin-top:23px; width: 100%;">
+        </div>
+      </div>
+      <p><i class="fa fa-hand-o-right"></i> Where is  my Kwak ?</p>
+    </section>
+    <section>
+      <h2>What Roy Fielding said</h2>
       <blockquote cite="http://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven">
         If the engine of application state (and hence the API) is not being driven by hypertext, then it cannot be RESTful and cannot be a REST API. Period.
         [...] <br>
@@ -220,8 +288,8 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
     <section>
       <h2>Level 3: Hypermedia controls (HATEOAS)</h2>
       <ul>
-        <li>Ressources are self describing</li>
         <li><em><b>H</b>ypertext <b>A</b>s <b>T</b>he <b>E</b>ngine <b>O</b>f <b>T</b>he <b>A</b>pplication <b>S</b>tate</em></li>
+        <li>Ressources are self describing</li>
         <li>Expose state and behavior: "the application state is controlled and stored by the user agent"</li>
 
         <p class="lead">Use links to describe HOW the service is used, and media types to describe WHAT is expect</p>
@@ -232,21 +300,75 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
     </section>
     <section>
       <h2>Without HATEOAS</h2>
+      <pre><code contenteditable>
+<consumptions>
+  <consumption>
+    <beer id="42">
+      <name>Kwak</name>
+    </beer>
+    <formats>
+      <format qty="4">Pint</format>
+    </formats>
+  </consumption>
+  <consumption>
+    <beer id="101">
+      <name>Tripel Karmeliet</name>
+    </beer>
+    <formats>
+      <format qty="0">Pint</format>
+      <format qty="1">Half</format>
+    </formats>
+  </consumption>
+</consumptions>
+      </code></pre>
     </section>
     <section>
       <h2>HATEOAS</h2>
+      <pre><code contenteditable>
+<consumptions>
+  <consumption>
+    <beer id="42">
+      <name>Kwak</name>
+      <link rel="_self" href="/beers/42" />
+    </beer>
+    <formats>
+      <format qty="8">
+        <name>Half</name>
+        <link rel="serve" href="/serve/beer/42/pint" />
+      </format>
+    </formats>
+  </consumption>
+  <consumption>
+    <beer id="101">
+      <name>Tripel Karmeliet</name>
+      <link rel="_self" href="/beers/101" />
+    </beer>
+    <formats>
+      <format qty="0">
+        <name>Pint</name>
+      </format>
+      <format qty="1">
+        <name>Half</name>
+        <link rel="serve" href="/serve/beer/42/pint" />
+      </format>
+    </formats>
+  </consumption>
+  <link rel="home" href="http://bed.maxpou.fr" />
+  <link rel="taxi" href="http://ubber.com" />
+</consumptions>
+      </code></pre>
     </section>
     <section>
       <h2>Content negotiation</h2>
       <p class="fragment" data-fragment-index="0" style="text-align: left;">Before:</p>
       <pre class="fragment" data-fragment-index="0"><code contenteditable>
-GET http://api.app.com/fr/abbey/42.json
-GET http://api.app.com/en/abbey/42.xml
+GET http://api.app.com/fr/breweries/51.json
+GET http://api.app.com/en/breweries/51.xml
 ...
       </code></pre>
       <p style="text-align: left;" class="fragment" data-fragment-index="1">After:</p>
       <pre class="fragment" data-fragment-index="1"><code contenteditable>
-GET http://api.app.com/abbey/42
+GET http://api.app.com/breweries/51
 
 Accept: application/json, application/xml;q=0.9, text/html;q=0.8,
         text/*;q=0.7, */*;q=0.5
@@ -259,16 +381,20 @@ Accept-Language: fr, en;q=0.8, de;q=0.7
     <img data-src="img/homer-wouhou.gif" style="border:none; background-color: #DDDDDD; width: 80%;">
   </section>
   <section>
+    <h2>REST = CRUD ?</h2>
+  </section>
+  <section>
     <section>
       <h2>Document APIs</h2>
+      <img data-src="img/wont-hear.jpg" style="border:none;width: 80%;">
     </section>
     <section>
       <h2>RAML 1.0</h2>
 <pre><code data-trim contenteditable>
-/books:
-  /{bookTitle}:
+/beers:
+  /{beerId}:
     get:
-      description: Retrieve a specific book title
+      description: Retrieve a specific beer
       responses:
         200:
           body:
@@ -276,13 +402,13 @@ Accept-Language: fr, en;q=0.8, de;q=0.7
              example: |
                 {
                   "data": {
-                    "id": "SbBGk",
-                    "title": "Stiff: The Curious Lives of Human Cadavers",
+                    "id": "42",
+                    "title": "Kwak",
                     "description": null,
-                    "datetime": 1341533193,
-                    "genre": "science",
-                    "author": "Mary Roach",
-                    "link": "http://e-bookmobile.com/books/Stiff",
+                    "alcohol": 8.4
+                    "_link": {
+                      "_self": "http:/api.app.com/beers/42"
+                    }
                   },
                   "success": true,
                   "status": 200
@@ -301,10 +427,27 @@ Accept-Language: fr, en;q=0.8, de;q=0.7
     <section>
       <h2>Useful bundles</h2>
       <ul>
-        <li>fosrestbundle</li>
-        <li>nelmioapidocbundle</li>
-        <li>nelmiocorsbundle</li>
+        <li>jms/serializer-bundle</li>
+        <li>friendsofsymfony/rest-bundle</li>
+        <li>willdurand/hateoas-bundle</li>
+        <li>nelmio/api-doc-bundle</li>
+        <li>nelmio/cors-bundle</li>
       </ul>
+    </section>
+    <section>
+      <h2>Application overview</h2>
+      <img data-src="img/application-overview.png" style="border:10px solid #FFFFFF;width:80%;background-color: #FFF">
+    </section>
+    <section>
+      <h2>Problem with mapping entities</h2>
+      <img data-src="img/jean-claude.gif" style="border:none;width:50%">
+    </section>
+    <section>
+      <h2>Design Pattern: Data Transfer Object</h2>
+    </section>
+    <section>
+      <h2>Demo time!</h2>
+      <a href="">Link to my github repo</a>
     </section>
   </section>
   <section>
@@ -330,17 +473,27 @@ Accept-Language: fr, en;q=0.8, de;q=0.7
     <h2>Conclusion</h2>
     <p class="lead">
       REST is a buzzword <br>
-      pragmatism over theory
+      Your Web Api/HTTP API is not wrong... but not REST too ;-) <br>
+      <em>(But that isn't necessary a bad thing)</em><br>
+      pragmatism over theory <br>
     </p>
   </section>
   <section>
     <section>
-      <h2>Useful resources (1/2)</h2>
+      <h2>Useful resources</h2>
+    </section>
+    <section>
       <img data-src="img/restful-web-api-book.gif" style="border:10px solid #FFFFFF; box-shadow: 1px 1px 12px #555; width: 25%;">
       <br><em>By Leonard Richardson, Mike Amundsen, Sam Ruby</em>
     </section>
     <section>
-      <h2>Useful resources (2/2)</h2>
+      <img data-src="img/rest-api-design-rulebook.gif" style="border:10px solid #FFFFFF; box-shadow: 1px 1px 12px #555; width: 25%;">
+      <p><em>By Mark Masse</em></p>
+    </section>
+    <section>
+      <a href="http://martinfowler.com/articles/richardsonMaturityModel.html"><i class="fa fa-globe"></i> martinfowler.com/articles/richardsonMaturityModel.html</a>
+    </section>
+    <section>
       <a href="http://restcookbook.com/"><i class="fa fa-book"></i> restcookbook.com</a>
       <img data-src="img/ratatouille.gif" style="border:none; box-shadow: 1px 1px 12px #555;">
     </section>
