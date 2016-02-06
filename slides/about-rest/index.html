@@ -51,14 +51,20 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
       <div class="row">
         <div class="span9">
           <ul>
-            <li>Software architectural style for World Wide Web apps</li>
+            <li>Software architectural style for World Wide Web apps<br>
+            </li>
             <li>Introduced by Roy Thomas Fielding in 2000</li>
-            <li>PhD dissertation: <a href="http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm"><em>Architectural Styles and the Design of Network-based Software Architectures</em></a> </li>
+            <li>PhD dissertation: <a href="http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm"><em>Architectural Styles and the Design of Network-based Software Architectures</em></a></li>
           </ul>
         </div>
         <div class="span3">
           <img data-src="img/roy_fielding.jpg" style="border:none;">
         </div>
+      </div>
+      <div class="row">
+        <p>
+          <b><i class="fa fa-exclamation-triangle"></i> REST is NOT a protocol!</b>
+        </p>
       </div>
     </section>
     <section>
@@ -79,7 +85,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
       <h2>Ressources and representations</h2>
       <div class="span6 fragment">
         Ressource: can be anythings.
-        <img data-src="img/kwak.jpg" style="border:none;">
+        <img data-src="img/kwak.jpg" style="border:none;width: 50%;">
       </div>
       <div class="span6 fragment">
         Representation: Describe a ressource state
@@ -107,9 +113,17 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
     </section>
   </section>
   <section>
-    <h2>REST and the Richardson Maturity Model (RMM)</h2>
-    <img data-src="img/rmm-overview.png" style="border:10px solid #FFFFFF; box-shadow: 1px 1px 12px #555;">
-    <br><a href="http://martinfowler.com/articles/richardsonMaturityModel.html"><em>martinfowler.com</em></a>
+    <section>
+      <h2>Today</h2>
+    </section>
+    <section>
+      <img data-src="img/notrestfull.png" style="border:none; box-shadow: 1px 1px 12px #555;">
+    </section>
+    <section>
+      <h2>REST and the Richardson Maturity Model (RMM)</h2>
+      <img data-src="img/rmm-overview.png" style="border:10px solid #FFFFFF; box-shadow: 1px 1px 12px #555;">
+      <br><a href="http://martinfowler.com/articles/richardsonMaturityModel.html"><em>martinfowler.com</em></a>
+    </section>
   </section>
   <section>
     <h2>Level 0: Swamp of POX</h2>
@@ -140,26 +154,32 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
       </ul>
     </section>
     <section>
-      <h2>Route pattern (1/2): <br> /user/1 or /users/1 ?</h2>
+      <h2>Route pattern (1/2): <br> /beer/1 or /beers/1 ?</h2>
       <ul>
         <li class="list-unstyled fragment">Both of them are REST!</li>
-        <li class="list-unstyled fragment">/aaaaaaaaaaaaaaaaaaaaaauser works too!</li>
-        <li class="list-unstyled fragment">But, plural noun should be used for collection names</li>
+        <li class="list-unstyled fragment">/hellomynameismaxenceandherearemybeers works too!</li>
+        <li class="list-unstyled fragment">But, plural noun <em>should</em> be used for collection names</li>
       </ul>
     </section>
     <section>
       <h2>Route pattern (2/2): advices</h2>
       <p class="fragment" data-fragment-index="0">Avoid:</p>
       <pre class="fragment" data-fragment-index="0"><code contenteditable>
-/ressource/42/
-/ressource/42.json
+/beers/42/
+/beers/42.json
+/beers/42/limit/26
 /ugly_name/42
 /UglyName/42
       </code></pre>
       <p class="fragment" data-fragment-index="1">Instead, prefer:</p>
       <pre class="fragment" data-fragment-index="1"><code contenteditable>
 /ugly-name/42
+/beers/42?offset=12&limit=5&exclude=2,3&sort=-alcohol
+/beers/42?color=blond
       </code></pre>
+      <blockquote class="fragment" cite="https://www.w3.org/Provider/Style/URI">
+        "Cool URIs don't change" — W3C
+      </blockquote>
     </section>
   </section>
   <section>
@@ -334,7 +354,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
     <formats>
       <format qty="8">
         <name>Half</name>
-        <link rel="serve" href="/serve/beer/42/pint" />
+        <link rel="serve" href="/serve/beer/42?format=pint" />
       </format>
     </formats>
   </consumption>
@@ -349,7 +369,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
       </format>
       <format qty="1">
         <name>Half</name>
-        <link rel="serve" href="/serve/beer/42/pint" />
+        <link rel="serve" href="/serve/beer/42?format=pint" />
       </format>
     </formats>
   </consumption>
@@ -381,7 +401,56 @@ Accept-Language: fr, en;q=0.8, de;q=0.7
     <img data-src="img/homer-wouhou.gif" style="border:none; background-color: #DDDDDD; width: 80%;">
   </section>
   <section>
-    <h2>REST = CRUD ?</h2>
+    <section>
+      <h2>Focus</h2>
+    </section>
+    <section>
+      <h2>REST = CRUD ?</h2>
+    </section>
+    <section>
+      <h2>Versionning</h2>
+<pre class="fragment" data-fragment-index="1"><code contenteditable>HTTP/1.1 200 OK
+Content-Type: application/json; version=2
+Location: /breweries/51.json
+</code></pre>
+      <p class="fragment">Deprecated call?</p>
+      <pre class="fragment"><code contenteditable>HTTP/1.1 406 NOT ACCEPTABLE
+Content-Type: application/json
+
+["application/json; version=1", "application/json; version=2", "application/xml; version=1"]
+</code></pre>
+    </section>
+    <section>
+      <h2>Cache</h2>
+    </section>
+    <section>
+      <h2>Security</h2>
+      <div class="row">
+        <div class="span8">
+          <ul>
+            <li>Authorisation: OAuth</li>
+            <li>Authentification: OpenID</li>
+            <li>Both: OpenID Connect</li>
+            <br>
+            <li>Transport: TLS</li>
+            <li>Dos prevention: ngx_http_limit_req_module (nginx)</li>
+            <li>Other: <a href="https://www.owasp.org/index.php/REST_Security_Cheat_Sheet">RTFM (OWASP)</a></li>
+          </ul>
+        </div>
+        <div class="span4">
+          <img data-src="img/stallone.jpg" style="border:none;">
+        </div>
+      </div>
+    </section>
+    <section>
+      <h2>Developer experience</h2>
+      <h4>3:30:3 rule <em>(by Ori Pekelman)</em></h4>
+      <ul>
+        <li>3 sec: WHAT</li>
+        <li>30 sec: WHERE</li>
+        <li>3 min: HOW</li>
+      </ul>
+    </section>
   </section>
   <section>
     <section>
@@ -429,6 +498,7 @@ Accept-Language: fr, en;q=0.8, de;q=0.7
       <ul>
         <li>jms/serializer-bundle</li>
         <li>friendsofsymfony/rest-bundle</li>
+        <li>friendsofsymfony/http-cache</li>
         <li>willdurand/hateoas-bundle</li>
         <li>nelmio/api-doc-bundle</li>
         <li>nelmio/cors-bundle</li>
@@ -470,13 +540,24 @@ Accept-Language: fr, en;q=0.8, de;q=0.7
     </section>
   </section>
   <section>
-    <h2>Conclusion</h2>
-    <p class="lead">
-      REST is a buzzword <br>
-      Your Web Api/HTTP API is not wrong... but not REST too ;-) <br>
-      <em>(But that isn't necessary a bad thing)</em><br>
-      pragmatism over theory <br>
-    </p>
+    <section>
+      <h2>Conclusion</h2>
+      <p class="lead">
+        Your Web Api/HTTP API is not wrong... but not REST too ;-) <br>
+        <em>(But that isn't necessary a bad thing)</em><br>
+        REST is a buzzword <br>
+      </p>
+    </section>
+    <section>
+      <h2>Conclusion</h2>
+      <blockquote cite="https://www.mobomo.com/2010/04/rest-isnt-what-you-think-it-is/">
+        REST isn’t what you think it is, and that’s OK
+      </blockquote>
+    </section>
+    <section>
+      <h2>Pragmatism over theory</h2>
+      <img data-src="img/hauteur.jpg" style="border:none;">
+    </section>
   </section>
   <section>
     <section>
@@ -493,14 +574,15 @@ Accept-Language: fr, en;q=0.8, de;q=0.7
     <section>
       <a href="http://martinfowler.com/articles/richardsonMaturityModel.html"><i class="fa fa-globe"></i> martinfowler.com/articles/richardsonMaturityModel.html</a>
     </section>
-    <section>
-      <a href="http://restcookbook.com/"><i class="fa fa-book"></i> restcookbook.com</a>
-      <img data-src="img/ratatouille.gif" style="border:none; box-shadow: 1px 1px 12px #555;">
-    </section>
   </section>
   <section>
-    <h2>Thank you</h2>
-  	<h3>Questions ?</h3>
+    <section>
+      <h2>Thank you</h2>
+      <h3>Questions ?</h3>
+    </section>
+    <section>
+      <img src="https://s-media-cache-ak0.pinimg.com/736x/cb/1c/e2/cb1ce23459dda78adf2ade17d10ce171.jpg" alt="">
+    </section>
   </section>
 </div>
 </div>
