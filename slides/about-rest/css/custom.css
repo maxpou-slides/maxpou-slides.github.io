@@ -55,11 +55,11 @@ table.table > tbody > tr > td {
 }
 
 .reveal .slides section .fragment.push {
-	display: none;
+  display: none;
   opacity: 0;
 }
 
 .reveal .slides section .fragment.push.current-fragment {
-	display: inline;
+  display: inline;
   opacity: 1;
 }

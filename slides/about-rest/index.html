@@ -43,8 +43,25 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
     </section>
   </section>
   <section>
+    <h2>About me</h2>
+<pre><code>GET /speaker/maxpou HTTP/1.1
+
+{
+  "name": "Maxence POUTORD",
+  "skills": ["Symfony2", "API", "NodeJS", "Software quality"],
+  "company": "Conserto",
+  "_links": {
+    "self": { "href": "maxpou.fr/slides/slides/about-rest/" },
+    "blog": { "href": "maxpou.fr" },
+    "Twitter": { "href": "twitter.com/_maxpou" },
+    "mail": { "href": "maxence.poutord@gmail.com" }
+  }
+}
+</code></pre>
+  </section>
+  <section>
     <section>
-      <h2>REST: Representational State Transfert</h2>
+      <h2>REST: Representational State Transfer</h2>
     </section>
     <section>
       <h2>REST in a nutshell</h2>
@@ -68,27 +85,27 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
       </div>
     </section>
     <section>
-      <h2>REST contraints</h2>
+      <h2>REST constraints</h2>
       <ul>
-        <li><b>Client–server</b>: clients and servers are separated</li>
-        <li><b>Stateless</b>: each request can be treated independently</li>
-        <li><b>Cache</b>: client can cache response</li>
-        <li><b>Uniform Interface</b>: client and server share a uniform interface</li>
-        <li><b>Layered system</b>: scalability (load balancing), security (firewalls)</li>
-        <li>*<b>Code-On-Demand</b> (<em>a.k.a. COD</em>): client request code (flash, java applet, js) from server and execute it!</li>
+        <li class="fragment" data-fragment-index="0"><b>Client–server</b>: clients and servers are separated</li>
+        <li class="fragment" data-fragment-index="1"><b>Stateless</b>: each request can be treated independently</li>
+        <li class="fragment" data-fragment-index="2"><b>Cache</b>: client can cache response</li>
+        <li class="fragment" data-fragment-index="3"><b>Uniform Interface</b>: client and server share a uniform interface</li>
+        <li class="fragment" data-fragment-index="4"><b>Layered system</b>: scalability (load balancing), security (firewalls)</li>
+        <li class="fragment" data-fragment-index="5">*<b>Code-On-Demand</b> (<em>a.k.a. COD</em>): client request code (flash, java applet, js) from server and execute it!</li>
       </ul>
       <br>
       <br>
-      <em>* COD is the ony one optional contraint in REST (because it's reduce visibility & not every API need it)</em>
+      <em class="fragment" data-fragment-index="5">* COD is the only one optional constraint in REST (because it's reduce visibility & not every API need it)</em>
     </section>
     <section>
-      <h2>Ressources and representations</h2>
+      <h2>Resources and representations</h2>
       <div class="span6 fragment">
-        Ressource: can be anythings.
+        Resource: can be anything.
         <img data-src="img/kwak.jpg" style="border:none;width: 50%;">
       </div>
       <div class="span6 fragment">
-        Representation: Describe a ressource state
+        Representation: Describe a resource state
 <pre><code contenteditable>beer:
     id: 42
     shortName: Kwak
@@ -144,8 +161,8 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
     <section>
       <h2>Level 1: Resources</h2>
       <ul>
-        <li class="fragment">Identification of ressources</li>
-        <li class="fragment">1 URI = 1 ressource</li>
+        <li class="fragment">Identification of resources</li>
+        <li class="fragment">1 URI = 1 resource</li>
         <li class="fragment">Example:</li>
         <ul class="fragment">
           <li>http://api.app.com/breweries/51</li>
@@ -267,7 +284,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
   </section>
   <section>
     <section>
-      <h2>Am I RESTful if i'm only level 2 compliant ?</h2>
+      <h2>Am I RESTful if I'm only level 2 compliant?</h2>
       <img class="fragment" data-src="img/no.gif" style="border:none; width: 30%;">
     </section>
     <section>
@@ -292,10 +309,10 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
           <img data-src="img/homer-disappears.gif" style="border:none;margin-top:23px; width: 100%;">
         </div>
       </div>
-      <p><i class="fa fa-hand-o-right"></i> Where is  my Kwak ?</p>
+      <p><i class="fa fa-hand-o-right"></i> How can I interact with my Kwak?</p>
     </section>
     <section>
-      <h2>What Roy Fielding said</h2>
+      <h2>What did Roy Fielding said</h2>
       <blockquote cite="http://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven">
         If the engine of application state (and hence the API) is not being driven by hypertext, then it cannot be RESTful and cannot be a REST API. Period.
         [...] <br>
@@ -309,7 +326,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
       <h2>Level 3: Hypermedia controls (HATEOAS)</h2>
       <ul>
         <li><em><b>H</b>ypertext <b>A</b>s <b>T</b>he <b>E</b>ngine <b>O</b>f <b>T</b>he <b>A</b>pplication <b>S</b>tate</em></li>
-        <li>Ressources are self describing</li>
+        <li>Resources are self-describing</li>
         <li>Expose state and behavior: "the application state is controlled and stored by the user agent"</li>
 
         <p class="lead">Use links to describe HOW the service is used, and media types to describe WHAT is expect</p>
@@ -397,8 +414,73 @@ Accept-Language: fr, en;q=0.8, de;q=0.7
     </section>
   </section>
   <section>
-    <h2>Congrat!</h2>
-    <img data-src="img/homer-wouhou.gif" style="border:none; background-color: #DDDDDD; width: 80%;">
+    <section>
+      <h2>Congratulation!</h2>
+      <img data-src="img/homer-wouhou.gif" style="border:none; background-color: #DDDDDD; width: 80%;">
+    </section>
+    <section>
+      <h2>Well... maybe not!</h2>
+      <p class="fragment">
+        JSON is not a hypermedia format.
+      </p>
+      <aside class="notes">
+        http://restcookbook.com/Mediatypes/json/
+      </aside>
+    </section>
+    <section>
+      <h2>HAL (Hypertext Application Language)</h2>
+HAL+JSON example:
+      <pre><code contenteditable>
+{
+    "_links": {
+        "self": { "href": "/beers?offset=1&limit=10" },
+        "next": { "href": "/beers?offset=11&limit=10" },
+        "ea:find": {
+            "href": "/beers{?id}",
+            "templated": true
+        }
+    }
+}
+      </code></pre>
+    </section>
+    <section>
+      <h2>JSON-LD</h2>
+      <pre><code contenteditable>
+{
+    "@context": "http://schema.org",
+    "@type": "Brewery",
+    "name": "Bosteels Brewery",
+    "url": "http://bestbelgianspecialbeers.be",
+    "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Kerkstraat 96",
+        "addressLocality": "9255 Buggenhout",
+        "addressRegion": "Belgium"
+    }
+}
+      </code></pre>
+    </section>
+    <section>
+      <h2 style="margin-top: 10%;">Linked Data</h2>
+      <div>
+        <img src="img/ld-1.svg" width="300px" class="fragment push"  width="300px" data-fragment-index="0" style="border:10px solid #FFF; box-shadow: 0px 0px 0px #555; min-width: 70%"/>
+        <img src="img/ld-2.svg" width="300px" class="fragment push"  width="300px" data-fragment-index="1" style="border:10px solid #FFF; box-shadow: 0px 0px 0px #555; min-width: 70%"/>
+        <img src="img/ld-3.svg" width="300px" class="fragment push"  width="300px" data-fragment-index="2" style="border:10px solid #FFF; box-shadow: 0px 0px 0px #555; min-width: 70%"/>
+        <img src="img/ld-4.svg" width="300px" class="fragment push"  width="300px" data-fragment-index="3" style="border:10px solid #FFF; box-shadow: 0px 0px 0px #555; min-width: 70%"/>
+      </div>
+    </section>
+    <section>
+      <h2>Others</h2>
+      <ul>
+        <li>Hydra + JSON-LD</li>
+        <li>SIREN</li>
+        <li>...</li>
+      </ul>
+      <br>
+      <br>
+      <i class="fa fa-map-signs"></i> Which hypermedia type?<br>
+      <a href="http://sookocheff.com/post/api/on-choosing-a-hypermedia-format/">sookocheff.com/post/api/on-choosing-a-hypermedia-format/</a>
+    </section>
   </section>
   <section>
     <section>
@@ -406,9 +488,13 @@ Accept-Language: fr, en;q=0.8, de;q=0.7
     </section>
     <section>
       <h2>REST = CRUD ?</h2>
+      <pre class="fragment" data-fragment-index="1"><code contenteditable>POST /contact
+
+# mail body
+</code></pre>
     </section>
     <section>
-      <h2>Versionning</h2>
+      <h2>Versioning</h2>
 <pre class="fragment" data-fragment-index="1"><code contenteditable>HTTP/1.1 200 OK
 Content-Type: application/json; version=2
 Location: /breweries/51.json
@@ -422,14 +508,17 @@ Content-Type: application/json
     </section>
     <section>
       <h2>Cache</h2>
+      <aside class="notes">
+        &lt;150ms
+      </aside>
     </section>
     <section>
       <h2>Security</h2>
       <div class="row">
         <div class="span8">
           <ul>
-            <li>Authorisation: OAuth</li>
-            <li>Authentification: OpenID</li>
+            <li>Authorization: OAuth</li>
+            <li>Authentication: OpenID</li>
             <li>Both: OpenID Connect</li>
             <br>
             <li>Transport: TLS</li>
@@ -505,15 +594,15 @@ Content-Type: application/json
       </ul>
     </section>
     <section>
-      <h2>Application overview</h2>
-      <img data-src="img/application-overview.png" style="border:10px solid #FFFFFF;width:80%;background-color: #FFF">
-    </section>
-    <section>
       <h2>Problem with mapping entities</h2>
       <img data-src="img/jean-claude.gif" style="border:none;width:50%">
     </section>
     <section>
       <h2>Design Pattern: Data Transfer Object</h2>
+      <img src="img/dto.svg" alt="DTO pattern" style="border: 10px solid;width: 100%">
+      <p>
+        <a href="http://martinfowler.com/eaaCatalog/dataTransferObject.html">Data Transfer Object - Martin Fowler</a>
+      </p>
     </section>
     <section>
       <h2>Demo time!</h2>
@@ -542,21 +631,18 @@ Content-Type: application/json
   <section>
     <section>
       <h2>Conclusion</h2>
-      <p class="lead">
-        Your Web Api/HTTP API is not wrong... but not REST too ;-) <br>
-        <em>(But that isn't necessary a bad thing)</em><br>
-        REST is a buzzword <br>
-      </p>
-    </section>
-    <section>
-      <h2>Conclusion</h2>
       <blockquote cite="https://www.mobomo.com/2010/04/rest-isnt-what-you-think-it-is/">
         REST isn’t what you think it is, and that’s OK
       </blockquote>
+      REST is a buzzword <br>
     </section>
     <section>
       <h2>Pragmatism over theory</h2>
       <img data-src="img/hauteur.jpg" style="border:none;">
+      <aside class="notes">
+        Your Web Api/HTTP API is not wrong... but not REST too ;-) <br>
+        <em>(But that isn't necessary a bad thing)</em><br>
+      </aside>
     </section>
   </section>
   <section>
@@ -578,7 +664,7 @@ Content-Type: application/json
   <section>
     <section>
       <h2>Thank you</h2>
-      <h3>Questions ?</h3>
+      <h3>Questions?</h3>
     </section>
     <section>
       <img src="https://s-media-cache-ak0.pinimg.com/736x/cb/1c/e2/cb1ce23459dda78adf2ade17d10ce171.jpg" alt="">
