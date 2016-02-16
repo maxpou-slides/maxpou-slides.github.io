@@ -23,7 +23,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
 <div class="slides">
   <section>
     <section>
-      <h1 class="title">About REST</h1>
+      <h1 class="title top-2">About REST</h1>
       <p class="me">Maxence POUTORD</p>
       <p class="me-link">
         <a href="https://twitter.com/_maxpou"><i class="fa fa-twitter"></i> @_maxpou</a> |
@@ -44,11 +44,13 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
   </section>
   <section>
     <h2>About me</h2>
-<pre><code>GET /speaker/maxpou HTTP/1.1
+<pre><code data-trim>
+GET /speaker/maxpou HTTP/1.1
 
 {
   "name": "Maxence POUTORD",
   "skills": ["Symfony2", "API", "NodeJS", "Software quality"],
+  "hobbies": ["Motorbike", "Cinema (Danish)", "cooking"],
   "company": "Conserto",
   "_links": {
     "self": { "href": "maxpou.fr/slides/slides/about-rest/" },
@@ -61,7 +63,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
   </section>
   <section>
     <section>
-      <h2>REST: Representational State Transfer</h2>
+      <h2 class="top-3">REST: Representational State Transfer</h2>
     </section>
     <section>
       <h2>REST in a nutshell</h2>
@@ -83,20 +85,6 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
           <b><i class="fa fa-exclamation-triangle"></i> REST is NOT a protocol!</b>
         </p>
       </div>
-    </section>
-    <section>
-      <h2>REST constraints</h2>
-      <ul>
-        <li class="fragment" data-fragment-index="0"><b>Client–server</b>: clients and servers are separated</li>
-        <li class="fragment" data-fragment-index="1"><b>Stateless</b>: each request can be treated independently</li>
-        <li class="fragment" data-fragment-index="2"><b>Cache</b>: client can cache response</li>
-        <li class="fragment" data-fragment-index="3"><b>Uniform Interface</b>: client and server share a uniform interface</li>
-        <li class="fragment" data-fragment-index="4"><b>Layered system</b>: scalability (load balancing), security (firewalls)</li>
-        <li class="fragment" data-fragment-index="5">*<b>Code-On-Demand</b> (<em>a.k.a. COD</em>): client request code (flash, java applet, js) from server and execute it!</li>
-      </ul>
-      <br>
-      <br>
-      <em class="fragment" data-fragment-index="5">* COD is the only one optional constraint in REST (because it's reduce visibility & not every API need it)</em>
     </section>
     <section>
       <h2>Resources and representations</h2>
@@ -128,11 +116,22 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
         "A resource is anything that’s important enough to be referenced as a thing in itself." (RESTful Web APIs)
       </aside>
     </section>
+    <section>
+      <h2>REST constraints</h2>
+      <ul>
+        <li class="fragment" data-fragment-index="0"><b>Client–server</b>: clients and servers are separated</li>
+        <li class="fragment" data-fragment-index="1"><b>Stateless</b>: each request can be treated independently</li>
+        <li class="fragment" data-fragment-index="2"><b>Cache</b>: client can cache response</li>
+        <li class="fragment" data-fragment-index="3"><b>Uniform Interface</b>: client and server share a uniform interface</li>
+        <li class="fragment" data-fragment-index="4"><b>Layered system</b>: scalability (load balancing), security (firewalls)</li>
+        <li class="fragment" data-fragment-index="5">*<b>Code-On-Demand</b> (<em>a.k.a. COD</em>): client request code (flash, java applet, js) from server and execute it!</li>
+      </ul>
+      <br>
+      <br>
+      <em class="fragment" data-fragment-index="5">* COD is the only one optional constraint in REST (because it's reduce visibility & not every API need it)</em>
+    </section>
   </section>
   <section>
-    <section>
-      <h2>Today</h2>
-    </section>
     <section>
       <img data-src="img/notrestfull.png" style="border:none; box-shadow: 1px 1px 12px #555;">
     </section>
@@ -149,9 +148,9 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
       <li class="fragment">Only POST method</li>
       <li class="fragment">One entry point <br>
         <ul>
-          <li><em>http://api.app.com/beer</em></li>
-          <li><em>http://api.app.com/beer?action=get&id=3</em></li>
-          <li><em>http://api.app.com/beer?action=delete&id=3</em></li>
+          <li><em>/beer</em></li>
+          <li><em>/beer?action=get&id=3</em></li>
+          <li><em>/beer?action=delete&id=3</em></li>
         </ul>
       </li>
       <li class="fragment">Example: SOAP and XML-RPC</li>
@@ -165,8 +164,8 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
         <li class="fragment">1 URI = 1 resource</li>
         <li class="fragment">Example:</li>
         <ul class="fragment">
-          <li>http://api.app.com/breweries/51</li>
-          <li>http://api.app.com/breweries/51/beers/42</li>
+          <li>/breweries/51</li>
+          <li>/breweries/51/beers/42</li>
         </ul>
       </ul>
     </section>
@@ -174,7 +173,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
       <h2>Route pattern (1/2): <br> /beer/1 or /beers/1 ?</h2>
       <ul>
         <li class="list-unstyled fragment">Both of them are REST!</li>
-        <li class="list-unstyled fragment">/hellomynameismaxenceandherearemybeers works too!</li>
+        <li class="list-unstyled fragment">/hellomynameismaxenceandherearemybeers/1 works too!</li>
         <li class="list-unstyled fragment">But, plural noun <em>should</em> be used for collection names</li>
       </ul>
     </section>
@@ -184,15 +183,15 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
       <pre class="fragment" data-fragment-index="0"><code contenteditable>
 /beers/42/
 /beers/42.json
-/beers/42/limit/26
+/beers/limit/26
 /ugly_name/42
 /UglyName/42
       </code></pre>
       <p class="fragment" data-fragment-index="1">Instead, prefer:</p>
       <pre class="fragment" data-fragment-index="1"><code contenteditable>
 /ugly-name/42
-/beers/42?offset=12&limit=5&exclude=2,3&sort=-alcohol
-/beers/42?color=blond
+/beers?offset=12&limit=5&exclude=2,3&sort=-alcohol
+/beers?color=blond
       </code></pre>
       <blockquote class="fragment" cite="https://www.w3.org/Provider/Style/URI">
         "Cool URIs don't change" — W3C
@@ -217,7 +216,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
       <table>
         <tbody>
           <tr>
-            <td>Method</td><td>Safe</td><td>Idempotent</td>
+            <td>Method</td><td>Safe?</td><td>Idempotent?</td>
           </tr>
           <tr>
             <td>GET</td><td class="fragment" data-fragment-index="0">Yes</td><td class="fragment" data-fragment-index="0">Yes</td>
@@ -239,6 +238,13 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
           </tr>
         </tbody>
       </table>
+      <p>
+        Safe = cacheable<br>
+        Idempotent = result independent on the number of executions
+      </p>
+      <aside class="notes">
+        https://tools.ietf.org/html/rfc2616#page-51
+      </aside>
     </section>
     <section>
       <h2>Focus: HTTP Codes 101</h2>
@@ -326,7 +332,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
       <h2>Level 3: Hypermedia controls (HATEOAS)</h2>
       <ul>
         <li><em><b>H</b>ypertext <b>A</b>s <b>T</b>he <b>E</b>ngine <b>O</b>f <b>T</b>he <b>A</b>pplication <b>S</b>tate</em></li>
-        <li>Resources are self-describing</li>
+        <li>Resources are self-describing/self-documenting (discoverability)</li>
         <li>Expose state and behavior: "the application state is controlled and stored by the user agent"</li>
 
         <p class="lead">Use links to describe HOW the service is used, and media types to describe WHAT is expect</p>
@@ -337,8 +343,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
     </section>
     <section>
       <h2>Without HATEOAS</h2>
-      <pre><code contenteditable>
-<consumptions>
+<pre><code contenteditable><consumptions>
   <consumption>
     <beer id="42">
       <name>Kwak</name>
@@ -357,12 +362,11 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
     </formats>
   </consumption>
 </consumptions>
-      </code></pre>
+</code></pre>
     </section>
     <section>
       <h2>HATEOAS</h2>
-      <pre><code contenteditable>
-<consumptions>
+<pre><code contenteditable><consumptions>
   <consumption>
     <beer id="42">
       <name>Kwak</name>
@@ -390,39 +394,42 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
       </format>
     </formats>
   </consumption>
-  <link rel="home" href="http://bed.maxpou.fr" />
-  <link rel="taxi" href="http://ubber.com" />
+  <links>
+    <link rel="home" href="http://bed.maxpou.fr" />
+    <link rel="taxi" href="http://ubber.com" />
+  </links>
 </consumptions>
-      </code></pre>
+</code></pre>
     </section>
     <section>
       <h2>Content negotiation</h2>
       <p class="fragment" data-fragment-index="0" style="text-align: left;">Before:</p>
-      <pre class="fragment" data-fragment-index="0"><code contenteditable>
-GET http://api.app.com/fr/breweries/51.json
-GET http://api.app.com/en/breweries/51.xml
+<pre class="fragment" data-fragment-index="0"><code contenteditable>GET /fr/breweries/51.json
+GET /en/breweries/51.xml
 ...
-      </code></pre>
+</code></pre>
       <p style="text-align: left;" class="fragment" data-fragment-index="1">After:</p>
-      <pre class="fragment" data-fragment-index="1"><code contenteditable>
-GET http://api.app.com/breweries/51
-
+<pre class="fragment" data-fragment-index="1"><code contenteditable>GET /breweries/51
 Accept: application/json, application/xml;q=0.9, text/html;q=0.8,
         text/*;q=0.7, */*;q=0.5
 Accept-Language: fr, en;q=0.8, de;q=0.7
-      </code></pre>
+</code></pre>
+    </section>
+    <section>
+      <h2 class="top-3">REST is the web!</h2>
     </section>
   </section>
   <section>
     <section>
       <h2>Congratulation!</h2>
-      <img data-src="img/homer-wouhou.gif" style="border:none; background-color: #DDDDDD; width: 80%;">
+      <img data-src="img/homer-wouhou.gif" style="border:none; background-color: #DDDDDD; width: 70%;">
     </section>
     <section>
       <h2>Well... maybe not!</h2>
-      <p class="fragment">
-        JSON is not a hypermedia format.
+      <p class="fragment" data-fragment-index="0">
+        JSON is not a hypermedia format
       </p>
+      <img class="fragment" data-src="img/nope.gif" data-fragment-index="0" style="border:none; background-color: #DDDDDD; width: 60%;">
       <aside class="notes">
         http://restcookbook.com/Mediatypes/json/
       </aside>
@@ -484,17 +491,17 @@ HAL+JSON example:
   </section>
   <section>
     <section>
-      <h2>Focus</h2>
+      <h2 class="top-3">Focus</h2>
     </section>
     <section>
-      <h2>REST = CRUD ?</h2>
+      <h2 class="top-2">REST = CRUD ?</h2>
       <pre class="fragment" data-fragment-index="1"><code contenteditable>POST /contact
 
 # mail body
 </code></pre>
     </section>
     <section>
-      <h2>Versioning</h2>
+      <h2 class="top-1">Versioning</h2>
 <pre class="fragment" data-fragment-index="1"><code contenteditable>HTTP/1.1 200 OK
 Content-Type: application/json; version=2
 Location: /breweries/51.json
@@ -508,6 +515,7 @@ Content-Type: application/json
     </section>
     <section>
       <h2>Cache</h2>
+      <img data-src="img/goldfish.png" style="border:none;">
       <aside class="notes">
         &lt;150ms
       </aside>
@@ -532,7 +540,7 @@ Content-Type: application/json
       </div>
     </section>
     <section>
-      <h2>Developer experience</h2>
+      <h2 class="top-1">Developer experience</h2>
       <h4>3:30:3 rule <em>(by Ori Pekelman)</em></h4>
       <ul>
         <li>3 sec: WHAT</li>
@@ -575,23 +583,24 @@ Content-Type: application/json
     </section>
     <section>
       <h2>Swagger</h2>
+      <iframe src="swagger.html" width="600px" height="600px" style="background: #FFFFFF;"></iframe>
     </section>
   </section>
   <section>
     <section>
-      <h2>REST & PHP (Symfony2)</h2>
-      <img data-src="img/symfony2-logo.png" style="border:10px solid #FFFFFF;background-color: #FFFFFF">
+      <h2>REST &amp; PHP (Symfony2)</h2>
+      <img data-src="img/symfony2-logo.png" style="border:10px solid #CCC;background-color: #CCC">
     </section>
     <section>
-      <h2>Useful bundles</h2>
+      <h2>JMS Serializer</h2>
+      <p>In a nutshell:</p>
       <ul>
-        <li>jms/serializer-bundle</li>
-        <li>friendsofsymfony/rest-bundle</li>
-        <li>friendsofsymfony/http-cache</li>
-        <li>willdurand/hateoas-bundle</li>
-        <li>nelmio/api-doc-bundle</li>
-        <li>nelmio/cors-bundle</li>
+        <li>(De-)serialize data of any complexity</li>
+        <li>Support XML, JSON, and YAML</li>
+        <li>Doctrine support</li>
+        <li>Custom exclusion strategies</li>
       </ul>
+      <p><i class="fa fa-github-alt"></i><a href="https://github.com/schmittjoh/serializer"> schmittjoh/serializer</a></p>
     </section>
     <section>
       <h2>Problem with mapping entities</h2>
@@ -605,49 +614,168 @@ Content-Type: application/json
       </p>
     </section>
     <section>
-      <h2>Demo time!</h2>
-      <a href="">Link to my github repo</a>
+      <h2>FOSRestBundle</h2>
+      <ul>
+        <li>Toolbox</li>
+        <li>Automatic route generation</li>
+        <li>Content negotiation</li>
+        <li>Exceptions</li>
+        <li>Support (Symfony) Forms</li>
+        <li>API versioning</li>
+      </ul>
+      <p><i class="fa fa-github-alt"></i><a href="https://github.com/FriendsOfSymfony/FOSRestBundle"> FriendsOfSymfony/FOSRestBundle</a></p>
+    </section>
+    <section>
+      <h2>FOSRestBundle: Example</h2>
+      <pre><code data-trim>
+/**
+ * Get all Breweries entities
+ *
+ * @QueryParam(name="offset", requirements="\d+", nullable=true,
+ *     description="Offset from which to start listing breweries.")
+ * @QueryParam(name="limit", requirements="\d+", nullable=true,
+ *     description="How many breweries to return.")
+ */
+public function getBreweriesAction(ParamFetcher $paramFetcher)
+{
+    $offset = $paramFetcher->get('offset');
+    $limit  = $paramFetcher->get('limit');
+
+    $em        = $this->getDoctrine()->getManager();
+    $breweries = $em  ->getRepository('MaxpouBeerBundle:Brewery')
+                      ->findBy([], ['name' => 'ASC'], $limit, $offset);
+
+    return $breweries;
+}
+      </code></pre>
+    </section>
+    <section>
+      <h2>BazingaHateoasBundle</h2>
+      <ul>
+        <li>implementing representations for HATEOAS REST web service</li>
+        <li>Exclusion strategies</li>
+        <li>Allows to configure links and embedded resources in XML, YAML, PHP, or Annotations</li>
+      </ul>
+      <p><i class="fa fa-github-alt"></i><a href="https://github.com/willdurand/BazingaHateoasBundle"> willdurand/BazingaHateoasBundle</a></p>
+    </section>
+    <section>
+      <h2>BazingaHateoasBundle: code</h2>
+      <pre><code data-trim>
+use Hateoas\Configuration\Annotation as Hateoas;
+/**
+ * BreweryDTO
+ * No business logic here
+ * @Hateoas\Relation("self", href = @Hateoas\Route("api_get_brewerie", parameters = {"id" = "expr(object.getId())"}))
+ */
+class BreweryDTO
+{
+    private $id;
+    private $name;
+
+    /** @return UUID object id **/
+    public function getId()
+    {
+        return $this->id;
+    }
+}
+      </code></pre>
+    </section>
+    <section>
+      <h2>BazingaHateoasBundle: result</h2>
+      <pre><code data-trim>
+{
+    "id": "6b9f3cfa-cc2c-11e5-8adf-2c4138ad20fa",
+    "name": "Bosteels brewery",
+    "description": "bosteels brewery",
+    "beers": [
+      /* ... */
+    ],
+    "_links": {
+      "self": {
+        "href": "/beerApp/web/app_dev.php/api/breweries/6b9f3cfa-cc2c-11e5-8adf-2c4138ad20fa"
+      }
+    }
+  }
+      </code></pre>
+    </section>
+    <section>
+      <h2>NelmioApiDocBundle</h2>
+      <ul>
+        <li>Generate a decent documentation</li>
+        <li>Support PHPDoc, JMS Serializer, FOSRestBundle, (SF) Forms</li>
+        <li>Swagger format</li>
+        <li>Export documentation (JSON, HTML, markdown)</li>
+        <li>Multiple documentation</li>
+        <li>Sandbox !</li>
+      </ul>
+    </section>
+    <section>
+      <h2>NelmioApiDocBundle: Example</h2>
+      <pre><code data-trim>
+&lt;?php
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+/**
+ * Get all Breweries entities
+ *
+ * @ApiDoc(
+ *  statusCodes={
+ *      200="Returned when successful"
+ * })
+ * @QueryParam(name="offset", requirements="\d+", nullable=true,
+ *     description="Offset from which to start listing breweries.")
+ * @QueryParam(name="limit", requirements="\d+", nullable=true,
+ *     description="How many breweries to return.")
+ */
+ public function getBreweriesAction(ParamFetcher $paramFetcher)
+ {
+   //...
+ }
+      </code></pre>
+    </section>
+    <section>
+      <h2>See also</h2>
+      <p>Bundles:</p>
+      <ul>
+        <li>friendsofsymfony/http-cache (Reverses proxies like varnish)</li>
+        <li>nelmio/cors-bundle (CORS)</li>
+        <li>hautelook/TemplatedUriRouter (RFC-6570)</li>
+        <li>dunglas/DunglasApiBundle (JSON-LD)</li>
+      </ul>
+      <p>Examples:</p>
+      <ul>
+        <li>gimler/symfony-rest-edition</li>
+        <li>liip/LiipHelloBundle</li>
+      </ul>
     </section>
   </section>
+  <!--
   <section>
     <section>
       <h2>REST & NodeJS</h2>
       <img data-src="img/nodejs.png" style="border:10px solid #FFFFFF;background-color: #FFFFFF">
     </section>
     <section>
-      <h2>Tools</h2>
-      <div class="span4"><img src="img/logo.svg" alt="HapiJS logo" style="border: none;"></div>
-      <div class="span8">
-        <ul>
-          <li>HapiJS</li>
-          <li>Halacious</li>
-        </ul>
-      </div>
-    </section>
-    <section>
-      <h2>Demo time!</h2>
+      <h2>HAPI</h2>
+      <img src="img/logo.svg" alt="HapiJS logo" style="border: none;width:50%;">
     </section>
   </section>
+  -->
   <section>
-    <section>
-      <h2>Conclusion</h2>
-      <blockquote cite="https://www.mobomo.com/2010/04/rest-isnt-what-you-think-it-is/">
-        REST isn’t what you think it is, and that’s OK
-      </blockquote>
-      REST is a buzzword <br>
-    </section>
-    <section>
-      <h2>Pragmatism over theory</h2>
-      <img data-src="img/hauteur.jpg" style="border:none;">
+    <section data-background="img/hauteur.jpg">
+      <h2 class="top-3 shadow">Pragmatism over theory</h2>
       <aside class="notes">
         Your Web Api/HTTP API is not wrong... but not REST too ;-) <br>
         <em>(But that isn't necessary a bad thing)</em><br>
+        <blockquote cite="https://www.mobomo.com/2010/04/rest-isnt-what-you-think-it-is/">
+          REST isn’t what you think it is, and that’s OK
+        </blockquote>
+        REST is a buzzword <br>
       </aside>
     </section>
   </section>
   <section>
     <section>
-      <h2>Useful resources</h2>
+      <h2 class="top-3">Useful resources</h2>
     </section>
     <section>
       <img data-src="img/restful-web-api-book.gif" style="border:10px solid #FFFFFF; box-shadow: 1px 1px 12px #555; width: 25%;">
@@ -658,16 +786,24 @@ Content-Type: application/json
       <p><em>By Mark Masse</em></p>
     </section>
     <section>
-      <a href="http://martinfowler.com/articles/richardsonMaturityModel.html"><i class="fa fa-globe"></i> martinfowler.com/articles/richardsonMaturityModel.html</a>
+      <h2 class="top-2">Further Reading</h2>
+      <ul>
+        <li><a href="http://martinfowler.com/articles/richardsonMaturityModel.html">martinfowler.com/articles/richardsonMaturityModel.html</a></li>
+        <li><a href="http://williamdurand.fr">williamdurand.fr</a></li>
+        <li><a href="hwww.ietf.org/rfc/rfc2616.txt">RFC 2616</a></li>
+        <li><a href="https://groups.google.com/forum/#!forum/resting-with-symfony">https://groups.google.com/forum/#!forum/resting-with-symfony</a></li>
+      </ul>
     </section>
   </section>
   <section>
     <section>
       <h2>Thank you</h2>
       <h3>Questions?</h3>
+      <p><img data-src="img/elephant-jump.gif" style="border:none;"></p>
     </section>
     <section>
-      <img src="https://s-media-cache-ak0.pinimg.com/736x/cb/1c/e2/cb1ce23459dda78adf2ade17d10ce171.jpg" alt="">
+      <h2>Conserto is hiring!</h2>
+      <img src="img/iwantyou.jpg" alt="i want you" style="border: none;">
     </section>
   </section>
 </div>
@@ -678,24 +814,24 @@ Content-Type: application/json
 // Full list of configuration options available at:
 // https://github.com/hakimel/reveal.js#configuration
 Reveal.initialize({
-	controls: true,
-	progress: true,
-	slideNumber: true,
-	history: true,
-	center: true,
+  controls: true,
+  progress: true,
+  slideNumber: true,
+  history: true,
+  center: false,
   width: 1000,
   height: 700,
 
-	transition: 'convex', // none/fade/slide/convex/concave/zoom
+  transition: 'convex', // none/fade/slide/convex/concave/zoom
 
 // Optional reveal.js plugins
 dependencies: [
-	{ src: '../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-	{ src: '../../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-	{ src: '../../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-	{ src: '../../reveal.js/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
-	{ src: '../../reveal.js/plugin/zoom-js/zoom.js', async: true },
-	{ src: '../../reveal.js/plugin/notes/notes.js', async: true }
+  { src: '../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+  { src: '../../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+  { src: '../../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+  { src: '../../reveal.js/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+  { src: '../../reveal.js/plugin/zoom-js/zoom.js', async: true },
+  { src: '../../reveal.js/plugin/notes/notes.js', async: true }
 ]
 });
 

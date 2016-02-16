@@ -64,18 +64,10 @@ table.table > tbody > tr > td {
   opacity: 1;
 }
 
-h1.title {
-  margin-top: 17%;
-}
-
-h2.top-1 {
-  margin-top: 10%;
-}
-
-h2.top-2 {
-  margin-top: 15%;
-}
-
-h2.top-3  {
-  margin-top: 20%;
+p.alert {
+  border-radius:10px;
+  padding:10px 36px;
+  margin:10px;
+  background:#3F3F3F;
+  border:1px solid grey;
 }
