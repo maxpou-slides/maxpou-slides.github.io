@@ -50,7 +50,7 @@ GET /speaker/maxpou HTTP/1.1
 {
   "name": "Maxence POUTORD",
   "skills": ["Symfony2", "API", "NodeJS", "Software quality"],
-  "hobbies": ["Motorbike", "Cinema (Danish)", "cooking"],
+  "hobbies": ["motorbike", "cinema (Danish)", "cooking"],
   "company": "Conserto",
   "_links": {
     "self": { "href": "maxpou.fr/slides/slides/about-rest/" },
@@ -63,7 +63,8 @@ GET /speaker/maxpou HTTP/1.1
   </section>
   <section>
     <section>
-      <h2 class="top-3">REST: Representational State Transfer</h2>
+      <h2 class="top-3">REST:</h2>
+      <h3>Representational State Transfer</h3>
     </section>
     <section>
       <h2>REST in a nutshell</h2>
@@ -87,36 +88,6 @@ GET /speaker/maxpou HTTP/1.1
       </div>
     </section>
     <section>
-      <h2>Resources and representations</h2>
-      <div class="span6 fragment">
-        Resource: can be anything.
-        <img data-src="img/kwak.jpg" style="border:none;width: 50%;">
-      </div>
-      <div class="span6 fragment">
-        Representation: Describe a resource state
-<pre><code contenteditable>beer:
-    id: 42
-    shortName: Kwak
-    name: Pauwel Kwak
-    alcoholDegree: 8.4
-    color: amber
-    since: 1980
-    brewery: Bosteels Brewery
-</code></pre><pre><code contenteditable><beer id="42">
-  <short-name>Kwak</short-name>
-  <name>Pauwel Kwak</name>
-  <name>8,4</name>
-  <brewery id="51">
-    <name>Bosteels Brewery</name>
-  </brewery>
-</beer>
-</code></pre>
-      </div>
-      <aside class="notes">
-        "A resource is anything that’s important enough to be referenced as a thing in itself." (RESTful Web APIs)
-      </aside>
-    </section>
-    <section>
       <h2>REST constraints</h2>
       <ul>
         <li class="fragment" data-fragment-index="0"><b>Client–server</b>: clients and servers are separated</li>
@@ -129,6 +100,38 @@ GET /speaker/maxpou HTTP/1.1
       <br>
       <br>
       <em class="fragment" data-fragment-index="5">* COD is the only one optional constraint in REST (because it's reduce visibility & not every API need it)</em>
+    </section>
+    <section>
+      <h2>Resources and representations</h2>
+      <div class="span6 fragment">
+        Resource: can be anything.
+        <img data-src="img/kwak.jpg" style="border:none;width: 50%;">
+      </div>
+      <div class="span6 fragment">
+        Representation: Describe a resource state
+<pre><code data-trim contenteditable>
+beer:
+    id: 42
+    shortName: Kwak
+    name: Pauwel Kwak
+    alcoholDegree: 8.4
+    color: amber
+    since: 1980
+    brewery: Bosteels Brewery
+</code></pre><pre><code contenteditable data-trim>
+<beer id="42">
+  <short-name>Kwak</short-name>
+  <name>Pauwel Kwak</name>
+  <name>8,4</name>
+  <brewery id="51">
+    <name>Bosteels Brewery</name>
+  </brewery>
+</beer>
+</code></pre>
+      </div>
+      <aside class="notes">
+        "A resource is anything that’s important enough to be referenced as a thing in itself." (RESTful Web APIs)
+      </aside>
     </section>
   </section>
   <section>
@@ -145,10 +148,11 @@ GET /speaker/maxpou HTTP/1.1
     <h2>Level 0: Swamp of POX</h2>
     <ul>
       <li class="fragment">HTTP tunnel request</li>
-      <li class="fragment">Only POST method</li>
+      <li class="fragment">Only POST/GET method</li>
       <li class="fragment">One entry point <br>
         <ul>
           <li><em>/beer</em></li>
+          <li><em>/beer?action=list</em></li>
           <li><em>/beer?action=get&id=3</em></li>
           <li><em>/beer?action=delete&id=3</em></li>
         </ul>
@@ -170,7 +174,7 @@ GET /speaker/maxpou HTTP/1.1
       </ul>
     </section>
     <section>
-      <h2>Route pattern (1/2): <br> /beer/1 or /beers/1 ?</h2>
+      <h2>Route pattern (1/2): <br> /beer/1 or /beers/1?</h2>
       <ul>
         <li class="list-unstyled fragment">Both of them are REST!</li>
         <li class="list-unstyled fragment">/hellomynameismaxenceandherearemybeers/1 works too!</li>
@@ -183,7 +187,7 @@ GET /speaker/maxpou HTTP/1.1
       <pre class="fragment" data-fragment-index="0"><code contenteditable>
 /beers/42/
 /beers/42.json
-/beers/limit/26
+/beers//limit/26
 /ugly_name/42
 /UglyName/42
       </code></pre>
@@ -357,8 +361,8 @@ GET /speaker/maxpou HTTP/1.1
       <name>Tripel Karmeliet</name>
     </beer>
     <formats>
-      <format qty="0">Pint</format>
       <format qty="1">Half</format>
+      <format qty="0">Pint</format>
     </formats>
   </consumption>
 </consumptions>
@@ -385,12 +389,12 @@ GET /speaker/maxpou HTTP/1.1
       <link rel="_self" href="/beers/101" />
     </beer>
     <formats>
-      <format qty="0">
-        <name>Pint</name>
-      </format>
       <format qty="1">
         <name>Half</name>
-        <link rel="serve" href="/serve/beer/42?format=pint" />
+        <link rel="serve" href="/serve/beer/101?format=pint" />
+      </format>
+      <format qty="0">
+        <name>Pint</name>
       </format>
     </formats>
   </consumption>
@@ -494,7 +498,7 @@ HAL+JSON example:
       <h2 class="top-3">Focus</h2>
     </section>
     <section>
-      <h2 class="top-2">REST = CRUD ?</h2>
+      <h2 class="top-2">REST = CRUD?</h2>
       <pre class="fragment" data-fragment-index="1"><code contenteditable>POST /contact
 
 # mail body
@@ -502,9 +506,10 @@ HAL+JSON example:
     </section>
     <section>
       <h2 class="top-1">Versioning</h2>
-<pre class="fragment" data-fragment-index="1"><code contenteditable>HTTP/1.1 200 OK
+<pre class="fragment" data-fragment-index="1"><code data-trim contenteditable>
+HTTP/1.1 200 OK
 Content-Type: application/json; version=2
-Location: /breweries/51.json
+Location: /breweries/51
 </code></pre>
       <p class="fragment">Deprecated call?</p>
       <pre class="fragment"><code contenteditable>HTTP/1.1 406 NOT ACCEPTABLE
@@ -530,8 +535,7 @@ Content-Type: application/json
             <li>Both: OpenID Connect</li>
             <br>
             <li>Transport: TLS</li>
-            <li>Dos prevention: ngx_http_limit_req_module (nginx)</li>
-            <li>Other: <a href="https://www.owasp.org/index.php/REST_Security_Cheat_Sheet">RTFM (OWASP)</a></li>
+            <li><a href="https://www.owasp.org/index.php/REST_Security_Cheat_Sheet">OWASP REST Security Cheat Sheet</a></li>
           </ul>
         </div>
         <div class="span4">
@@ -683,13 +687,11 @@ class BreweryDTO
     <section>
       <h2>BazingaHateoasBundle: result</h2>
       <pre><code data-trim>
+GET breweries/6b9f3cfa-cc2c-11e5-8adf-2c4138ad20fa
+
 {
     "id": "6b9f3cfa-cc2c-11e5-8adf-2c4138ad20fa",
     "name": "Bosteels brewery",
-    "description": "bosteels brewery",
-    "beers": [
-      /* ... */
-    ],
     "_links": {
       "self": {
         "href": "/beerApp/web/app_dev.php/api/breweries/6b9f3cfa-cc2c-11e5-8adf-2c4138ad20fa"
@@ -761,15 +763,18 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
   </section>
   -->
   <section>
+    <section>
+      <h2 class="top-3">Conclusion</h2>
+      <blockquote cite="https://www.mobomo.com/2010/04/rest-isnt-what-you-think-it-is/">
+        "REST isn’t what you think it is, and that’s OK"
+      </blockquote>
+    </section>
     <section data-background="img/hauteur.jpg">
       <h2 class="top-3 shadow">Pragmatism over theory</h2>
       <aside class="notes">
         Your Web Api/HTTP API is not wrong... but not REST too ;-) <br>
         <em>(But that isn't necessary a bad thing)</em><br>
-        <blockquote cite="https://www.mobomo.com/2010/04/rest-isnt-what-you-think-it-is/">
-          REST isn’t what you think it is, and that’s OK
-        </blockquote>
-        REST is a buzzword <br>
+        REST is a buzzword
       </aside>
     </section>
   </section>
