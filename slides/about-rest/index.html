@@ -136,7 +136,7 @@ beer:
   </section>
   <section>
     <section>
-      <img data-src="img/notrestfull.png" style="border:none; box-shadow: 1px 1px 12px #555;">
+      <img data-src="img/notrestfull.png" style="border:none; margin-top: 10%; box-shadow: 1px 1px 12px #555;">
     </section>
     <section>
       <h2>REST and the Richardson Maturity Model (RMM)</h2>
@@ -184,7 +184,7 @@ beer:
     <section>
       <h2>Route pattern (2/2): advices</h2>
       <p class="fragment" data-fragment-index="0">Avoid:</p>
-      <pre class="fragment" data-fragment-index="0"><code contenteditable>
+      <pre class="fragment" data-fragment-index="0"><code data-trim contenteditable>
 /beers/42/
 /beers/42.json
 /beers//limit/26
@@ -192,13 +192,13 @@ beer:
 /UglyName/42
       </code></pre>
       <p class="fragment" data-fragment-index="1">Instead, prefer:</p>
-      <pre class="fragment" data-fragment-index="1"><code contenteditable>
+      <pre class="fragment" data-fragment-index="1"><code data-trim contenteditable>
 /ugly-name/42
-/beers?offset=12&limit=5&exclude=2,3&sort=-alcohol
 /beers?color=blond
+/beers?offset=12&limit=5&exclude=2,3&sort=-alcohol
       </code></pre>
       <blockquote class="fragment" cite="https://www.w3.org/Provider/Style/URI">
-        "Cool URIs don't change" — W3C
+        "Cool URIs don't change" <br> — W3C
       </blockquote>
     </section>
   </section>
@@ -301,7 +301,8 @@ beer:
       <h2>Why?</h2>
       <div class="row">
         <div class="span6">
-          <pre><code contenteditable>GET /beers
+          <pre><code contenteditable data-trim>
+GET /beers
 
 <beers>
   <beer id="42">
@@ -347,7 +348,8 @@ beer:
     </section>
     <section>
       <h2>Without HATEOAS</h2>
-<pre><code contenteditable><consumptions>
+      <pre><code contenteditable data-trim>
+<consumptions>
   <consumption>
     <beer id="42">
       <name>Kwak</name>
@@ -366,11 +368,12 @@ beer:
     </formats>
   </consumption>
 </consumptions>
-</code></pre>
+      </code></pre>
     </section>
     <section>
       <h2>HATEOAS</h2>
-<pre><code contenteditable><consumptions>
+<pre><code contenteditable data-trim>
+<consumptions>
   <consumption>
     <beer id="42">
       <name>Kwak</name>
@@ -403,17 +406,19 @@ beer:
     <link rel="taxi" href="http://ubber.com" />
   </links>
 </consumptions>
-</code></pre>
+      </code></pre>
     </section>
     <section>
       <h2>Content negotiation</h2>
       <p class="fragment" data-fragment-index="0" style="text-align: left;">Before:</p>
-<pre class="fragment" data-fragment-index="0"><code contenteditable>GET /fr/breweries/51.json
+<pre class="fragment" data-fragment-index="0"><code contenteditable data-trim>
+GET /fr/breweries/51.json
 GET /en/breweries/51.xml
 ...
 </code></pre>
       <p style="text-align: left;" class="fragment" data-fragment-index="1">After:</p>
-<pre class="fragment" data-fragment-index="1"><code contenteditable>GET /breweries/51
+<pre class="fragment" data-fragment-index="1"><code contenteditable data-trim>
+GET /breweries/51
 Accept: application/json, application/xml;q=0.9, text/html;q=0.8,
         text/*;q=0.7, */*;q=0.5
 Accept-Language: fr, en;q=0.8, de;q=0.7
@@ -499,20 +504,22 @@ HAL+JSON example:
     </section>
     <section>
       <h2 class="top-2">REST = CRUD?</h2>
-      <pre class="fragment" data-fragment-index="1"><code contenteditable>POST /contact
+      <pre class="fragment" data-fragment-index="1"><code contenteditable data-trim>
+POST /contact
 
 # mail body
 </code></pre>
     </section>
     <section>
       <h2 class="top-1">Versioning</h2>
-<pre class="fragment" data-fragment-index="1"><code data-trim contenteditable>
+      <pre class="fragment" data-fragment-index="1"><code data-trim contenteditable>
 HTTP/1.1 200 OK
 Content-Type: application/json; version=2
 Location: /breweries/51
-</code></pre>
+      </code></pre>
       <p class="fragment">Deprecated call?</p>
-      <pre class="fragment"><code contenteditable>HTTP/1.1 406 NOT ACCEPTABLE
+      <pre class="fragment"><code contenteditable data-trim>
+HTTP/1.1 406 NOT ACCEPTABLE
 Content-Type: application/json
 
 ["application/json; version=1", "application/json; version=2", "application/xml; version=1"]
@@ -587,7 +594,7 @@ Content-Type: application/json
     </section>
     <section>
       <h2>Swagger</h2>
-      <iframe src="swagger.html" width="600px" height="600px" style="background: #FFFFFF;"></iframe>
+      <iframe src="swagger.html" width="1000px" height="600px" style="background: #FFFFFF;"></iframe>
     </section>
   </section>
   <section>
