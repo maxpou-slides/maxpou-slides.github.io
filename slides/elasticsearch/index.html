@@ -121,21 +121,21 @@ http://host:port/[index]/[type]/[_action|id]
       <h2>Requêtes de base</h2>
       <pre><code data-trim>
 # Recherche des occurences "elastic" sur tous les types de contenus
-http://localhost:9200/contenus/_search?q=elastic
+GET http://localhost:9200/contenus/_search?q=elastic
 
 # Recherche des articles commençant par "elastic"
-http://localhost:9200/contenus/article/_search?q=elastic*
+GET http://localhost:9200/contenus/article/_search?q=elastic*
 
 # Recherche des occurences correspondantes à peu près à "elstic"
-http://localhost:9200/contenus/article/_search?q=elstic*
+GET http://localhost:9200/contenus/article/_search?q=elstic*
 
 # Recherche sur une propriété
-http://localhost:9200/contenus/article/_search?q=publie:true
+GET http://localhost:9200/contenus/article/_search?q=publie:true
 
 ## Combo !
-http://localhost:9200/contenus/_search?q=elastic&publie:true
-http://localhost:9200/contenus/article,interview/_search?q=elastic
-http://localhost:9200/contenus/_search?q=elas~&publie:true&from:10&size:30
+GET http://localhost:9200/contenus/_search?q=elastic&publie:true
+GET http://localhost:9200/contenus/article,interview/_search?q=elastic
+GET http://localhost:9200/contenus/_search?q=elas~&publie:true&from:10&size:30
     </code></pre>
     <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-uri-request.html">Documentation</a>
     </section>
@@ -143,12 +143,13 @@ http://localhost:9200/contenus/_search?q=elas~&publie:true&from:10&size:30
       <h2>Résultats</h2>
       <div class="row">
         <div class="span7">
-          <img data-src="img/resultjson2.png" style="border:none;width: 80%;"><br>
+          <img data-src="img/resultjson2.PNG" style="border:none;width: 80%;"><br>
         </div>
         <div class="span5">
           <ol>
             <li>Informations sur la requête</li>
             <li>Nombre de résultats</li>
+            <li>Score maximum (score du résultat le plus pertinent)</li>
             <li>Informations sur le résultat</li>
             <li>Données du résultat</li>
             <li>Autres résultats (masqués)</li>
@@ -343,11 +344,11 @@ $resultSet = $type->search($searchQuery);
     </section>
     <section>
       <h2>Head (2/3)</h2>
-      <img data-src="img/head-1.png" style="border:none;width: 70%;"><br>
+      <img data-src="img/head-1.PNG" style="border:none;width: 70%;"><br>
     </section>
     <section>
       <h2>Head (3/3)</h2>
-      <img data-src="img/head-2.png" style="border:none;width: 70%;"><br>
+      <img data-src="img/head-2.PNG" style="border:none;width: 70%;"><br>
     </section>
     <section>
       <h2>Sense (plugin Chrome)</h2>
@@ -356,7 +357,7 @@ $resultSet = $type->search($searchQuery);
         <li>Autocomplétion</li>
         <li>Indique quand le JSON est mal formé</li>
       </ul>
-      <img data-src="img/sense.png" style="border:none;width: 70%;"><br>
+      <img data-src="img/sense.PNG" style="border:none;width: 70%;"><br>
       <a href="https://chrome.google.com/webstore/detail/sense-beta/lhjgkmllcaadmopgmanpapmpjgmfcfig"><i class="fa fa-chrome"></i>
  Téléchargement</a>
     </section>
@@ -402,7 +403,7 @@ $resultSet = $type->search($searchQuery);
     </section>
   </section>
   <section>
-    <h2>Disclaimer</h2>
+    <h2>Crédits</h2>
     <ul>
       <li><a href="https://www.youtube.com/watch?v=XUGGZEINh0I">Indexation et recherche "like a boss" avec Elastica - Damien Alexandre - PHP Tour Lyon 2014 #phptour</a></li>
     </ul>

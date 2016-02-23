@@ -43,15 +43,19 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
     </section>
   </section>
   <section>
-    <h2>About me</h2>
-<pre><code data-trim>
+    <section>
+      <h2>About me</h2>
+      <pre><code data-trim>
 GET /speaker/maxpou HTTP/1.1
 
 {
   "name": "Maxence POUTORD",
   "skills": ["Symfony2", "API", "NodeJS", "Software quality"],
   "hobbies": ["motorbike", "cinema (Danish)", "cooking"],
-  "company": "Conserto",
+  "job": {
+    "job": "web consultant",
+    "company": "Conserto"
+  }
   "_links": {
     "self": { "href": "maxpou.fr/slides/slides/about-rest/" },
     "blog": { "href": "maxpou.fr" },
@@ -59,7 +63,28 @@ GET /speaker/maxpou HTTP/1.1
     "mail": { "href": "maxence.poutord@gmail.com" }
   }
 }
-</code></pre>
+      </code></pre>
+    </section>
+    <section>
+      <h2 class="top-3">
+        <img data-src="img/conserto/logo.png" style="border: none; width: 70%;"/>
+      </h2>
+    </section>
+    <section>
+      <h2>Valeurs</h2>
+      <img data-src="img/conserto/valeurs.png" style="border: none; width: 50%;"/>
+    </section>
+    <section>
+      <h2>Expertises</h2>
+      <img data-src="img/conserto/expertise.png" style="border: none; width: 50%;"/>
+    </section>
+    <section>
+      <h2>Technologies</h2>
+      <img data-src="img/conserto/techno.png" style="border: none; width: 90%;"/>
+    </section>
+    <section>
+      <img data-src="img/conserto/iwantyou.jpg" style="border: none; width: 40%;"/>
+    </section>
   </section>
   <section>
     <section>
@@ -223,22 +248,22 @@ beer:
             <td>Method</td><td>Safe?</td><td>Idempotent?</td>
           </tr>
           <tr>
-            <td>GET</td><td class="fragment" data-fragment-index="0">Yes</td><td class="fragment" data-fragment-index="0">Yes</td>
+            <td>GET</td><td>Yes</td><td>Yes</td>
           </tr>
           <tr>
-            <td>HEAD</td><td class="fragment" data-fragment-index="1">Yes</td><td class="fragment" data-fragment-index="1">Yes</td>
+            <td>HEAD</td><td>Yes</td><td>Yes</td>
           </tr>
           <tr>
-            <td>POST</td><td class="fragment" data-fragment-index="2">No</td><td class="fragment" data-fragment-index="2">No</td>
+            <td>POST</td><td>No</td><td>No</td>
           </tr>
           <tr>
-            <td>PUT</td><td class="fragment" data-fragment-index="3">No</td><td class="fragment" data-fragment-index="3">Yes</td>
+            <td>PUT</td><td>No</td><td>Yes</td>
           </tr>
           <tr>
-            <td>PATCH</td><td class="fragment" data-fragment-index="4">No</td><td class="fragment" data-fragment-index="4">No</td>
+            <td>PATCH</td><td>No</td><td>No</td>
           </tr>
           <tr>
-            <td>DELETE</td><td class="fragment" data-fragment-index="5">No</td><td class="fragment" data-fragment-index="5">Yes</td>
+            <td>DELETE</td><td>No</td><td>Yes</td>
           </tr>
         </tbody>
       </table>
@@ -382,7 +407,7 @@ GET /beers
     <formats>
       <format qty="8">
         <name>Half</name>
-        <link rel="serve" href="/serve/beer/42?format=pint" />
+        <link rel="serve" href="/serve/beer/42?format=half" />
       </format>
     </formats>
   </consumption>
@@ -394,7 +419,7 @@ GET /beers
     <formats>
       <format qty="1">
         <name>Half</name>
-        <link rel="serve" href="/serve/beer/101?format=pint" />
+        <link rel="serve" href="/serve/beer/101?format=half" />
       </format>
       <format qty="0">
         <name>Pint</name>
@@ -711,8 +736,8 @@ GET breweries/6b9f3cfa-cc2c-11e5-8adf-2c4138ad20fa
       <h2>NelmioApiDocBundle</h2>
       <ul>
         <li>Generate a decent documentation</li>
-        <li>Support PHPDoc, JMS Serializer, FOSRestBundle, (SF) Forms</li>
         <li>Swagger format</li>
+        <li>Support PHPDoc, JMS Serializer, FOSRestBundle, (SF) Forms</li>
         <li>Export documentation (JSON, HTML, markdown)</li>
         <li>Multiple documentation</li>
         <li>Sandbox !</li>
@@ -757,18 +782,6 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
       </ul>
     </section>
   </section>
-  <!--
-  <section>
-    <section>
-      <h2>REST & NodeJS</h2>
-      <img data-src="img/nodejs.png" style="border:10px solid #FFFFFF;background-color: #FFFFFF">
-    </section>
-    <section>
-      <h2>HAPI</h2>
-      <img src="img/logo.svg" alt="HapiJS logo" style="border: none;width:50%;">
-    </section>
-  </section>
-  -->
   <section>
     <section>
       <h2 class="top-3">Conclusion</h2>
@@ -812,10 +825,6 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
       <h2>Thank you</h2>
       <h3>Questions?</h3>
       <p><img data-src="img/elephant-jump.gif" style="border:none;"></p>
-    </section>
-    <section>
-      <h2>Conserto is hiring!</h2>
-      <img src="img/iwantyou.jpg" alt="i want you" style="border: none;">
     </section>
   </section>
 </div>
