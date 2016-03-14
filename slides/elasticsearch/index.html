@@ -128,7 +128,7 @@ GET http://localhost:9200/contenus/_search?q=elastic
 GET http://localhost:9200/contenus/article/_search?q=elastic*
 
 # Recherche des occurences correspondantes à peu près à "elstic"
-GET http://localhost:9200/contenus/article/_search?q=elstic*
+GET http://localhost:9200/contenus/article/_search?q=elstic~
 
 # Recherche sur une propriété
 GET http://localhost:9200/contenus/article/_search?q=publie:true
@@ -297,7 +297,7 @@ $query = array(
     'size' => '5'   //optional (default 10)
 );
 
-$results = $client->request('/myIndex/_search', ElasticaRequest::GET, $query);
+$results = $client->request('/users/_search', ElasticaRequest::GET, $query);
 $results->getData();
       </code></pre>
     </section>
@@ -391,7 +391,7 @@ $resultSet = $type->search($searchQuery);
       <ul>
         <li>Highlightting</li>
         <li>Scroll</li>
-        <li>Géolocalisation</li>
+        <li>Localisation</li>
         <li>Fuzzy search (<em>did you mean xxx?</em>)</li>
         <li>...</li>
       </ul>
