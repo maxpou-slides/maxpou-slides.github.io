@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>GraphQl/Falcor: Why Killing REST?</title>
+<link rel="stylesheet" href="../../reveal.js/css/reveal.css">
+<link rel="stylesheet" href="../../reveal.js/css/theme/black.css" id="theme">
+<link rel="stylesheet" href="../../reveal.js/lib/css/zenburn.css">
+<link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/custom.css">
+<!-- Printing and PDF exports -->
+<script>
+var link  = document.createElement( 'link' );
+link.rel  = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? '../../reveal.js/css/print/pdf.css' : '../../reveal.js/css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+  <section>
+    <section>
+      <h2>GraphQl/Falcor:<br>Why Killing REST?</h2>
+      <p class="me">Maxence POUTORD</p>
+      <p class="me-link">
+        <a href="https://twitter.com/_maxpou"><i class="fa fa-twitter"></i> @_maxpou</a> |
+        <a href="http://www.maxpou.fr/"><i class="fa fa-globe"></i> maxpou.fr</a> |
+        <a href="mailto:maxence.poutord@gmail.com"><i class="fa fa-envelope-o"></i> maxence.poutord@gmail.com</a>
+      </p>
+    </section>
+    <!-- <section>
+      <h2>RevealJS Tips</h2>
+      <ul>
+        <li>ESC: slide overview</li>
+        <li>ALT + click: zoom</li>
+        <li>B: blackout</li>
+        <li>S: speaker notes</li>
+        <li><a href="?print-pdf">Print (then ctrl + p)</a></li>
+      </ul>
+    </section> -->
+  </section>
+  <section>
+    <h2>About me</h2>
+    <pre><code data-trim>
+GET /speaker/maxpou HTTP/1.1
+
+{
+  "name": "Maxence POUTORD",
+  "skills": ["Symfony", "API", "NodeJS", "Software quality"],
+  "hobbies": ["motorbike", "cinema (Danish)", "cooking"],
+  "job": {
+    "job": "web consultant",
+    "company": "Conserto"
+  },
+  "_links": {
+    "self": { "href": "maxpou.fr/slides/slides/graphql-falcor-why-killing-rest/" },
+    "blog": { "href": "maxpou.fr" },
+    "Twitter": { "href": "twitter.com/_maxpou" },
+    "mail": { "href": "maxence.poutord@gmail.com" }
+  }
+}
+    </code></pre>
+  </section>
+  <section>
+    <h2>Disclaimer</h2>
+    <p>I will NOT speak about WHAT, only WHY</p>
+  </section>
+  <section>
+    <section>
+      <h2>RPC Style</h2>
+      <img data-src="img/stoneage.gif" style="border:0px solid #FFFFFF; width: 25%;" />
+    </section>
+    <section>
+      <h2>RPC</h2>
+      <ul>
+        <li><em>GET /films?view=catalog&mode=premium</em></li>
+        <li><em>GET /films?action=get&titleId=101</em></li>
+        <li><em>GET /favourites?action=delete&titleId=42&view=detailMovie</em></li>
+      </ul>
+      <p><em>GET/POST whatever...</em></p>
+    </section>
+    <section>
+        <h2>RPC</h2>
+        <ul>
+          <li><i class="fa fa-thumbs-o-up"></i> Low latency</li>
+          <li><i class="fa fa-thumbs-o-up"></i> Small Messages</li>
+          <br>
+          <li><i class="fa fa-thumbs-o-down"></i> Tight coupling</li>
+          <li><i class="fa fa-thumbs-o-down"></i> Manual Cache Management</li>
+        </ul>
+    </section>
+  </section>
+  <section data-background="img/better-call-saul.jpg">
+    <h2 class="withBg">Better Call REST!</h2>
+  </section>
+  <section>
+    <section>
+      <h2>REST Style</h2>
+      <img data-src="img/rmm.png" style="border:0px solid #FFFFFF; width: 65%;" />
+      <br>
+      <a href="http://martinfowler.com/articles/richardsonMaturityModel.html">Richardson Maturity Model</a>
+    </section>
+    <section>
+      <h2>Levels 0, 1 and 2</h2>
+      <ul>
+        <li>Resource unicity</li>
+        <li>Client use HTTP verbs</li>
+        <li>Server use HTTP codes</li>
+        <li>Content negotiation <br>
+          <em><i class="fa fa-arrow-right"></i> Use media types to describe <b>WHAT</b> is expect</em>
+        </li>
+      </ul>
+    </section>
+    <section>
+      <h2>Level 3: HATEOAS</h2>
+      <ul>
+        <li><em><b>H</b>ypertext <b>A</b>s <b>T</b>he <b>E</b>ngine <b>O</b>f <b>T</b>he <b>A</b>pplication <b>S</b>tate</em></li>
+        <li>Resources are self-describing (discoverability) <br>
+          <em><i class="fa fa-arrow-right"></i> Use links to describe <b>HOW</b> the service is used</em>
+        </li>
+        <li>Hypermedia formats <em>(e.g., HAL, JSON-LD, HYDRA)</em></li>
+      </ul>
+    </section>
+    <section>
+      <h2>Example: HATEOAS (HAL+XML)</h2>
+      <pre><code data-trim>
+<film id="12345">
+  <name></name>
+  <synopsis>...</synopsis>
+  <year></year>
+  <actors>
+    <actor id="42">
+      <link rel="self" href="actors/42" />
+    </actor>
+    <actor id="51">
+      <link rel="self" href="actors/51" />
+    </actor>
+  </actors>
+  <cinemas></cinemas>
+  <link rel="self" href="films/12345" />
+</film>
+      </code></pre>
+    </section>
+    <section>
+      <h2>Requests</h2>
+      <div class="row">
+        <div class="span6 fragment">
+          <pre><code data-trim>
+<film id="12345">
+  <name></name>
+  <actors>
+    <actor></actor>
+    <actor></actor>
+  </actors>
+</film>
+          </code></pre>
+        </div>
+        <div class="span6 fragment">
+          <ol>
+            <li>GET films/12345</li>
+            <li>
+              <ul style="margin-left: 0px;">
+                <li class="list-unstyled">GET actors/42</li>
+                <li class="list-unstyled">GET actors/51</li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+      </div>
+      <p class="fragment">3 request to satisfy datas needed by view!</p>
+    </section>
+    <section>
+      <h2>REST</h2>
+      <ul>
+        <li><i class="fa fa-thumbs-o-up"></i> cache consistency<br>
+          <em>(idempotent/safe HTTP method)</em></li>
+        <li><i class="fa fa-thumbs-o-up"></i> loose coupling</li>
+        <br>
+        <li><i class="fa fa-thumbs-o-down"></i> High Latency</li>
+        <li><i class="fa fa-thumbs-o-down"></i> Large Message Sizes</li>
+      </ul>
+      <aside class="notes">
+        http://extensionengine.com/netflix-moves-away-from-rest-for-its-api/ <br>
+        RFC2616
+      </aside>
+    </section>
+  </section>
+  <section>
+    <section data-background="img/doc-maboul.jpg">
+      <h2 class="withBg">Autopsy:<br> How moving away from REST?</h2>
+    </section>
+    <!-- <section>
+      <h2>NOBODY understand REST</h2>
+      <img data-src="img/someoneIsWrongOnTheInternet.png" style="border:10px solid #FFFFFF; box-shadow: 1px 1px 12px #555; width: 25%;" />
+      <p>Further reading: <a href="https://www.mobomo.com/2010/04/rest-isnt-what-you-think-it-is/">"REST isn’t what you think it is, and that’s OK"</a></p>
+    </section> -->
+    <!-- <section>
+      <h2>Also...</h2>
+      <ul>
+        <li><em>&#8220;Pure REST APIs are slow, hard to program, and rare&#8221;</em> - Netflix</li>
+        <li>Web servers serve large resources</li>
+      </ul>
+    </section> -->
+    <section>
+      <h2>Falcor approach</h2>
+      <p><em>&#8220;One Model Everywhere&#8221;</em></p>
+      <pre><code data-trim>
+# Request
+GET /model.json?paths=["film.name", "film.year", "film.actor.name"]
+      </code></pre>
+      <pre><code data-trim>
+# Response
+{
+  user: {
+    name: "Frank",
+    surname: "Underwood",
+    actor [
+      {
+        "name": "aaa"
+      },
+      {
+        "name": "aab"
+      }
+    ]
+  }
+}
+      </code></pre>
+    </section>
+    <section>
+      <h2>GraphQl approach</h2>
+      <div class="row">
+        <div class="span6">
+          <pre><code data-trim>
+GET /graphql?query=
+{
+  film(id: "12345") {
+    name,
+    year,
+    actor {
+      name
+    }
+  }
+}
+          </code></pre>
+        </div>
+        <div class="span6">
+          <pre><code data-trim>
+{
+  "data": {
+    "film": {
+      "name": "Lee",
+      "year": "2016",
+      "actor": [
+        {
+          "name": "aaa"
+        },
+        {
+          "name": "aab"
+        }
+      ]
+    }
+  }
+}
+          </code></pre>
+        </div>
+      </div>
+    </section>
+    <section>
+      <h2>RPC/REST convergence => new APIs</h2>
+    </section>
+  </section>
+  <section>
+    <section>
+      <h2>Thank you</h2>
+      <h3>Questions?</h3>
+    </section>
+    <section>
+      <h2>Credits/Further reading</h2>
+      <ul>
+        <li><a href="https://www.youtube.com/watch?v=hOE6nVVr14c">[Youtube] JSON Graph: Reactive REST at Netflix by Jafar Husain</a></li>
+        <li><a href="http://graphql.org/">graphql.org</a></li>
+      </ul>
+    </section>
+  </section>
+</div>
+</div>
+<script src="../../reveal.js/lib/js/head.min.js"></script>
+<script src="../../reveal.js/js/reveal.js"></script>
+<script>
+// Full list of configuration options available at:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+  controls: true,
+  progress: true,
+  slideNumber: true,
+  history: true,
+  center: true,
+  width: 1000,
+  height: 700,
+
+  transition: 'convex', // none/fade/slide/convex/concave/zoom
+
+// Optional reveal.js plugins
+dependencies: [
+  { src: '../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+  { src: '../../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+  { src: '../../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+  { src: '../../reveal.js/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+  { src: '../../reveal.js/plugin/zoom-js/zoom.js', async: true },
+  { src: '../../reveal.js/plugin/notes/notes.js', async: true }
+]
+});
+
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-67868977-1', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>
