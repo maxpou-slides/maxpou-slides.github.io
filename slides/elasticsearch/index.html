@@ -76,7 +76,7 @@ java -version
 # Download
 curl -L -O https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.5.tar.gz
 tar -xvf elasticsearch-1.7.5.tar.gz
-cd cd elasticsearch-1.7.5/bin
+cd elasticsearch-1.7.5/bin
 # Let's get it started!
 ./bin/elasticsearch
       </code></pre>
@@ -96,6 +96,25 @@ cd cd elasticsearch-1.7.5/bin
           <tr><td>Tuple/Enregistrement</td><td>Document</td></tr>
           <tr><td>Champs</td><td>Field</td></tr>
           <tr><td>Schema</td><td>Mapping</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <section>
+      <h2>Opération: SQL vs. HTTP Verbs</h2>
+      <table>
+        <tbody>
+          <tr>
+            <td>C</td><td>INSERT INTO</td><td>POST/PUT</td>
+          </tr>
+          <tr>
+            <td>R</td><td>SELECT</td><td>GET /_search</td>
+          </tr>
+          <tr>
+            <td>U</td><td>UPDATE</td><td>POST/PUT</td>
+          </tr>
+          <tr>
+            <td>D</td><td>DELETE</td><td>DELETE</td>
+          </tr>
         </tbody>
       </table>
     </section>
@@ -227,6 +246,13 @@ POST /contenus/_search
   "aggs": {}
 }
       </code></pre>
+    </section>
+    <section>
+      <h2>Et les "jointures" ?</h2>
+      <p>
+        C'est possible !<br>
+        <i class="fa fa-exclamation-triangle"></i> Mais en général... il y a un problème de mapping ! <i class="fa fa-exclamation-triangle"></i>
+      </p>
     </section>
   </section>
   <section>

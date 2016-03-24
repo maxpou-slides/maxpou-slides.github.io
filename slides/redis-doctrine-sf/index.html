@@ -251,6 +251,31 @@ class Magazine implements MagazineInterface
       </code></pre>
     </section>
     <section>
+      <h2>Événements de cycle de vie</h2>
+      <table>
+        <tbody>
+          <tr class="fragment">
+            <td>prePertist<br>postPertist</td>
+            <td>Avant/Après création</td>
+          </tr>
+          <tr class="fragment">
+            <td>preUpdate<br>postUpdate</td>
+            <td>Avant/Après modification</td>
+          </tr>
+          <tr class="fragment">
+            <td>preRemove<br>postRemove</td>
+            <td>Avant/Après suppression</td>
+          </tr>
+          <tr class="fragment">
+            <td>postLoad</td>
+            <td>Après chargement</td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <a href="http://doctrine-orm.readthedocs.org/projects/doctrine-orm/en/latest/reference/events.html#lifecycle-events">Liste des événements de cycle de vie des entités</a>
+    </section>
+    <section>
       <h2>Le service</h2>
       <pre><code data-trim>
 use Doctrine\ORM\Event\LifecycleEventArgs;
