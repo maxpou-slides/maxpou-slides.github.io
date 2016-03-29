@@ -85,9 +85,11 @@ GET /speaker/maxpou HTTP/1.1
     <section>
         <h2>RPC</h2>
         <ul>
+          <p>Pros:</p>
           <li><i class="fa fa-thumbs-o-up"></i> Low latency</li>
           <li><i class="fa fa-thumbs-o-up"></i> Small Messages</li>
           <br>
+          <p>Cons:</p>
           <li><i class="fa fa-thumbs-o-down"></i> Tight coupling</li>
           <li><i class="fa fa-thumbs-o-down"></i> Manual Cache Management</li>
         </ul>
@@ -175,13 +177,16 @@ GET /speaker/maxpou HTTP/1.1
     <section>
       <h2>REST</h2>
       <ul>
+        <p>Pros:</p>
         <li><i class="fa fa-thumbs-o-up"></i> cache consistency<br>
           <em>(idempotent/safe HTTP method)</em></li>
         <li><i class="fa fa-thumbs-o-up"></i> loose coupling</li>
         <br>
-        <li><i class="fa fa-thumbs-o-down"></i> High Latency</li>
-        <li><i class="fa fa-thumbs-o-down"></i> High Latency</li>
-        <li><em style="font-size: 15px;"><i class="fa fa-thumbs-o-down"></i> ...nobody understand REST!)</em></li>
+        <p>Cons:</p>
+        <li><i class="fa fa-thumbs-o-down"></i> Heavier response</li>
+        <li><i class="fa fa-thumbs-o-down"></i> No <em>"multi-GET"</em></li>
+        <li><i class="fa fa-thumbs-o-down"></i> Clients need to understand what links are about</li>
+        <li><em style="font-size: 15px;"><i class="fa fa-thumbs-o-down"></i> ...nobody understand REST!</em></li>
       </ul>
       <aside class="notes">
         http://extensionengine.com/netflix-moves-away-from-rest-for-its-api/ <br>
@@ -281,7 +286,8 @@ GET /graphql?query=
     <section>
       <h2>Credits/Further reading</h2>
       <ul>
-        <li><a href="https://www.youtube.com/watch?v=hOE6nVVr14c">[Youtube] JSON Graph: Reactive REST at Netflix by Jafar Husain</a></li>
+        <li><a href="https://www.youtube.com/watch?v=hOE6nVVr14c">[Youtube][EN] JSON Graph: Reactive REST at Netflix by Jafar Husain</a></li>
+        <li><a href="https://github.com/graphql/swapi-graphql">SWAPI GraphQL</a></li>
         <li><a href="http://graphql.org/">graphql.org</a></li>
       </ul>
     </section>
