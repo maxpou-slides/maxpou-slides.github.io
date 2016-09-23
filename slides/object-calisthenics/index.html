@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Object Calisthenics</title>
+<link rel="stylesheet" href="../../reveal.js/css/reveal.css">
+<link rel="stylesheet" href="../../reveal.js/css/theme/black.css" id="theme">
+<link rel="stylesheet" href="../../reveal.js/lib/css/zenburn.css">
+<link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="css/custom.css">
+<!-- Printing and PDF exports -->
+<script>
+var link  = document.createElement( 'link' );
+link.rel  = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? '../../reveal.js/css/print/pdf.css' : '../../reveal.js/css/print/paper.css';
+document.getElementsByTagName( 'head' )[0].appendChild( link );
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+  <section>
+    <section>
+      <h2>Object Calisthenics</h2>
+      <h3>9 steps to better software design today</h3>
+      <p class="me">Maxence POUTORD</p>
+      <p class="me-link">
+        <a href="https://twitter.com/_maxpou"><i class="fa fa-twitter"></i> @_maxpou</a> |
+        <a href="http://www.maxpou.fr/"><i class="fa fa-globe"></i> maxpou.fr</a> |
+        <a href="mailto:maxence.poutord@gmail.com"><i class="fa fa-envelope-o"></i> maxence.poutord@gmail.com</a>
+      </p>
+    </section>
+    <section>
+      <h2>RevealJS Tips</h2>
+      <ul>
+        <li>ESC: slide overview</li>
+        <li>ALT + click: zoom</li>
+        <li>B: blackout</li>
+        <li>S: speaker notes</li>
+        <li><a href="?print-pdf">Print (then ctrl + p)</a></li>
+      </ul>
+    </section>
+  </section>
+  <!-- RULE 1 -->
+  <section>
+    <section>
+      <h2>Rule 1: One level of indentation per method</h2>
+    </section>
+    <section>
+      <img data-src="img/indent-power.jpeg" style="border:none;width: 80%;">
+    </section>
+    <section>
+      <h2>Code (re)organisation: Early return</h2>
+      <pre class="fragment push" data-fragment-index="0"><code data-trim>
+public someFunction(someParameter)
+{
+  if (firstCondition) {
+    if (secondCondition) {
+      // Do Something
+    }
+  }
+}
+      </code></pre>
+      <pre class="fragment push" data-fragment-index="1"><code data-trim>
+public someFunction(someParameter)
+{
+  if (!firstCondition) {
+    return;
+  }
+
+  if (secondCondition) {
+    // Do Something
+  }
+}
+      </code></pre>
+      <pre class="fragment push" data-fragment-index="2"><code data-trim>
+public someFunction(someParameter)
+{
+  if (!firstCondition) {
+    return;
+  }
+
+  if (!secondCondition) {
+    return;
+  }
+
+  // Do Something
+}
+      </code></pre>
+      <p class="fragment" data-fragment-index="2">
+        "Single Entry, Single Exit" was written for assembly languages like Fortran/COBOL(<a href="http://programmers.stackexchange.com/questions/118703/where-did-the-notion-of-one-return-only-come-from">More reading</a>)
+      </p>
+    </section>
+    <section>
+      <h2>Too much indentation level?</h2>
+      <p class="fragment" data-fragment-index="0">
+        You may need to split your code into multiple functions. This is the <a href="http://refactoring.com/catalog/extractMethod.html">Extract Method</a> (cf. Martin Fowler).
+      </p>
+      <pre class="fragment push" data-fragment-index="0"><code data-trim>
+//Class Command
+public function validateProductList(ProductList $products)
+{
+    $validProducts[];
+    foreach ($products as $product)
+    {
+        if (!$product->price > 0 && length($product->name)) {
+            $validProducts[] = $product;
+        }
+    }
+
+    return validProducts;
+}
+      </code></pre>
+      <pre class="fragment push" data-fragment-index="1"><code data-trim>
+//Class Command
+public function validateProductList(ProductList $products)
+{
+    return array_filter($products, 'isValidProduct');
+}
+
+public function isValidProduct(Product $product)
+{
+    if (!$product->price > 0 && length($product->name)) {
+        return true;
+    }
+
+    return false;
+}
+      </code></pre>
+    </section>
+    <section>
+      <h2>Reading</h2>
+      <a href="http://code.joejag.com/2016/anti-if-the-missing-patterns.html">Anti-If: The missing patterns</a> by Joe Wright
+    </section>
+  </section>
+  <!-- RULE 2 -->
+  <section>
+    <section>
+      <h2>Rule 2: Don’t use the ELSE keyword</h2>
+    </section>
+    <section>
+        <h2 class="top-1">Code (re)organisation</h2>
+        <pre class="fragment push" data-fragment-index="0"><code data-trim>
+public login($username, $password)
+{
+    if ($this->isValid($username, $password)) {
+        redirect("homepage");
+    } else {
+        addFlash("error", "Bad credentials");
+        redirect("login");
+    }
+}
+        </code></pre>
+        <pre class="fragment push" data-fragment-index="1"><code data-trim>
+public login($username, $password)
+{
+    if ($this->isValid($username, $password)) {
+        return redirect("homepage");
+    } else {
+        addFlash("error", "Bad credentials");
+        return redirect("login");
+    }
+}
+        </code></pre>
+        <pre class="fragment push" data-fragment-index="2"><code data-trim>
+public login($username, $password)
+{
+    // defensive approach
+    if ($this->isValid($username, $password)) {
+        return redirect("homepage");
+    }
+
+    addFlash("error", "Bad credentials");
+    return redirect("login");
+}
+        </code></pre>
+        <pre class="fragment push" data-fragment-index="3"><code data-trim>
+public login($username, $password)
+{
+    // optimistic approach
+    if (!$this->isValid($username, $password)) {
+        addFlash("error", "Bad credentials");
+        return redirect("login");
+    }
+
+    return redirect("homepage");
+}
+        </code></pre>
+    </section>
+    <section>
+      <h2>Not enought?</h2>
+      <ul>
+        <li>State Pattern</li>
+        <li>Strategy Pattern</li>
+        <li>NullObject Pattern</li>
+        <li>...</li>
+      </ul>
+    </section>
+    <section>
+      <h2>More reading</h2>
+      <a href="http://www.maxpou.fr/else-unnecessary-expression/">maxpou.fr/else-unnecessary-expression</a>
+    </section>
+  </section>
+  <!-- RULE 3 -->
+  <section>
+    <section>
+      <h2>Rule 3: Wrap all primitives and Strings</h2>
+    </section>
+    <section>
+      <h2>Example</h2>
+      <blockquote class="twitter-tweet" data-lang="fr"><p lang="fr" dir="ltr">&quot;Lorsque vous mettez String en paramètre d&#39;une fonction, vous devez accepter l&#39;intégrale de Shakespeare en mandarin&quot; <a href="https://twitter.com/ParisScalaUG">@ParisScalaUG</a> <a href="https://twitter.com/clementd">@clementd</a></p>&mdash; Ma Du (@mathieudulac) <a href="https://twitter.com/mathieudulac/status/674318986314690561">8 décembre 2015</a></blockquote>
+      <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+      <p>Translation:</p>
+      <blockquote>
+      "If your function expect a String as a parameter, then you should accept the Shakespeare integral in Mandarin"
+      </blockquote>
+    </section>
+    <section>
+      <h2>Be pragmatic: <br>only wrap primitive with behaviour</h2>
+      <ul>
+        <li>UUID</li>
+        <li>BIC, IBAN</li>
+        <li>email, URL</li>
+        <li>IP address</li>
+        <li>...</li>
+      </ul>
+    </section>
+  </section>
+  <!-- RULE 4 -->
+  <section>
+    <section>
+      <h2>Rule 4: First class collections</h2>
+    </section>
+    <section>
+      <h2>Why?</h2>
+      <pre><code data-trim>
+class Compagny
+{
+  private $name;
+  private $employes;
+
+  # code
+}
+      </code></pre>
+      <p>Where can I put filters/find methods? (or other specific behaviors)</p>
+      <p>employes collection need to be wrapped in its own class</p>
+    </section>
+  </section>
+  <!-- RULE 5 -->
+  <section>
+    <section>
+      <h2>Rule 5: One dot per line</h2>
+      <i>...or an arrow (->) if you use PHP!</i>
+    </section>
+    <section>
+      <h2>Law of Demeter (LoD)</h2>
+      <blockquote>
+        "Don't talk to strangers. Only talk to your immediate friends"
+      </blockquote>
+      <pre><code data-trim>
+objectA.getObjectB().doSomething();
+//...or worse
+objectA.getObjectB().getObjectC().doSomething();
+      </code></pre>
+      <p><i class="fa fa-question-circle" aria-hidden="true"></i> What happen if getObjectB() return NULL?</p>
+    </section>
+    <section>
+      <blockquote>
+        "you can play with your toys, with toys that you make, and with toys that someone gives you. You don’t ever, ever play with your toy’s toys."
+        <br> — Jeff BAY
+      </blockquote>
+    </section>
+  </section>
+  <!-- RULE 6 -->
+  <section>
+    <section>
+      <h2>Rule 6: Don’t abbreviate</h2>
+    </section>
+    <section>
+      <h2>Why do you abbreviate?</h2>
+      <ul>
+        <li>
+          It's repeated many times<br>
+          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Code duplication
+        </li>
+        <li>
+          The method name is too long <br>
+          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Violates the Single Responsibility Principle
+        </li>
+      </ul>
+    </section>
+    <section>
+      <h2>1st SOLID Principle</h2>
+      <p><b>S</b> mean Single Responsibility Principle (SRP)</p>
+      <video src="img/fancy-beer.webm" id="main-video" autoplay="" loop=""></video>
+    </section>
+    <section>
+      <ul>
+        <li>Class and method names to 1-2 words</li>
+        <li>Be explicit! <br>
+          <i>Wrong name/non explicit often leads to errors.</i>
+        </li>
+        <li>Naming is too hard? Ask yourself if this class/method/... make sense!</li>
+      </ul>
+      <blockquote>
+        There are only two hard things in Computer Science: cache invalidation and naming things.
+        <br> — Phil Karlton
+      </blockquote>
+    </section>
+  </section>
+  <!-- RULE 7 -->
+  <section>
+    <section>
+      <h2>Rule 7: Keep all entities small</h2>
+    </section>
+    <section>
+      <h2>Why?</h2>
+      <p>Long files are hard to:</p>
+      <ul>
+        <li>read</li>
+        <li>understand</li>
+        <li>maintain</li>
+      </ul>
+    </section>
+    <section>
+      "No class over 50 lines and no package over 10 files"<br>
+      Long files are hard to read and hard to reuse.
+    </section>
+  </section>
+  <!-- RULE 8 -->
+  <section>
+    <section>
+      <h2>Rule 8: No classes with more than two instance variables</h2>
+      <p><i>...or 5!</i></p>
+    </section>
+    <section>
+      <h2>High cohesion, and better encapsulation</h2>
+      <pre><code data-trim>
+class MyWonderfulService
+{
+    private $anotherService;
+    private $logger;
+    private $translator;
+    private $entityManager;
+
+    // code
+}
+      </code></pre>
+    </section>
+  </section>
+  <!-- RULE 9 -->
+  <section>
+    <section>
+      <h2>Rule 9: No getters/setters/properties</h2>
+    </section>
+    <section>
+      <h2>Tell, don’t ask principle</h2>
+      <blockquote cite="http://">
+        "Don't ask for the information you need to do the work; ask the object that has the information to do the work for you"
+        <br> — Allen Holub
+      </blockquote>
+      <aside class="notes">
+        http://www.yegor256.com/2014/09/16/getters-and-setters-are-evil.html
+      </aside>
+    </section>
+    <section>
+      <h2>What is better?</h2>
+      <pre><code data-trim>
+// Game
+private $score;
+
+public void setScore(int $score) {
+    $this->score = $score;
+}
+
+public getScore(): int {
+    return score;
+}
+
+// Usage
+$game->setScore($game->getScore() + ENEMY_DESTROYED_SCORE);
+      </code></pre>
+      <pre class="fragment"><code data-trim>
+// Game
+public addScore(int $delta): void {
+    this->score += $delta;
+}
+
+// Usage
+$game->addScore(ENEMY_DESTROYED_SCORE);
+      </code></pre>
+    </section>
+    <section>
+      <h2>What is the difference between...</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <pre><code data-trim>
+class Employe
+{
+    private $name;
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function setName($name) {
+        $this->name = $name;
+
+        return $this;
+    }
+}
+          </code></pre>
+        </div>
+        <div class="col-md-6 fragment">
+          <pre><code data-trim>
+class Employe
+{
+    public $name;
+}
+          </code></pre>
+        </div>
+      </div>
+    </section>
+  </section>
+</div>
+</div>
+<script src="../../reveal.js/lib/js/head.min.js"></script>
+<script src="../../reveal.js/js/reveal.js"></script>
+<script>
+// Full list of configuration options available at:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+  controls: true,
+  progress: true,
+  slideNumber: true,
+  history: true,
+  center: true,
+  width: 1000,
+  height: 700,
+
+  transition: 'convex', // none/fade/slide/convex/concave/zoom
+
+// Optional reveal.js plugins
+dependencies: [
+  { src: '../../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+  { src: '../../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+  { src: '../../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+  { src: '../../reveal.js/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+  { src: '../../reveal.js/plugin/zoom-js/zoom.js', async: true },
+  { src: '../../reveal.js/plugin/notes/notes.js', async: true }
+]
+});
+
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-67868977-1', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>
