@@ -43,50 +43,61 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );
       </ul>
     </section>
   </section>
-  <!-- RULE 1 -->
   <section>
     <section>
-      <h2>Rule 1: One level of indentation per method</h2>
+      <h2>Object Calisthenics</h2>
+      <p>Jeff Bay, in The ThoughtWorks Anthology, lists 9 rules to writing <b>better Object Oriented code</b>.</p>
+      <img data-src="img/thoughtWorks-anthology.jpg" style="border:none;width: 25%;">
+    </section>
+    <section>
+      <h2>Motivation</h2>
+      <p>readability, maintainability, testability, and comprehensibility</p>
+    </section>
+  </section>
+  <!-- STEP 1 -->
+  <section>
+    <section>
+      <h2>#1: One level of indentation per method</h2>
     </section>
     <section>
       <img data-src="img/indent-power.jpeg" style="border:none;width: 80%;">
     </section>
     <section>
       <h2>Code (re)organisation: Early return</h2>
-      <pre class="fragment push" data-fragment-index="0"><code data-trim>
+      <pre class="fragment push" data-fragment-index="0"><code class="php" data-trim>
 public someFunction(someParameter)
 {
-  if (firstCondition) {
-    if (secondCondition) {
-      // Do Something
+    if (firstCondition) {
+        if (secondCondition) {
+            // Do Something
+        }
     }
-  }
 }
       </code></pre>
-      <pre class="fragment push" data-fragment-index="1"><code data-trim>
+      <pre class="fragment push" data-fragment-index="1"><code class="php" data-trim>
 public someFunction(someParameter)
 {
-  if (!firstCondition) {
-    return;
-  }
+    if (!firstCondition) {
+        return;
+    }
 
-  if (secondCondition) {
+    if (secondCondition) {
+        // Do Something
+    }
+}
+      </code></pre>
+      <pre class="fragment push" data-fragment-index="2"><code class="php" data-trim>
+public someFunction(someParameter)
+{
+    if (!firstCondition) {
+        return;
+    }
+
+    if (!secondCondition) {
+        return;
+    }
+
     // Do Something
-  }
-}
-      </code></pre>
-      <pre class="fragment push" data-fragment-index="2"><code data-trim>
-public someFunction(someParameter)
-{
-  if (!firstCondition) {
-    return;
-  }
-
-  if (!secondCondition) {
-    return;
-  }
-
-  // Do Something
 }
       </code></pre>
       <p class="fragment" data-fragment-index="2">
@@ -131,19 +142,24 @@ public function isValidProduct(Product $product)
       </code></pre>
     </section>
     <section>
-      <h2>Reading</h2>
-      <a href="http://code.joejag.com/2016/anti-if-the-missing-patterns.html">Anti-If: The missing patterns</a> by Joe Wright
+      <h2>Benefits</h2>
+      <ul>
+        <li>Easier to read</li>
+        <li>Reduce cyclomatic complexity</li>
+        <li>Respect KISS principle</li>
+        <li>Single Responsability Principle ("S" in SOLID)</li>
+      </ul>
     </section>
   </section>
-  <!-- RULE 2 -->
+  <!-- STEP 2 -->
   <section>
     <section>
-      <h2>Rule 2: Don’t use the ELSE keyword</h2>
+      <h2>#2: Don’t use the ELSE keyword</h2>
     </section>
     <section>
         <h2 class="top-1">Code (re)organisation</h2>
         <pre class="fragment push" data-fragment-index="0"><code data-trim>
-public login($username, $password)
+public function login($username, $password)
 {
     if ($this->isValid($username, $password)) {
         redirect("homepage");
@@ -154,7 +170,7 @@ public login($username, $password)
 }
         </code></pre>
         <pre class="fragment push" data-fragment-index="1"><code data-trim>
-public login($username, $password)
+public function login($username, $password)
 {
     if ($this->isValid($username, $password)) {
         return redirect("homepage");
@@ -165,7 +181,7 @@ public login($username, $password)
 }
         </code></pre>
         <pre class="fragment push" data-fragment-index="2"><code data-trim>
-public login($username, $password)
+public function login($username, $password)
 {
     // defensive approach
     if ($this->isValid($username, $password)) {
@@ -177,7 +193,7 @@ public login($username, $password)
 }
         </code></pre>
         <pre class="fragment push" data-fragment-index="3"><code data-trim>
-public login($username, $password)
+public function login($username, $password)
 {
     // optimistic approach
     if (!$this->isValid($username, $password)) {
@@ -199,23 +215,78 @@ public login($username, $password)
       </ul>
     </section>
     <section>
-      <h2>More reading</h2>
-      <a href="http://www.maxpou.fr/else-unnecessary-expression/">maxpou.fr/else-unnecessary-expression</a>
+      <h2>Benefits</h2>
+      <ul>
+        <li>Easier to read</li>
+        <li>Reduce cyclomatic complexity</li>
+      </ul>
     </section>
   </section>
-  <!-- RULE 3 -->
+  <!-- STEP 3 -->
   <section>
     <section>
-      <h2>Rule 3: Wrap all primitives and Strings</h2>
+      <h2>#3: Wrap all primitives and Strings</h2>
     </section>
     <section>
       <h2>Example</h2>
-      <blockquote class="twitter-tweet" data-lang="fr"><p lang="fr" dir="ltr">&quot;Lorsque vous mettez String en paramètre d&#39;une fonction, vous devez accepter l&#39;intégrale de Shakespeare en mandarin&quot; <a href="https://twitter.com/ParisScalaUG">@ParisScalaUG</a> <a href="https://twitter.com/clementd">@clementd</a></p>&mdash; Ma Du (@mathieudulac) <a href="https://twitter.com/mathieudulac/status/674318986314690561">8 décembre 2015</a></blockquote>
-      <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-      <p>Translation:</p>
-      <blockquote>
-      "If your function expect a String as a parameter, then you should accept the Shakespeare integral in Mandarin"
-      </blockquote>
+      <pre class="sticky"><code class="php" data-trim>
+class User
+{
+    /** @var string */
+    private $name;
+
+    /** @var string */
+    private $email;
+
+    public function __construct(string $name, string $email)
+    {
+        $this->name  = $name;
+        $this->email = $email;
+    }
+}
+      </code><code class="php fragment" data-trim>
+//this is ok
+$myUser = new User("John", "john@mail.fr");
+      </code><code class="php fragment" data-trim>
+//this is ok
+$anotherUser = new User("Max", "0811223344");
+      </code><code class="php fragment" data-trim>
+//this is ok
+$whoeverUser = new User("Louise", "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+      </code><code class="php fragment" data-trim>
+//this is ok
+$whoeverUserBis = new User("Lucie", "打才我醫集老電了快洋，西足並良步細主！");
+      </code></pre>
+    </section>
+    <section>
+      <h2>Proposition</h2>
+      <pre class="sticky"><code class="php" data-trim>
+class Email
+{
+    /** @var string */
+    private $email;
+
+    public function __construct(string $email)
+    {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL) {
+            throw new InvalidArgumentException("Invalid format!");
+        }
+        $this->email = $email;
+    }
+}
+      </code><code class="php fragment" data-trim>
+// This is ok
+$myUser = new User("John", new Email("john@mail.fr"));
+      </code><code class="php fragment" data-trim>
+// This is NOT ok
+$anotherUser = new User("Max", new Email("0811223344"));
+      </code><code class="php fragment" data-trim>
+// This is NOT ok
+$whoeverUser = new User("Louise", new Email("Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."));
+      </code><code class="php fragment" data-trim>
+// This is NOT ok
+$whoeverUserBis = new User("Lucie", new Email("打才我醫集老電了快洋，西足並良步細主！"));
+      </code></pre>
     </section>
     <section>
       <h2>Be pragmatic: <br>only wrap primitive with behaviour</h2>
@@ -227,31 +298,71 @@ public login($username, $password)
         <li>...</li>
       </ul>
     </section>
+    <section>
+      <h2>Benefits</h2>
+      <ul>
+        <li>Type hinting</li>
+        <li>Easier to reuse</li>
+        <li>Prevent code duplication</li>
+      </ul>
+    </section>
   </section>
-  <!-- RULE 4 -->
+  <!-- STEP 4 -->
   <section>
     <section>
-      <h2>Rule 4: First class collections</h2>
+      <h2>#4: First class collections</h2>
     </section>
     <section>
       <h2>Why?</h2>
       <pre><code data-trim>
 class Compagny
 {
-  private $name;
-  private $employes;
+    private $name;
+    private $employes;
 
-  # code
+    # code
 }
       </code></pre>
-      <p>Where can I put filters/find methods? (or other specific behaviors)</p>
-      <p>employes collection need to be wrapped in its own class</p>
+      <p class="fragment">Where can I put filters/find/... methods?</p>
+      <pre class="fragment"><code data-trim>
+class Team
+{
+    private $name;
+    private $employes;
+
+    # code
+}
+      </code></pre>
+      <p class="fragment"><i class="fa fa-arrow-right" aria-hidden="true"></i> 'employes' collection need to be wrapped in its own class</p>
+    </section>
+    <section>
+      <h2>Example</h2>
+      <pre><code data-trim>
+class EmployeesCollection
+{
+    private $employes;
+
+    public function add(Employe $employe) {/** ... **/};
+    public function remove(Employe $employe) {/** ... **/};
+    public function count() {/** ... **/};
+    public function filter(Closure $p) {/** ... **/};
+
+    //...
+}
+      </code></pre>
+    </section>
+    <section>
+      <h2>Benefits</h2>
+      <ul>
+        <li>Readability</li>
+        <li>Easier to merge collection and not worry about member behaviour in them</li>
+      </ul>
     </section>
   </section>
-  <!-- RULE 5 -->
+  <!-- STEP 5 -->
   <section>
     <section>
-      <h2>Rule 5: One dot per line</h2>
+      <h2>#5: One dot per line</h2>
       <i>...or an arrow (->) if you use PHP!</i>
     </section>
     <section>
@@ -259,10 +370,10 @@ class Compagny
       <blockquote>
         "Don't talk to strangers. Only talk to your immediate friends"
       </blockquote>
-      <pre><code data-trim>
-objectA.getObjectB().doSomething();
+      <pre><code class="php" data-trim>
+$objectA->getObjectB()->doSomething();
 //...or worse
-objectA.getObjectB().getObjectC().doSomething();
+$objectA->getObjectB()->getObjectC()->doSomething();
       </code></pre>
       <p><i class="fa fa-question-circle" aria-hidden="true"></i> What happen if getObjectB() return NULL?</p>
     </section>
@@ -272,11 +383,19 @@ objectA.getObjectB().getObjectC().doSomething();
         <br> — Jeff BAY
       </blockquote>
     </section>
+    <section>
+      <h2>Benefits</h2>
+      <ul>
+        <li>Law of Demeter</li>
+        <li>Readability</li>
+        <li>Easier to debug</li>
+      </ul>
+    </section>
   </section>
-  <!-- RULE 6 -->
+  <!-- STEP 6 -->
   <section>
     <section>
-      <h2>Rule 6: Don’t abbreviate</h2>
+      <h2>#6: Don’t abbreviate</h2>
     </section>
     <section>
       <h2>Why do you abbreviate?</h2>
@@ -309,11 +428,32 @@ objectA.getObjectB().getObjectC().doSomething();
         <br> — Phil Karlton
       </blockquote>
     </section>
+    <section>
+      <h2>It's all about reading!</h2>
+      <pre><code data-trim>
+foreach ($users as $u) {
+    // code
+    // code
+    // code
+    // code
+    // code
+    $u->sendMail($aMail); // "$u": what does it stand for?
+}
+      </code></pre>
+    </section>
+    <section>
+      <h2>Benefits</h2>
+      <ul>
+        <li>Readability</li>
+        <li>Communication</li>
+        <li>Help to reveal underlying problems</li>
+      </ul>
+    </section>
   </section>
-  <!-- RULE 7 -->
+  <!-- STEP 7 -->
   <section>
     <section>
-      <h2>Rule 7: Keep all entities small</h2>
+      <h2>#7: Keep all entities small</h2>
     </section>
     <section>
       <h2>Why?</h2>
@@ -328,12 +468,20 @@ objectA.getObjectB().getObjectC().doSomething();
       "No class over 50 lines and no package over 10 files"<br>
       Long files are hard to read and hard to reuse.
     </section>
+    <section>
+      <h2>Benefits</h2>
+      <ul>
+        <li>Easier to reuse</li>
+        <li>Better code segregation</li>
+        <li>Clear methods and their objectives</li>
+        <li>Single Responsability Principle ("S" in SOLID)</li>
+      </ul>
+    </section>
   </section>
-  <!-- RULE 8 -->
+  <!-- STEP 8 -->
   <section>
     <section>
-      <h2>Rule 8: No classes with more than two instance variables</h2>
-      <p><i>...or 5!</i></p>
+      <h2>#8: No classes with several instance variables</h2>
     </section>
     <section>
       <h2>High cohesion, and better encapsulation</h2>
@@ -349,11 +497,33 @@ class MyWonderfulService
 }
       </code></pre>
     </section>
+    <section>
+      <h2>Benefits</h2>
+      <ul>
+        <li>Loose coupling / Easier to reuse</li>
+        <li>Better encapsulation</li>
+        <li>Short dependency list</li>
+        <li>Single Responsability Principle ("S" in SOLID)</li>
+      </ul>
+    </section>
   </section>
-  <!-- RULE 9 -->
+  <!-- STEP 9 -->
   <section>
     <section>
-      <h2>Rule 9: No getters/setters/properties</h2>
+      <h2>#9: No getters/setters/properties</h2>
+      <aside class="notes">
+        <ul>
+          <li>http://whitewashing.de/2012/08/22/building_an_object_model__no_setters_allowed.html</li>
+        </ul>
+      </aside>
+    </section>
+    <section>
+      <h2>Why do we use GETTER/SETTER so much?</h2>
+      <ul>
+        <li>Frameworks <i>(i.e. Symfony's entities)</i></li>
+        <li>IDE generate them automatically</li>
+        <li>We can change every properties we need<br> and also... we are lazy!</li>
+      </ul>
     </section>
     <section>
       <h2>Tell, don’t ask principle</h2>
@@ -361,9 +531,6 @@ class MyWonderfulService
         "Don't ask for the information you need to do the work; ask the object that has the information to do the work for you"
         <br> — Allen Holub
       </blockquote>
-      <aside class="notes">
-        http://www.yegor256.com/2014/09/16/getters-and-setters-are-evil.html
-      </aside>
     </section>
     <section>
       <h2>What is better?</h2>
@@ -371,11 +538,11 @@ class MyWonderfulService
 // Game
 private $score;
 
-public void setScore(int $score) {
+public function setScore(int $score): void {
     $this->score = $score;
 }
 
-public getScore(): int {
+public function getScore(): int {
     return score;
 }
 
@@ -384,7 +551,7 @@ $game->setScore($game->getScore() + ENEMY_DESTROYED_SCORE);
       </code></pre>
       <pre class="fragment"><code data-trim>
 // Game
-public addScore(int $delta): void {
+public function addScore(int $delta): void {
     this->score += $delta;
 }
 
@@ -422,6 +589,27 @@ class Employe
           </code></pre>
         </div>
       </div>
+    </section>
+    <section>
+      <h2>Benefits</h2>
+      <ul>
+        <li>Avoid to violate the Open/closed principle (the <b>O</b> in SOLID)</li>
+        <li>Easier to read</li>
+      </ul>
+    </section>
+  </section>
+  <section>
+    <img data-src="img/object-calisthenics.png" style="border:none;width: 80%;">
+  </section>
+  <section>
+    <section>
+      <h2>Reading</h2>
+      <ul>
+        <li><a href="http://code.joejag.com/2016/anti-if-the-missing-patterns.html">Anti-If: The missing patterns</a> by Joe Wright</li>
+        <li><a href="http://www.maxpou.fr/else-unnecessary-expression/">Else, the unnecessary expression</a> by me</li>
+        <li><a href="http://www.yegor256.com/2014/09/16/getters-and-setters-are-evil.html">Getters/Setters. Evil. Period.</a> by Yegor Bugayenko</li>
+        <li><a href="http://williamdurand.fr/2013/06/03/object-calisthenics/">Object Calisthenics</a> by William Durand</li>
+      </ul>
     </section>
   </section>
 </div>
