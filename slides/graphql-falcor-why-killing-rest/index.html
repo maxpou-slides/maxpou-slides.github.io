@@ -228,7 +228,7 @@ GET /model.json?paths=["film.name", "film.year", "film.actor.name"]
   user: {
     name: "The Hunt",
     year: 2012,
-    actor [
+    actor: [
       {
         "name": "Mads Mikkelsen"
       },
@@ -255,7 +255,7 @@ GET /graphql?query=
   film(id: "12345") {
     name,
     year,
-    actor {
+    actor: {
       name
     }
   }
