@@ -11,3 +11,5 @@ pyserver() {
     python -m SimpleHTTPServer 8000
 }
 ```
+
+For a full talk list, see [www.maxpou.fr/talks/](http://www.maxpou.fr/talks/").
